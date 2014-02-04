@@ -1,0 +1,68 @@
+\chapter{Appendix A: expression exploration functionalities}\label{ch:myappendix}
+
+\ldots
+
+\instructionsappendices
+
+
+\section{Appendix A: expression exploration functionalities}
+
+COLOMBOS provides rich functionalities to  create and/or edit expression 'modules', 
+some of which are based on the expression values themselves.  The calculations used in 
+these procedures to score relevance of a contrast for a set of genes, similarity of genes 
+across a set of contrasts, or variability of a gene across a set of contrasts, are explained in this supplementary.  
+
+
+\subsection{Contrast relevance score}
+The  relevance  score  c  of a condition contrast for a group of genes is calculated as the 
+inverse coefficient of variation of those genes’ expression values in this contrast. It is 
+defined as the mean divided by the standard deviation of the genes’ expression values: 
+
+
+ 
+On the one hand, for expression values of the same mean, the higher the score, the less 
+sparse the values are. It prioritizes the contrasts where genes’ expression values are more 
+consistent. On the other hand, for expression values of the same standard deviation, the 
+higher the score, the higher the mean. It prefers the contrasts where genes are highly 
+expressed. The score thus serves as a measure that values both magnitude of expression 
+change in response to a condition contrast, as well as coherence of expression within that 
+contrast.  
+
+In case of one gene, the score of a condition contrast is then degraded to the absolute 
+expression value of that gene under it.  
+
+
+\subsection{Gene similarity score}
+
+The  similarity between gene profiles  is the Uncentered Pearson’s correlation calculated 
+based on the formula: 
+
+are both uncentered standard deviations assuming zero mean of the population, hence they 
+are marked with superscript ‘(0)’. The higher the
+$v_r$, the more similar the expression profile of a gene is to a module’s mean expression 
+profile. For ranking genes, there are three options provided based on the (uncentered) correlation 
+score calculated. First one is ‘correlation’ which uses $v_r$ directly as final score. The 
+second option ‘Absolution correlation’ takes $v_r$. It ranks both correlated and anti-correlated 
+genes based solely on their similarities. Instead, the third option ‘Anti-correlation’ take 
+$v_r$ as score to favor only the anti-correlated genes.
+
+\subsection{Gene variability}
+
+The variability of a gene's expression value $x$ for conditions $i=1,…,n$ is calculated as the 
+uncentered standard deviation: 
+
+
+
+
+
+\section{Appendix B: Magic processing}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Keep the following \cleardoublepage at the end of this file, 
+% otherwise \includeonly includes empty pages.
+\cleardoublepage
+
+% vim: tw=70 nocindent expandtab foldmethod=marker foldmarker={{{}{,}{}}}

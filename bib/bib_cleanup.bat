@@ -1,0 +1,1 @@
+biber --tool --output_encoding=ascii newtmp.bib

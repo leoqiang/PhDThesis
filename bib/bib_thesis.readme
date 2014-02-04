@@ -1,0 +1,33 @@
+------------------------------------------------------
+	biber
+------------------------------------------------------
+
+biber is used in 'tool' mode to cleanup raw bib file generated from mendeley
+
+	biber --tool --output_encoding=ascii thesis.bib
+
+command used in cleanup_bib.bat, the local biber.conf configuration file is used, the file 'thesis_bibertool.bib' is generated with clean bib content to be used by the thesis
+
+
+NOTE: 
+sometime, even after biber proecssing, there may still be some strange characters left in 'thesis_bibertool.bib'. If so, manual correction is needed.
+
+Always backup a working version of 'thesis_bibertool.bib'!
+
+
+References:
+- http://tex.stackexchange.com/questions/1453/command-line-tools-for-some-bibtex-database-manipulations
+- http://sourceforge.net/projects/biblatex-biber/files/biblatex-biber/1.8/documentation/
+
+
+
+
+
+------------------------------------------------------
+	biblatex
+------------------------------------------------------
+
+References:
+
+http://blog.mikael.johanssons.org/archive/2012/03/biblatex-%E2%80%94-why-havent-i-used-this-earlier/
+https://www.sharelatex.com/blog/2013/07/31/getting-started-with-biblatex.html#.UsvsPtJDvdM

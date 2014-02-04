@@ -1,0 +1,71 @@
+% Some useful packages
+\usepackage{amssymb,amsthm}
+\usepackage{amsmath}
+
+% useful: TODO notes
+\usepackage{todonotes}
+%fix placement of todo notes (see todonotes manual)
+\setlength{\marginparwidth}{(\stockwidth-\columnwidth)/2-.35cm}
+
+% Some nice colors
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\green}[1]{\textcolor{green}{#1}}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\cyan}[1]{\textcolor{cyan}{#1}}
+\newcommand{\magenta}[1]{\textcolor{magenta}{#1}}
+\newcommand{\yellow}[1]{\textcolor{yellow}{#1}}
+\newcommand{\orange}[1]{\textcolor{orange}{#1}}
+\newcommand{\violet}[1]{\textcolor{violet}{#1}}
+\newcommand{\purple}[1]{\textcolor{purple}{#1}}
+\newcommand{\brown}[1]{\textcolor{brown}{#1}}
+\newcommand{\gray}[1]{\textcolor{gray}{#1}}
+\newcommand{\darkgray}[1]{\textcolor{darkgray}{#1}}
+\newcommand{\lightgray}[1]{\textcolor{lightgray}{#1}}
+\newcommand{\bred}[1]{\textbf{\textcolor{red}{#1}}}
+
+
+% Personal settings [FU]
+
+\usepackage{textcomp} % for straight quote sign
+\usepackage{threeparttable} % for table with extra notes
+\usepackage{array} % redefined tabular env. for table
+\usepackage{rotating} 
+% NOTE: if pdfsync is required, use with novbox option, otherwise mess up with tabular env.
+% \usepackage[novbox]{pdfsync}
+% Ref: http://tex.stackexchange.com/questions/49487/tabular-tabularx-automatic-linebreak-p-m-b-doesnt-work-as-expected
+
+\usepackage[Q=yes,pverb-linebreak=no]{examplep}
+% introduce \Q{} command to input underscore as normal text
+% ref: http://tex.stackexchange.com/questions/48632/underscores-in-words-text
+
+\usepackage{footmisc} % for reuse footnote using label
+
+\usepackage{upgreek} % for up stand greek characters, e.g. \upmu
+
+\usepackage{changepage} % to adjust row adjustwidth for manual text indentation
+% Ref: http://tex.stackexchange.com/questions/35933/indenting-a-whole-paragraph/
+
+\usepackage{hyperref}
+
+\usepackage{booktabs} % to provide hlines of different weight (thickness)
+% Ref: 
+%http://tex.stackexchange.com/questions/3445/latex-tables-how-do-i-make-bold-horizontal-lines-typically-hline
+
+\usepackage[font={small,it}]{caption} % overwrite default by using small and 
+%italic font for caption
+
+
+
+
+% NOTE: this section has been commented out, as the issue with bib file is solved externally, check bib-thesis.readme
+
+%% Unicode char support
+%
+%
+%\usepackage[utf8]{inputenc} % for input coding
+%\usepackage[T1]{fontenc} % for output, what fonts to use for printing characters.
+%\usepackage{lmodern}
+%%\usepackage[utf8x]{inputenc} % [utf8x] option has more extensive coverage but is not as well supported
+%%\usepackage{CJKutf8}
+%%
+%% NOTE: refer http://tex.stackexchange.com/questions/44694/fontenc-vs-inputenc
