@@ -1,61 +1,409 @@
-\chapter{Appendix A: expression exploration functionalities}\label{ch:myappendix}
+\chapter{Appendix B: Magic supplementary methods}\label{ch:apd-magic}
 
 \ldots
 
 \instructionsappendices
 
 
-\section{Appendix A: expression exploration functionalities}
+\section{Preprocessing: probe to gene mapping}
 
-COLOMBOS provides rich functionalities to  create and/or edit expression 'modules', 
-some of which are based on the expression values themselves.  The calculations used in 
-these procedures to score relevance of a contrast for a set of genes, similarity of genes 
-across a set of contrasts, or variability of a gene across a set of contrasts, are explained in this supplementary.  
-
-
-\subsection{Contrast relevance score}
-The  relevance  score  c  of a condition contrast for a group of genes is calculated as the 
-inverse coefficient of variation of those genes’ expression values in this contrast. It is 
-defined as the mean divided by the standard deviation of the genes’ expression values: 
-
-
- 
-On the one hand, for expression values of the same mean, the higher the score, the less 
-sparse the values are. It prioritizes the contrasts where genes’ expression values are more 
-consistent. On the other hand, for expression values of the same standard deviation, the 
-higher the score, the higher the mean. It prefers the contrasts where genes are highly 
-expressed. The score thus serves as a measure that values both magnitude of expression 
-change in response to a condition contrast, as well as coherence of expression within that 
-contrast.  
-
-In case of one gene, the score of a condition contrast is then degraded to the absolute 
-expression value of that gene under it.  
-
-
-\subsection{Gene similarity score}
-
-The  similarity between gene profiles  is the Uncentered Pearson’s correlation calculated 
-based on the formula: 
-
-are both uncentered standard deviations assuming zero mean of the population, hence they 
-are marked with superscript ‘(0)’. The higher the
-$v_r$, the more similar the expression profile of a gene is to a module’s mean expression 
-profile. For ranking genes, there are three options provided based on the (uncentered) correlation 
-score calculated. First one is ‘correlation’ which uses $v_r$ directly as final score. The 
-second option ‘Absolution correlation’ takes $v_r$. It ranks both correlated and anti-correlated 
-genes based solely on their similarities. Instead, the third option ‘Anti-correlation’ take 
-$v_r$ as score to favor only the anti-correlated genes.
-
-\subsection{Gene variability}
-
-The variability of a gene's expression value $x$ for conditions $i=1,…,n$ is calculated as the 
-uncentered standard deviation: 
+A semi-automatic workflow has been developed to consistently
+annotate probes (Figure \ref{fig:magic-pmap}), i.e. to identify a unique target 
+genefor each probe whenever possible. In total we needed to map
+209036 probes, originating from 27 different microarray
+platforms. Target genes belong to the “Filtered Gene Set” (FGS)
+of 5b RefGen v2 B73 maize genome release, since it contains only
+the high quality gene predictions by removing possible
+pseudogenes, transposons, contaminations, and low confidence
+genes. Both the FGS Gene Model and the FGS Transcript Model are
+used in our workflow, in order to achieve the highest possible
+mapping coverage for assigning probes to their proper target
+genes. The Gene Model contains full gene sequences, including
+exons, introns, 3\textquotesingle\,UTRs, etc, while the Transcript Model 
+contains
+only transcript sequences, including splice variants. The
+workflow consists of four major steps, as is illustrated in
+Figure \ref{fig:magic-pmap}. First, the collected probe sequences are BLASTed
+against both the gene model and transcript model. Next,
+one-to-one probe mappings are extracted by taking all unique hits
+and identifying the top- hits from multiple hits. The
+corresponding quality scores are calculated. In the third step,
+results from the Gene Model BLAST and Transcript Model BLAST are
+merged into a consistent probe to gene map by resolving possible
+conflicts between one probe’s gene hit and transcript hit based
+on the comparison of their quality scores. At last, the mappings
+retained in previous step are subjected to an additional
+filtering step to remove low quality hits. Note that we only do
+quality filtering in the final step in order to maximize the
+information retained to identify and resolve the potential
+ambiguous probe sequences. The results are a high quality
+one-to-one probe to gene mapping.
 
 
+The results of the workflow are influenced by the characteristics
+of the input probe sequences, which serve as BLAST query
+sequences in step 1. We make a distinction between oligo and cDNA
+probes (respectively 158694 and 60345 in total),. Oligo probe sequences
+are short sequences of length less than 100 nucleotides, usually
+sifted through a stringent selection process \cite{Leparc2009,Rouillard2003}. 
+In contrast, cDNA sequences (which
+we retrieved from NCBI GenBank based on the access id referred by
+each probe in the platform specifications), are much longer
+sequences with length varying between one hundred to several
+thousand bases. Often generated as a single-pass read, they are
+of varying quality, and some contain low complexity regions in
+their sequence. The differences between these two groups are
+reflected by the parameters used when applying our workflow on
+them. In the initial BLAST step, an $e$-value cutoff $0.001$ is used
+for oligo due to their shorter length. In contrast, a much
+stricter $e$-value cutoff 1e-20 is applied for cDNA to avoid hits
+over low quality regions and to compensate their longer sequence
+length. Conversely, a stricter criterion for oligos is employed
+to guarantee the mapping quality in the final filtering step, as
+even small variances between probe and target sequences can have
+a great influence on their binding specificity due to the short
+sequence length. A looser criterion is utilized for cDNA assuming
+that longer probe sequences can tolerate more sequence variation
+and still bind the proper target transcripts.
+
+In the next sections, the individual steps of the workflow, and
+the results obtained from each step, will be discussed in greater
+detail.
+
+% NOTE: put the figure files in appendix at document root directory, so it can 
+%be found
+\begin{figure}
+	\centering
+	\medskip
+  	\includegraphics[width=1\textwidth]{workflow.jpg}
+  	\caption[Probe to gene mapping workflow]
+  	{Probe to gene mapping workflow. The workflow consists of four
+  	steps. First, the probe sequences collected are BLASTed against
+  	both the FGS Gene and Transcript Model. Next, one-to-one probe
+  	mappings are extracted by taking all unique hits ($G_u$, $T_u$) and
+  	identifying top-hits ($G_T$,$T_T$) from multiple hits ($G_m$,$T_m$). For all
+  	hits the quality measurements $Q_{hit}$ and $D_q$ are calculated. In the
+  	third step, results from Gene Model BLAST and Transcript Model
+  	BLAST are merged into a consistent probe to gene map ($G_p$) by
+  	resolving possible conflicts between one probe’s gene hit and
+  	transcript hit using $Q_{hit}$. At last, $G_p$ is filtered to remove low
+  	quality hits, resulting in a high quality one-to-one probe to
+  	gene mapping.}
+  	\label{fig:magic-pmap}
+\end{figure}
+
+
+\subsection{Step 1 – Initial mapping with megablast}
+
+\subsection{Step 2 – Extracting one-to-one mappings}
+
+\subsection{Step 3 – Resolving conflicts}\label{apd:magic-conflict}
+
+\subsection{Step 4 – Hit quality filtering}
+
+
+As the current gene model is mostly based on computational evidence, we will 
+keep the map with highest overall quality instead of favoring transcript blast 
+results over gene blast ones.
 
 
 
-\section{Appendix B: Magic processing}
+
+\begin{table}[t]
+	\centering
+	\begin{threeparttable}
+	\begin{footnotesize}
+	\caption{Probe mapping for cDNA and oligo probes for \textit{Zea mays}}
+	\label{tab:magic-probemap}
+%	\begin{tabular}{@{}p{3cm} >{\centering\arraybackslash}p{2cm} 
+%	>{\centering\arraybackslash}p{2cm} c >{\centering\arraybackslash}p{2cm} 
+%	>{\centering\arraybackslash}p{2cm}@{}}
+	\begin{tabular}{@{}p{3cm}r|rcr|r}
+	\toprule
+
+	& \multicolumn{2}{c}{\textbf{cDNA}} & \phantom{a} & 
+	\multicolumn{2}{c}{\textbf{Oligo}} \\
+	
+	\cmidrule{2-3} \cmidrule{5-6}
+	
+	& & \textbf{Transcript}	&& & \textbf{Transcript} \\
+	& \textbf{Gene blast} & \textbf{blast} && \textbf{Gene blast}	& 
+	\textbf{blast} \\
+	
+	\midrule
+	
+	{\it ~~~Probe total\tnote{2}} & \multicolumn{2}{r}{60345} &&	
+			\multicolumn{2}{r}{158694} \\[1.5ex]
+
+		\multicolumn{6}{l}{Step 1 - Initial mapping with megablast} \\[.2ex]
+	{\it ~~~Hits total\tnote{3}} & 153050 & 130927 && 129097 & 123089 \\
+	{\it ~~~Hit transcripts\tnote{4}} & - & 42250 && - & 49289 \\
+	{\it ~~~Hit genes\tnote{5}} & 24495 & 23393 && 28879 & 28416 \\
+	{\it ~~~Probes retained} & 57700 & 56852 && 99139 & 105429 \\
+	
+	\multicolumn{6}{l}{}\\
+		
+		\multicolumn{6}{l}{Step 2 - Extracting one-to-one mappings} 
+		\\[.2ex]
+	{\it ~~~Unique hits\tnote{6}} & 24766 & 24820 && 84854 & 92878 \\
+	\multicolumn{6}{l}{{\it ~Multiple hits}} \\
+	{\it ~~~~~Hits count\tnote{3}} & 128284 & 106107 && 44243 & 30211 \\
+	{\it ~~~~~Probe count} & 32934 & 32032 && 14285 & 12551 \\
+	{\it ~~~~~Top hits} & 9067 & 12979 && 11 & 11 \\
+	{\it ~~~Sum (uniq. + top)} & 33833 & 37799 && 84865 & 92889 \\
+	
+	\multicolumn{6}{l}{}\\
+				
+		\multicolumn{6}{l}{Step 3 - Merge blast results} \\[.2ex]
+	{\it ~~~Unique maps\tnote{7}} & 3016 & 2168 && 9565 & 15855 \\
+	{\it ~~~Identical maps\tnote{8}} & \multicolumn{2}{r}{37971} && 
+			\multicolumn{2}{r}{90482} \\
+	{\it ~~~Conflicts\tnote{9}} & \multicolumn{2}{r}{1437} && 
+			\multicolumn{2}{r}{647} \\
+		[1.5ex]
+
+		\multicolumn{6}{l}{Step 3 - Resolving conflicts\tnote{7}} \\[.2ex]	
+	{\it ~~~$G_u$ vs $T_u$} & \multicolumn{2}{r}{0} && 
+			\multicolumn{2}{r}{0 out of 7} \\
+	{\it ~~~$G_u$ vs $T_T$} & \multicolumn{2}{r}{8 out of 59 (4 $G_u$, 4 
+			$T_T$)} && \multicolumn{2}{r}{0 out of 14} \\
+	{\it ~~~$G_T$ vs $T_u$} & \multicolumn{2}{r}{54 out of 305 (39 $G_T$, 
+			15 $T_u$)} && \multicolumn{2}{r}{0 out of 626} \\	
+	{\it ~~~$G_T$ vs $T_T$} & \multicolumn{2}{r}{776 out of 1073} && 
+			\multicolumn{2}{r}{0} \\
+	{\it ~~~$G_p$} & \multicolumn{2}{r}{0} && \multicolumn{2}{r}{0} \\[1.5ex]
+	
+		\multicolumn{6}{l}{Step 4 - Hit quality filtering} \\[.2ex]
+	{\it ~~~Probes removed\tnote{10}} & \multicolumn{2}{r}{406} && 
+			\multicolumn{2}{r}{6907} \\[1.5ex]
+		
+		\multicolumn{6}{l}{Result} \\[.2ex]
+	{\it ~~~~~Unique hits} & 3398 (8.8\%) & 21973 (56.7\%) && 5247 (5.8\%) & 
+	85779 (94.2\%) \\
+	{\it ~~~~~Top hits} & 2214 (5.7\%) & 11189 (28.8\%) && 0 (0.0\%) & 11 
+	(0.1\%) \\
+	{\it ~~~~~Sub total} & 5612 (14.5\%) & 33162 (85.5\%) && 5247 (5.8\%) & 
+	85790 (94.2\%) \\
+	{\it ~~~Probes mapped} & \multicolumn{2}{r}{38774} && 
+	\multicolumn{2}{r}{91037} \\
+	\bottomrule
+	\end{tabular}
+	\begin{tablenotes}
+	\item[1] If not noted, the number of unique probes of a corresponding 
+		category is reported in the table.
+	\item[2] The same set of probe sequence is used in both the gene blast and 	
+		the transcript blast procedure.
+	\item[3] The number of BLAST hits of a corresponding category is reported.
+	\item[4] The number of unique transcripts having at least one hit is 
+		reported.
+	\item[5] The number of unique genes having at least one hit is reported.
+	\item[6] For unique hits where a probe hit only on one target 
+		(gene/transcript), the number of unique targets is the same as the 
+		number of the unique probes.
+	\item[7] Probes for which only one blast procedure identifies their 
+		targets. A further breakdown of the data based on hit type are 
+		available in Table \ref{tab:magic-uniquemaps}.
+	\item[8] Probes for which both gene blast and transcript blast identify the
+	 	same targets. A further breakdown of the data into different 
+	 	categories are available in Table \ref{tab:magic-identiticalmaps}.
+	\item[9] Please check Section \ref{apd:magic-conflict} for details.
+	\item[10] Probes are removed from the final probe mapping set containing 
+		both gene blast and transcript blast results after all conflicts 
+		between them are resolved in previous step.
+	\end{tablenotes}
+	\end{footnotesize}
+	\end{threeparttable}
+\end{table}
+
+
+\begin{table}[tb]
+	\centering
+	\begin{footnotesize}
+	\caption{Statistics of unqiuely mapped probes} 
+	\label{tab:magic-uniquemaps}
+	\begin{tabular}{@{}>{\centering\arraybackslash}p{4cm}rcr}
+	\toprule
+	 \textbf{Probe blast hit type} & \textbf{cDNA} & \phantom{a} & 
+	 \textbf{oligo} \\
+	\midrule
+
+	\multicolumn{4}{l}{\textit{Gene blast}} \\
+	~~$G_u$ & 1224 && 5695 \\
+	~~$G_T$ & 1792 && 3870 \\
+	\textit{Sub total} & 3016 && 9565 \\[1.5ex]
+
+	\multicolumn{4}{l}{\textit{Transcript blast}} \\
+	~~$T_u$ & 1278 && 13719 \\
+	~~$T_T$ & 890 && 2136 \\
+	\textit{Sub total} & 2168 && 15855 \\
+
+	\bottomrule
+	\end{tabular}
+	\end{footnotesize}
+\end{table}
+
+
+\begin{table}[tb]
+	\centering
+	\begin{footnotesize}
+	\caption{Statistics of the probes for which both gene and transcript blast 
+		identify some targets} 
+	\label{tab:magic-identicalmaps}
+	\begin{tabular}{@{}>{\centering\arraybackslash}p{1.7cm} o
+	>{\centering\arraybackslash}p{2cm} rrcrr}
+	\toprule
+
+	 &  &  \multicolumn{2}{c}{\textbf{cDNA}} & \phantom{a} & 
+	\multicolumn{2}{c}{\textbf{oligo}} \\
+
+	\cmidrule{3-4} \cmidrule{6-7}
+
+	\textbf{Gene hit} & \textbf{Trans. hit} &
+	\textbf{Identical} & \textbf{Conflict} 
+	&& 
+	\textbf{Identical} & \textbf{Conflict}  \\
+	
+	\midrule
+	
+	$G_u$ & $T_u$ & 23542 & 0 && 79152 & 7 \\
+	$G_T$ & $T_T$ & 12675 & 4354 && 10102 & 313 \\
+	$G_u$ & $T_T$ & 821 & 59 && 72 & 14 \\
+	$G_T$ & $T_u$ & 933 & 305 && 1156 & 626 \\
+	\bottomrule
+	\end{tabular}
+	\end{footnotesize}
+\end{table}
+
+%
+%\begin{sidewaystable}
+%	\begin{threeparttable}
+%	\begin{small}
+%	\centering
+%%	\begin{tabular}{@{}p{3cm} >{\centering\arraybackslash}p{2cm} 
+%%	>{\centering\arraybackslash}p{2cm} c >{\centering\arraybackslash}p{2cm} 
+%%	>{\centering\arraybackslash}p{2cm}@{}}
+%	\begin{tabular}{@{}p{5cm}rr|rrcrr|rr}
+%	\toprule
+%
+%	& \multicolumn{4}{c}{\textbf{cDNA}} & \phantom{a} & 
+%	\multicolumn{4}{c}{\textbf{Oligo}} \\
+%	
+%	\cmidrule{2-5} \cmidrule{7-10}
+%	
+%%	&	\textbf{Gene Blast}	&	\textbf{Transcript Blast}	&&	\textbf{Gene %
+%%	Blast}	&	\textbf{Transcript Blast} \\
+%	& \multicolumn{2}{c}{} & 
+%	\multicolumn{2}{c}{\textbf{Transcript}}	&& 
+%	\multicolumn{2}{c}{} & 
+%	\multicolumn{2}{c}{\textbf{Transcript}} \\
+%	& \multicolumn{2}{c}{\textbf{Gene Blast}} & 
+%	\multicolumn{2}{c}{\textbf{Blast}}	&& 
+%	\multicolumn{2}{c}{\textbf{Gene Blast}} & 
+%	\multicolumn{2}{c}{\textbf{Blast}} \\
+%
+%	& unique & multiple & unique & multiple && unique & multiple & unique & 
+%	multiple \\
+%%	& \textbf{unique} & \textbf{multiple} & \textbf{unique} & 
+%%	\textbf{multiple} 
+%%	&& \textbf{unique} & \textbf{multiple} & \textbf{unique} & 
+%%	\textbf{multiple}} \\
+%	
+%	\midrule
+%	
+%	{\it ~~~Probe total} & \multicolumn{4}{r}{60345} &&	
+%			\multicolumn{4}{r}{158694} \\[1ex]
+%
+%%		\multicolumn{6}{l}{Step 1 - Initial mapping with megablast} \\
+%%	{\it ~~~Hits total} & 153050 & 130927 && 129097 & 123089 \\
+%%	{\it ~~~Hit transcripts} & - & 42250 && - & 49289 \\
+%%	{\it ~~~Hit genes} & 24495 & 23393 && 28879 & 28416 \\
+%%	{\it ~~~Probes retained} & 57700 & 56852 && 99139 & 105429 \\[1ex]
+%		
+%		\multicolumn{10}{l}{Step 2 - Extracting one-to-one mappings (number of
+%		probes)} \\
+%	{\it ~~~Hits} & 24766 & 128284 & 24820 & 106107 && 84854 & 44243 & 92878 & 
+%	30211 \\
+%	{\it ~~~Probes} & - & 32934 & - & 32032 && - & 14285 & - & 12551 \\
+%	{\it ~~~Probes retained} & 24766 & 9067 & 24820 & 12979 && 84854 & 11 &  
+%	92878 & 11 \\[1ex]
+%		
+%%		\multicolumn{6}{l}{Step 3 - Resolving conflicts} \\
+%%	{\it ~~~$G_u$ vs $T_u$} & \multicolumn{2}{r}{0} && 
+%%			\multicolumn{2}{r}{0 out of 7} \\
+%%	{\it ~~~$G_u$ vs $T_T$} & \multicolumn{2}{r}{8 out of 59 (4 $G_u$, 4 
+%%			$T_T$)} && \multicolumn{2}{r}{0 out of 14} \\
+%%	{\it ~~~$G_T$ vs $T_u$} & \multicolumn{2}{r}{54 out of 305 (39 $G_T$, 
+%%	15 $T_u$)} && \multicolumn{2}{r}{0 out of 626} \\	
+%%	{\it ~~~$G_T$ vs $T_T$} & \multicolumn{2}{r}{776 out of 1073} && 
+%%			\multicolumn{2}{r}{0} \\
+%%	{\it ~~~$G_p$} & \multicolumn{2}{r}{0} && \multicolumn{2}{r}{0} \\[1ex]
+%	
+%		\multicolumn{10}{l}{Step 4 - Hit quality filtering (number of probes)} 
+%		\\
+%	{\it ~~~Probes removed} & \multicolumn{4}{r}{406} && 
+%			\multicolumn{4}{r}{6907} \\
+%	{\it ~~~Hits retained} & 3398 & 2214 & 21973 & 11189 && 5247 & 0 & 85779 & 
+%	11 \\[1ex]
+%	
+%		\multicolumn{10}{l}{Output (number of probes)} \\
+%	{\it ~~~Sub total} & & 5612 & & 33162 && & 5247 & & 85790 \\
+%	{\it ~~~Total} & \multicolumn{4}{r}{38774} && \multicolumn{4}{r}{91037} \\
+%	\bottomrule
+%	\end{tabular}
+%	\end{small}
+%	\end{threeparttable}
+%\end{sidewaystable}
+
+
+
+
+
+\section{Construction of the compendium}
+
+For the Affymetrix Maize Genome Array with GEO access number
+GPL3042 and ArrayExpress A-AFFY-77, the gene expression
+measurements are often reported in GEO and ArrayExpress as the
+values summarized at the probe set level.  As however, for
+different studies different data preprocessing and summary
+statistics have been used, we did not rely on these stored
+expression data. Rather we used the original probe level
+intensities (Affymetrix *.CEL files), converted those into
+summarized expression levels using our pipelines, as this
+increases consistency. We refer with the ‘maize’ platform (term
+used on the website) to this raw information at the individual
+probe level.  The probe to probe set mapping was derived from the
+Affymetrix cdf file. The probe set to the genome annotation was
+derived from the Affymetrix platform annotation file available at
+the company’s website.
+
+Normalization was done as described previously (\cite{Engelen2011}): 
+we normalize each chip separately.  Each biological sample
+was denominated as either test or reference, and proper test and
+reference samples were paired to define the ‘sample
+contrast’. Next, for each ‘sample contrast’, the data originating
+from the paired biological samples that define the contrast are
+combined by taking log ratios. Log-ratio calculation removes chip
+specific factors present in the data.
+
+Because the older maize array design didn’t have enough capacity
+to cover the full gene set using a single microarray, multiple
+chips of the same technology, each with their own probes
+targeting complementary gene sets were used. To normalize
+multiple-chip platform we followed the same procedure as
+mentioned above and normalized data for each chip
+separately. Subsequently, per contrast, the log-ratios from
+multiple chips are combined. Although the chips of a
+multiple-chip platform are designed to be complementary, there
+are a few genes only that are measured on more than one chip
+generating multiple expression values per gene. To obtain a
+single gene expression value per contrast, the median value is
+taken over the multiple chips to obtain final expression values
+for those genes.
+
+
+\section{Supplementary Tables and Figures}
+
+
 
 
 

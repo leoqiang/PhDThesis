@@ -279,26 +279,26 @@ quantities reported in different experiments \cite{Shi2006}.
 	\caption{An overview of the content of the three expression compendia that can be accessed through COLOMBOS}
 	\label{tab:colTB-overview}
 	\begin{small}
-	\begin{tabular}{l | c c c}
+	\begin{tabular}{@{}l c c c@{}}
 	\toprule
 	& & & {\bf\it\small Salmonella} \\
 	& {\bf\it\small Escherichia} & {\bf\it\small Bacillus} & {\bf\it\small enterica serovar} \\
 	& {\bf\it\small coli} & {\bf\it\small subtilis} & {\bf\it\small  Typhimurium} \\
 	\midrule
-	{\bf Number of genes} & 4295 & 4105 & 4525 \\
-	{\bf Number of contrasts} & 1429 & 259 & 717 \\
-	{\it ~~~source DB} & GEO, AE & GEO & GEO \\
-	{\it ~~~microarrays} & 1483 & 265 & 723 \\
-	{\it ~~~experiments} & 84 & 9 & 25 \\
-	{\it ~~~platforms} & 35 & 13 & 9 \\
-	{\bf Missing values} & 6.1\% & 6.40\% & 3.90\% \\
-	{\bf Condition properties} & 242 & 67 & 77 \\
+	{\bf Number of genes} 		& 4295 & 4105 & 4525 \\
+	{\bf Number of contrasts} 	& 1429 & 259 & 717 \\
+	{\it ~~~source DB} 			& GEO, AE & GEO & GEO \\
+	{\it ~~~microarrays} 		& 1483 & 265 & 723 \\
+	{\it ~~~experiments}	 	& 84 & 9 & 25 \\
+	{\it ~~~platforms} 			& 35 & 13 & 9 \\
+	{\bf Missing values} 		& 6.1\% & 6.40\% & 3.90\% \\
+	{\bf Condition properties} 	& 242 & 67 & 77 \\
 	{\bf Condition ontology terms} & 56 & 24 & 23 \\
-	{\bf External DBs} & & & \\
-	{\it ~~~pathway} & EcoCyc & BioCyc & BioCyc \\
-	{\it ~~~regulon} & RegulonDB & DBTBS & \\
-	{\it ~~~operon} & EcoCyc & BioCyc & BioCyc \\
-	{\it ~~~GO} & UniProt GOA & UniProt GOA & UniProt GOA \\
+	\multicolumn{4}{l}{\bf External DBs} \\
+	{\it ~~~pathway} 			& EcoCyc & BioCyc & BioCyc \\
+	{\it ~~~regulon} 			& RegulonDB & DBTBS & \\
+	{\it ~~~operon} 			& EcoCyc & BioCyc & BioCyc \\
+	{\it ~~~GO} 				& UniProt GOA & UniProt GOA & UniProt GOA \\
 	\bottomrule
 	\end{tabular}
 	\end{small}
@@ -348,31 +348,80 @@ conditions.
 \label{tab:colTB-case}
 \begin{scriptsize}
 % NOTE: to redefine the alignments of column in tabular env. requires load package 'array'!
-\begin{tabular}{ l c >{\raggedright}p{4cm} c c c c 
->{\raggedright\arraybackslash}p{4cm} }
+\begin{tabular}{ l c >{\raggedright}p{4cm} c c c 
+>{\centering\arraybackslash}p{1.2cm} >{\raggedright\arraybackslash}p{4cm} }
 	\toprule
-	\textbf{{\scriptsize Locus tag}} & \textbf{{\scriptsize Name}} & \textbf{{\scriptsize Description}} & \textbf{{\scriptsize Operon}} & \textbf{{\scriptsize Known}} & \textbf{{\scriptsize COLOMBOS}} & \textbf{{\scriptsize Meta-analysis}} & \textbf{{\scriptsize Evidence}} \\
+	\textbf{{\scriptsize Locus tag}} & \textbf{{\scriptsize Name}} & 
+	\textbf{{\scriptsize Description}} & \textbf{{\scriptsize Operon}} & 
+	\textbf{{\scriptsize Known}} & \textbf{{\scriptsize COLOMBOS}} & 
+	\textbf{{\scriptsize Meta analysis}} & \textbf{{\scriptsize Evidence}} \\
 	\midrule
-	b1681 & \textit{sufD} & SufBCD Fe-S cluster scaffold & \textit{sufABCDSE} & + & & + & Fur, OxyR, IHF, lscR \\[1ex]
-	b1683 & \textit{sufB} & SufBCD Fe-S cluster scaffold & \textit{sufABCDSE} & + & + & & Fur, OxyR, IHF, lscR \\[1ex]
-	b2392 & \textit{mntH} & Manganese transport protein & \textit{mntH} & + & + & + & Fur, MntR \\[1ex]
-	b2673 & \textit{nrdH} & Glutaredoxin-like protein & \textit{nrdHIEF} & + & + & + & Fur, NrdR \\[1ex]
-	b2674 & \textit{nrdI} & Not annotated & \textit{nrdHIEF} & + & + & + & Fur, NrdR \\[1ex]
-	b2675 & \textit{nrdE} & Ribonucleoside-P$_i$ reductase 2 $\alpha$ & \textit{nrdHIEF} & + & + & + & Fur, NrdR \\[1ex]
-	b2676 & \textit{nrdF} & Ribonucleoside-P$_i$ reductase 2 $\beta$ & \textit{nrdHIEF} & + & + & + & Fur, NrdR \\[1ex]
-	b4291 & \textit{fecA} & Fe3+ dicitrate transport protein & \textit{fecABCDE} & + & + & & Fur, CRP, PdhR \\[1ex]
-	b0468 & \textit{ybaN} & Inner membrane protein & \textit{ybaN} & & + & & Predicted \\[1ex]
-	b0804 & \textit{ybiX} & PKHD-type hydroxylase & \textit{ybiX} & & + & & Predicted; Fur dependent expression \\[1ex]
-	b1018 & \textit{efeO} & UPF0409 protein & \textit{efeUOB} & & + & & Predicted; functional in related strain \\[1ex]
-	b1452 & \textit{yncE} & Uncharacterized protein & \textit{yncE} & & + & + & Fur dependent expression \\[1ex]
-	b1494 & \textit{pqqL} & Probable zinc protease & \textit{pqqL} & & + & & Potential operon \textit{yddAB\_pqqL} \\[1ex]
-	b1495 & \textit{yddB} & Uncharacterized protein & \textit{yddAB} & & + & & Predicted \\[1ex]
-	b1705 & \textit{ydiE} & Not annotated & \textit{ydiE} & & + & & Predicted; Fur dependent expression \\[1ex]
-	b2211 & \textit{yojI} & ATP-binding ABC transporter & \textit{yojI} & & + & & \\[1ex]
-	b3070 & \textit{yqjH} & Uncharacterized protein & \textit{yqjH} & & + & + & Predicted \\[1ex]
-	b3337 & \textit{bfd} & Bacterioferritin-associated ferredoxin & \textit{bfd-bfr} & & + & & Indirect RhyB regulatio \\[1ex]
-	b3410 & \textit{feoC} & Ferrous iron transport protein C & \textit{feoABC} & & + & & TU \textit{feoABC} with \textit{feoA} known target \\[1ex]
-	b4366 & \textit{bglJ} & Transcriptional activator protein & \textit{yjjQ-bglJ} & & + & & \\[1ex]
+	
+	b1681 & \textit{sufD} & SufBCD Fe-S cluster scaffold & \textit{sufABCDSE} & 
+	+ &		& + & Fur, OxyR, IHF, lscR \\[1ex]
+	
+	b1683 & \textit{sufB} & SufBCD Fe-S cluster scaffold & \textit{sufABCDSE} & 
+	+ & + 	& 	& Fur, OxyR, IHF, lscR \\[1ex]
+	
+	b2392 & \textit{mntH} & Manganese transport protein & \textit{mntH} & 
+	+ & + 	& + & Fur, MntR \\[1ex]
+	
+	b2673 & \textit{nrdH} & Glutaredoxin-like protein 	& \textit{nrdHIEF} &
+	+ & + 	& + & Fur, NrdR \\[1ex]
+	
+	b2674 & \textit{nrdI} & Not annotated 				& \textit{nrdHIEF} & 
+	+ & + 	& + & Fur, NrdR \\[1ex]
+	
+	b2675 & \textit{nrdE} & Ribonucleoside-P$_i$ reductase 2 $\alpha$ & 
+	\textit{nrdHIEF} & 
+	+ & + 	& + & Fur, NrdR \\[1ex]
+	
+	b2676 & \textit{nrdF} & Ribonucleoside-P$_i$ reductase 2 $\beta$ & 
+	\textit{nrdHIEF} & 
+	+ & + 	& + & Fur, NrdR \\[1ex]
+	
+	b4291 & \textit{fecA} & Fe3+ dicitrate transport protein & 
+	\textit{fecABCDE} & 
+	+ & + 	& 	& Fur, CRP, PdhR \\[1ex]
+	
+	b0468 & \textit{ybaN} & Inner membrane protein 		& \textit{ybaN} & 
+	  & + 	& 	& Predicted \\[1ex]
+	  
+	b0804 & \textit{ybiX} & PKHD-type hydroxylase 		& \textit{ybiX} & 
+	  & + 	& 	& Predicted; Fur dependent expression \\[1ex]
+	  
+	b1018 & \textit{efeO} & UPF0409 protein 		& \textit{efeUOB} & 
+	  & + 	& 	& Predicted; functional in related strain \\[1ex]
+	  
+	b1452 & \textit{yncE} & Uncharacterized protein & \textit{yncE} & 
+	  & + 	& + & Fur dependent expression \\[1ex]
+	  
+	b1494 & \textit{pqqL} & Probable zinc protease 	& \textit{pqqL} & 
+	  & + 	& 	& Potential operon \textit{yddAB\_pqqL} \\[1ex]
+	  
+	b1495 & \textit{yddB} & Uncharacterized protein & \textit{yddAB} & 
+	  & + 	&	& Predicted \\[1ex]
+	  
+	b1705 & \textit{ydiE} & Not annotated 			& \textit{ydiE} & 
+	  & + 	& 	& Predicted; Fur dependent expression \\[1ex]
+	  
+	b2211 & \textit{yojI} & ATP-binding ABC transporter & \textit{yojI} & 
+	  & + 	& 	& \\[1ex]
+	  
+	b3070 & \textit{yqjH} & Uncharacterized protein & \textit{yqjH} & 
+	  & + 	& + & Predicted \\[1ex]
+	  
+	b3337 & \textit{bfd} & Bacterioferritin-associated ferredoxin & 
+	\textit{bfd-bfr} & 
+	  & + 	& 	& Indirect RhyB regulatio \\[1ex]
+	  
+	b3410 & \textit{feoC} & Ferrous iron transport protein C & \textit{feoABC} 
+	& 
+	  & + 	& 	& TU \textit{feoABC} with \textit{feoA} known target \\[1ex]
+	  
+	b4366 & \textit{bglJ} & Transcriptional activator protein & 
+	\textit{yjjQ-bglJ} & 
+	  & + 	& 	& \\[1ex]
 	\bottomrule
 \end{tabular}
 \end{scriptsize}
