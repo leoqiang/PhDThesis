@@ -93,23 +93,7 @@ detail.
 \end{figure}
 
 
-\subsection{Step 1 – Initial mapping with megablast}
-
-\subsection{Step 2 – Extracting one-to-one mappings}
-
-\subsection{Step 3 – Resolving conflicts}\label{apd:magic-conflict}
-
-\subsection{Step 4 – Hit quality filtering}
-
-
-As the current gene model is mostly based on computational evidence, we will 
-keep the map with highest overall quality instead of favoring transcript blast 
-results over gene blast ones.
-
-
-
-
-\begin{table}[t]
+\begin{table}
 	\centering
 	\begin{threeparttable}
 	\begin{footnotesize}
@@ -135,10 +119,11 @@ results over gene blast ones.
 	{\it ~~~Probe total\tnote{2}} & \multicolumn{2}{r}{60345} &&	
 			\multicolumn{2}{r}{158694} \\[1.5ex]
 
-		\multicolumn{6}{l}{Step 1 - Initial mapping with megablast} \\[.2ex]
+		\multicolumn{6}{l}{Step 1 - Mapping with megablast} \\[.2ex]
 	{\it ~~~Hits total\tnote{3}} & 153050 & 130927 && 129097 & 123089 \\
 	{\it ~~~Hit transcripts\tnote{4}} & - & 42250 && - & 49289 \\
-	{\it ~~~Hit genes\tnote{5}} & 24495 & 23393 && 28879 & 28416 \\
+	{\it ~~~Hit genes\tnote{5}} & 24495 & 23393 && 28879 & 
+	28416 \\
 	{\it ~~~Probes retained} & 57700 & 56852 && 99139 & 105429 \\
 	
 	\multicolumn{6}{l}{}\\
@@ -149,35 +134,36 @@ results over gene blast ones.
 	\multicolumn{6}{l}{{\it ~Multiple hits}} \\
 	{\it ~~~~~Hits count\tnote{3}} & 128284 & 106107 && 44243 & 30211 \\
 	{\it ~~~~~Probe count} & 32934 & 32032 && 14285 & 12551 \\
-	{\it ~~~~~Top hits} & 9067 & 12979 && 11 & 11 \\
-	{\it ~~~Sum (uniq. + top)} & 33833 & 37799 && 84865 & 92889 \\
+	{\it ~~~~~Top hits\tnote{7}} & 9067 & 12979 && 11 & 11 \\
+%	{\it ~~~Sum (uniq. + top)} & 33833 & 37799 && 84865 & 92889 \\
 	
 	\multicolumn{6}{l}{}\\
 				
-		\multicolumn{6}{l}{Step 3 - Merge blast results} \\[.2ex]
-	{\it ~~~Unique maps\tnote{7}} & 3016 & 2168 && 9565 & 15855 \\
-	{\it ~~~Identical maps\tnote{8}} & \multicolumn{2}{r}{37971} && 
+		\multicolumn{6}{l}{Step 3 - Merging blast results\tnote{8}} \\[.2ex]
+	{\it ~~~Unique maps\tnote{9}} & 3016 & 2168 && 9565 & 15855 \\
+	{\it ~~~\textcolor{red}{Identical maps}\tnote{10}} & 
+	\multicolumn{2}{r}{37971} && 
 			\multicolumn{2}{r}{90482} \\
-	{\it ~~~Conflicts\tnote{9}} & \multicolumn{2}{r}{1437} && 
+	{\it ~~~\textcolor{red}{Conflicts}\tnote{11}} & \multicolumn{2}{r}{1437} && 
 			\multicolumn{2}{r}{647} \\
 		[1.5ex]
 
-		\multicolumn{6}{l}{Step 3 - Resolving conflicts\tnote{7}} \\[.2ex]	
-	{\it ~~~$G_u$ vs $T_u$} & \multicolumn{2}{r}{0} && 
-			\multicolumn{2}{r}{0 out of 7} \\
-	{\it ~~~$G_u$ vs $T_T$} & \multicolumn{2}{r}{8 out of 59 (4 $G_u$, 4 
-			$T_T$)} && \multicolumn{2}{r}{0 out of 14} \\
-	{\it ~~~$G_T$ vs $T_u$} & \multicolumn{2}{r}{54 out of 305 (39 $G_T$, 
-			15 $T_u$)} && \multicolumn{2}{r}{0 out of 626} \\	
-	{\it ~~~$G_T$ vs $T_T$} & \multicolumn{2}{r}{776 out of 1073} && 
-			\multicolumn{2}{r}{0} \\
-	{\it ~~~$G_p$} & \multicolumn{2}{r}{0} && \multicolumn{2}{r}{0} \\[1.5ex]
+%		\multicolumn{6}{l}{Step 3 - Resolving conflicts\tnote{7}} \\[.2ex]	
+%	{\it ~~~$G_u$ vs $T_u$} & \multicolumn{2}{r}{0} && 
+%			\multicolumn{2}{r}{0 out of 7} \\
+%	{\it ~~~$G_u$ vs $T_T$} & \multicolumn{2}{r}{8 out of 59 (4 $G_u$, 4 
+%			$T_T$)} && \multicolumn{2}{r}{0 out of 14} \\
+%	{\it ~~~$G_T$ vs $T_u$} & \multicolumn{2}{r}{54 out of 305 (39 $G_T$, 
+%			15 $T_u$)} && \multicolumn{2}{r}{0 out of 626} \\	
+%	{\it ~~~$G_T$ vs $T_T$} & \multicolumn{2}{r}{776 out of 1073} && 
+%			\multicolumn{2}{r}{0} \\
+%	{\it ~~~$G_p$} & \multicolumn{2}{r}{0} && \multicolumn{2}{r}{0} \\[1.5ex]
 	
-		\multicolumn{6}{l}{Step 4 - Hit quality filtering} \\[.2ex]
-	{\it ~~~Probes removed\tnote{10}} & \multicolumn{2}{r}{406} && 
+		\multicolumn{6}{l}{Step 4 - Filtering by quality} \\[.2ex]
+	{\it ~~~Probes removed\tnote{12}} & \multicolumn{2}{r}{406} && 
 			\multicolumn{2}{r}{6907} \\[1.5ex]
 		
-		\multicolumn{6}{l}{Result} \\[.2ex]
+		\multicolumn{6}{l}{\textcolor{red}{\bf Result}} \\[.2ex]
 	{\it ~~~~~Unique hits} & 3398 (8.8\%) & 21973 (56.7\%) && 5247 (5.8\%) & 
 	85779 (94.2\%) \\
 	{\it ~~~~~Top hits} & 2214 (5.7\%) & 11189 (28.8\%) && 0 (0.0\%) & 11 
@@ -194,23 +180,183 @@ results over gene blast ones.
 	\item[2] The same set of probe sequence is used in both the gene blast and 	
 		the transcript blast procedure.
 	\item[3] The number of BLAST hits of a corresponding category is reported.
-	\item[4] The number of unique transcripts having at least one hit is 
-		reported.
+	\item[4] $T_{T\_hit}$, the number of unique transcripts having at least one 
+		hit is reported.
 	\item[5] The number of unique genes having at least one hit is reported.
-	\item[6] For unique hits where a probe hit only on one target 
-		(gene/transcript), the number of unique targets is the same as the 
-		number of the unique probes.
-	\item[7] Probes for which only one blast procedure identifies their 
-		targets. A further breakdown of the data based on hit type are 
-		available in Table \ref{tab:magic-uniquemaps}.
-	\item[8] Probes for which both gene blast and transcript blast identify the
+	\item[6] For unique hits where a probe hits only on one target 
+		(gene/transcript), these three numbers are equal, the number of hits, 
+		the number of unique targets, and the number of the unique probes.
+	\item[7] The number of probes where the top hit passes $D_q$ criterion.
+	\item[8] In this step, the hits from different blasts are merged to form 
+		one-to-one probe to gene mappings. To contrast the results with those
+		obtained in previous steps, each record in them are called a 
+		\textit{map} instead of a \textit{hit} in the later steps.
+	\item[9] Probes whose targets are only identified by one blast procedure. A 
+		further breakdown of the data based on hit type are available in Table 
+		\ref{tab:magic-uniquemaps}.
+	\item[10] Probes for which both gene blast and transcript blast identify the
 	 	same targets. A further breakdown of the data into different 
-	 	categories are available in Table \ref{tab:magic-identiticalmaps}.
-	\item[9] Please check Section \ref{apd:magic-conflict} for details.
-	\item[10] Probes are removed from the final probe mapping set containing 
-		both gene blast and transcript blast results after all conflicts 
-		between them are resolved in previous step.
+	 	categories are available in Table \ref{tab:magic-identicalmaps}.
+	\item[11] Please check Section \ref{apd:magic-conflict} for details.
+	\item[12] Probes removed by applying mapping quality filter.
 	\end{tablenotes}
+	\end{footnotesize}
+	\end{threeparttable}
+\end{table}
+
+
+
+\subsection{Step 1 – Mapping with megablast}
+
+First, the probe sequences (BLAST queries) are blasted against both the gene 
+model and transcript model (BLAST targets) using megablast version 2.2.17  
+(\cite{zhang2000}). 
+BLAST on both the FGS Gene Model and Transcript Model was done to recover as 
+much of the tentative targets of each probe, because the collected probe 
+sequences, especially the cDNA ones, sometimes contain also 
+introns.  
+In addition, for certain  sequences, BLAST on the transcript model 
+alone will result in poor quality hits, and as a consequence, for many probes 
+no target gene can be identified. 
+To retain as much information as possible from the blast results we choose a 
+relative loose criterion to BLAST sequences. 
+Except for the different $e$-value cutoffs, the common parameters applied for 
+both cDNA sequences and oligo sequences are ‘$-F\:F$’ to turn off the query 
+sequence filtering, ‘$-b\:15$’ to list only the top 15 hits. \\
+BLAST on the Gene Model generates a set of hits $G_{hit}$, each of which maps a 
+probe to a gene; BLAST on the Transcript Model generates a different set of 
+hits $T_{T\_hit}$, which maps a probe to a transcript. 
+$T_{T\_hit}$ are converted into hits on genes in two steps. 
+First, all hits of a probe to a transcript are grouped by the 
+corresponding genes of the hit transcripts. 
+Second, each group of hits is merged into one hit on that gene, while the best 
+transcript hit score in the group is retained as the gene hit score. 
+After this conversion, both Gene Model BLAST results $G_{hit}$  and the 
+Transcript Model BLAST results $T_{hit}$ map probes to gene identifiers. 
+Nevertheless, to distinguish between the gene and transcript hit, we keep 
+referring to the probe-to-gene hits originating from the Transcript 
+Model BLAST ($T_{hit}$) as the probe-to-transcript hits.  
+
+After applying this step, the results obtained are summarized in the Table 
+\ref{tab:magic-probemap} (Step 1). 
+The number of the transcript hits are nearly the double of the number of the 
+gene hits.
+When mapped to a gene, many probes in each category hit on the different 
+transcripts of a gene (data not shown),
+indicating that they are not designed to distinguish different 
+transcripts (splice variants) of the same gene.
+
+\subsection{Step 2 – Extracting one-to-one mappings}
+
+In this step, we try to extract one-to-one probe to gene mapping from both the 
+$G_{hit}$ and $T_{hit}$ lists independently. 
+The gene hit and transcript hit results are kept separately to better resolve 
+the possible conflicts between them in the next step. 
+Based on the number of identified target genes a probe sequence has, both 
+$G_{hit}$ and $T_{hit}$ are divided into unique-hit group and 
+multi-hit group, where a single probe maps to only one gene or on several genes 
+respectively. This results in 4 groups: 
+
+\begin{itemize}
+\item $G_u$, gene unique-hit
+\item $T_u$, transcript unique-hit
+\item $G_m$, gene multi-hit
+\item $T_m$, transcript multi-hit
+\end{itemize}
+
+Next, we calculate a hit quality score $Q_{hit}$ for each hit, based on its 
+BLAST information as follows:  
+
+\begin{equation}
+Q_{hit} = coverage * identity - 3 * num\_gaps / query\_length
+\end{equation}
+
+in it, \textit{coverage},  \textit{identity}, and \textit{num\_gaps} (number 
+of gaps) are characteristics of the BLAST hit, 
+and $3$ is empirically chosen such that enough penalty is given to gaps but not 
+overweight it so much that $Q_{hit}$ can become negative. As a simple 
+percentage, the score takes into the consideration the percentage of exact 
+match nucleotides on probe sequence and the number of gaps in the match region. 
+Those are important factors that influence probe to target specificity.  \\
+We use this scores to resolve the multiple mapping issues in the multi-hit 
+groups ($G_m$ and $T_m$) by identifying a promising best hit for each probe -if 
+possible-.
+First, all hits of a probe are ranked by their $Q_{hit}$s. The hit with the 
+highest score are kept, resulting in $G_t$, the gene top-hits, and $G_t$, the 
+transcript top-hits.
+Then, the difference $D_q$ between the scores of the top two hits is 
+calculated. 
+It serves as a proxy for the binding specificity difference between first two 
+hits. When the following condition is met: 
+
+\begin{equation}
+D_q = Q_{hit_{1st}} - Q_{hit_{2nd}} \geq 0.33
+\end{equation}
+
+the hit with the highest score (top hit) is assumed to be the target of the 
+probe, i.e. considered more likely to bind the probe sequence compared to other 
+hits. 
+If the above condition is not met, the corresponding results for that 
+probe are marked, assuming that they can hybridize several genes and generate 
+ambiguous expression measurements. 
+They are kept temporarily to identify possible conflicts between gene and 
+transcript blast output, and compare their quality. 
+
+The result this step is summarized in Table \ref{tab:magic-probemap} (Step 2). 
+Clearly, the short oligo probe sequences are much more target specific when 
+compared with the cDNA sequences, with the majority being unique hits and much 
+less multiple mapping probes.
+In contrast, cDNA probe sequences, although much longer, tend to produce 
+partial hits on several genes, due to the relative loose BLAST settings in the 
+step 1. 
+Filtered by the $D_q$ criterion, the true target gene (top hit) can be 
+identified in many cases ($27.5\%$ of $G_m$ and $40.5\%$ of $T_m$).
+Whereas for oligo probes, this is rather rare (11 cases in both $G_m$ and 
+$T_m$).
+
+
+\begin{table}[tb]
+	\centering
+	\begin{threeparttable}
+	\begin{footnotesize}
+	\caption{Statistics of unqiuely mapped probes} 
+	\label{tab:magic-uniquemaps}
+	\begin{tabular}{@{}>{\centering\arraybackslash}p{5cm}rcr}
+	\toprule
+	 \textbf{Probe blast hit type} & \textbf{cDNA} & \phantom{a} & 
+	 \textbf{oligo} \\
+	\midrule
+
+	\multicolumn{4}{l}{\textit{Gene blast}} \\
+	~~$G_u$ & 634 && 5695 \\
+	~~$G_t$ & 1443 && 0 \\
+	\textit{Sub total} & 2077 && 5695 \\[1.5ex]
+
+	\multicolumn{4}{l}{\textit{Transcript blast}} \\
+	~~$T_u$ & 762 && 13717 \\
+	~~$T_t$ & 5281 && 2 \\
+	\textit{Sub total} & 6043 && 13719 \\
+
+% 	Old data, counting does NOT consider cross-set (between uniquehit and 
+%tophit) overlaps!!!
+
+%	\multicolumn{4}{l}{\textit{Gene blast backup}} \\
+%	~~$G_u$ & 1224 && 5695 \\
+%	~~$G_T$\tnote{1} & 593/1792 && 2/3870 \\
+%	\textit{Sub total} & 1817 && 5697 \\[1.5ex]
+%
+%	\multicolumn{4}{l}{\textit{Transcript blast backup}} \\
+%	~~$T_u$ & 1278 && 13719 \\
+%	~~$T_T$\tnote{1} & 597/890 && 2/2136 \\
+%	\textit{Sub total} & 1875 && 13721 \\
+
+	\bottomrule
+	\end{tabular}
+%	\begin{tablenotes}
+%	\item[1] The numerator is the number of probes whose top hit passes 
+%	 	the required criterion. The denominator is the number of probes that 
+%	 	have multiple hits in only one blast.
+%	\end{tablenotes}
 	\end{footnotesize}
 	\end{threeparttable}
 \end{table}
@@ -219,37 +365,10 @@ results over gene blast ones.
 \begin{table}[tb]
 	\centering
 	\begin{footnotesize}
-	\caption{Statistics of unqiuely mapped probes} 
-	\label{tab:magic-uniquemaps}
-	\begin{tabular}{@{}>{\centering\arraybackslash}p{4cm}rcr}
-	\toprule
-	 \textbf{Probe blast hit type} & \textbf{cDNA} & \phantom{a} & 
-	 \textbf{oligo} \\
-	\midrule
-
-	\multicolumn{4}{l}{\textit{Gene blast}} \\
-	~~$G_u$ & 1224 && 5695 \\
-	~~$G_T$ & 1792 && 3870 \\
-	\textit{Sub total} & 3016 && 9565 \\[1.5ex]
-
-	\multicolumn{4}{l}{\textit{Transcript blast}} \\
-	~~$T_u$ & 1278 && 13719 \\
-	~~$T_T$ & 890 && 2136 \\
-	\textit{Sub total} & 2168 && 15855 \\
-
-	\bottomrule
-	\end{tabular}
-	\end{footnotesize}
-\end{table}
-
-
-\begin{table}[tb]
-	\centering
-	\begin{footnotesize}
-	\caption{Statistics of the probes for which both gene and transcript blast 
-		identify some targets} 
+	\caption{Breakdown of the queries who have hits in both gene and transcript 
+		blast} 
 	\label{tab:magic-identicalmaps}
-	\begin{tabular}{@{}>{\centering\arraybackslash}p{1.7cm} o
+	\begin{tabular}{@{}>{\centering\arraybackslash}p{1.7cm}
 	>{\centering\arraybackslash}p{2cm} rrcrr}
 	\toprule
 
@@ -266,93 +385,214 @@ results over gene blast ones.
 	\midrule
 	
 	$G_u$ & $T_u$ & 23542 & 0 && 79152 & 7 \\
-	$G_T$ & $T_T$ & 12675 & 4354 && 10102 & 313 \\
-	$G_u$ & $T_T$ & 821 & 59 && 72 & 14 \\
-	$G_T$ & $T_u$ & 933 & 305 && 1156 & 626 \\
+	$G_t$ & $T_t$ & 7070 & 38 (14, 4) && 9 & 0 \\
+	$G_u$ & $T_t$ & 590 & 7 (0, 4) && 0 & 0 \\
+	$G_t$ & $T_u$ & 477 & 39 (39, 0) && 2 & 0 \\
+	
+%   BACKUP, data before apply 'Mweight_diff >= .33' to filter tophit
+%
+%	$G_u$ & $T_T$ & 821 & 59 && 72 & 14 \\
+%	$G_T$ & $T_u$ & 933 & 305 && 1156 & 626 \\
+
 	\bottomrule
 	\end{tabular}
 	\end{footnotesize}
 \end{table}
 
-%
-%\begin{sidewaystable}
-%	\begin{threeparttable}
-%	\begin{small}
-%	\centering
-%%	\begin{tabular}{@{}p{3cm} >{\centering\arraybackslash}p{2cm} 
-%%	>{\centering\arraybackslash}p{2cm} c >{\centering\arraybackslash}p{2cm} 
-%%	>{\centering\arraybackslash}p{2cm}@{}}
-%	\begin{tabular}{@{}p{5cm}rr|rrcrr|rr}
-%	\toprule
-%
-%	& \multicolumn{4}{c}{\textbf{cDNA}} & \phantom{a} & 
-%	\multicolumn{4}{c}{\textbf{Oligo}} \\
-%	
-%	\cmidrule{2-5} \cmidrule{7-10}
-%	
-%%	&	\textbf{Gene Blast}	&	\textbf{Transcript Blast}	&&	\textbf{Gene %
-%%	Blast}	&	\textbf{Transcript Blast} \\
-%	& \multicolumn{2}{c}{} & 
-%	\multicolumn{2}{c}{\textbf{Transcript}}	&& 
-%	\multicolumn{2}{c}{} & 
-%	\multicolumn{2}{c}{\textbf{Transcript}} \\
-%	& \multicolumn{2}{c}{\textbf{Gene Blast}} & 
-%	\multicolumn{2}{c}{\textbf{Blast}}	&& 
-%	\multicolumn{2}{c}{\textbf{Gene Blast}} & 
-%	\multicolumn{2}{c}{\textbf{Blast}} \\
-%
-%	& unique & multiple & unique & multiple && unique & multiple & unique & 
-%	multiple \\
-%%	& \textbf{unique} & \textbf{multiple} & \textbf{unique} & 
-%%	\textbf{multiple} 
-%%	&& \textbf{unique} & \textbf{multiple} & \textbf{unique} & 
-%%	\textbf{multiple}} \\
-%	
-%	\midrule
-%	
-%	{\it ~~~Probe total} & \multicolumn{4}{r}{60345} &&	
-%			\multicolumn{4}{r}{158694} \\[1ex]
-%
-%%		\multicolumn{6}{l}{Step 1 - Initial mapping with megablast} \\
-%%	{\it ~~~Hits total} & 153050 & 130927 && 129097 & 123089 \\
-%%	{\it ~~~Hit transcripts} & - & 42250 && - & 49289 \\
-%%	{\it ~~~Hit genes} & 24495 & 23393 && 28879 & 28416 \\
-%%	{\it ~~~Probes retained} & 57700 & 56852 && 99139 & 105429 \\[1ex]
-%		
-%		\multicolumn{10}{l}{Step 2 - Extracting one-to-one mappings (number of
-%		probes)} \\
-%	{\it ~~~Hits} & 24766 & 128284 & 24820 & 106107 && 84854 & 44243 & 92878 & 
-%	30211 \\
-%	{\it ~~~Probes} & - & 32934 & - & 32032 && - & 14285 & - & 12551 \\
-%	{\it ~~~Probes retained} & 24766 & 9067 & 24820 & 12979 && 84854 & 11 &  
-%	92878 & 11 \\[1ex]
-%		
-%%		\multicolumn{6}{l}{Step 3 - Resolving conflicts} \\
-%%	{\it ~~~$G_u$ vs $T_u$} & \multicolumn{2}{r}{0} && 
-%%			\multicolumn{2}{r}{0 out of 7} \\
-%%	{\it ~~~$G_u$ vs $T_T$} & \multicolumn{2}{r}{8 out of 59 (4 $G_u$, 4 
-%%			$T_T$)} && \multicolumn{2}{r}{0 out of 14} \\
-%%	{\it ~~~$G_T$ vs $T_u$} & \multicolumn{2}{r}{54 out of 305 (39 $G_T$, 
-%%	15 $T_u$)} && \multicolumn{2}{r}{0 out of 626} \\	
-%%	{\it ~~~$G_T$ vs $T_T$} & \multicolumn{2}{r}{776 out of 1073} && 
-%%			\multicolumn{2}{r}{0} \\
-%%	{\it ~~~$G_p$} & \multicolumn{2}{r}{0} && \multicolumn{2}{r}{0} \\[1ex]
-%	
-%		\multicolumn{10}{l}{Step 4 - Hit quality filtering (number of probes)} 
-%		\\
-%	{\it ~~~Probes removed} & \multicolumn{4}{r}{406} && 
-%			\multicolumn{4}{r}{6907} \\
-%	{\it ~~~Hits retained} & 3398 & 2214 & 21973 & 11189 && 5247 & 0 & 85779 & 
-%	11 \\[1ex]
-%	
-%		\multicolumn{10}{l}{Output (number of probes)} \\
-%	{\it ~~~Sub total} & & 5612 & & 33162 && & 5247 & & 85790 \\
-%	{\it ~~~Total} & \multicolumn{4}{r}{38774} && \multicolumn{4}{r}{91037} \\
-%	\bottomrule
-%	\end{tabular}
-%	\end{small}
-%	\end{threeparttable}
-%\end{sidewaystable}
+
+
+\subsection{Step 3 – Merging blast results}
+
+
+
+\subsubsection{Resolving conflicts}\label{apd:magic-conflict}
+
+The conflicts among groups $G_u$, $T_u$, $G_t$, and $T_t$ are resolved 
+according to a set of heuristic rules. 
+There is a \textit{conflict} if for one probe, the target gene of the 
+transcript blast hit ($T_u$/$T_t$) are different from that of the gene blast 
+hit ($G_u$/$G_t$). 
+Note that by definition, there are no conflicts between the result sets 
+obtained from the same blast results (gene or transcript model), such as 
+($G_u$, $G_t$) and ($T_u$, $T_t$). 
+When there is a conflict, the following condition is evaluated: 
+
+\begin{equation}
+ABS(Q_{T_{hit}}-Q_{G_{hit}}) \geq 0.2
+\end{equation}
+
+when true, the one with the higher $Q_{hit}$ was chosen to be the real target 
+gene; 
+otherwise, the hits of corresponding probe are discarded from the results due 
+to having ambiguous target genes. 
+Note, the $Q_{hit}$ cutoff used here is less strict than the one used in 
+identifying top-hit from multiple mapping probes, since here we compare two 
+potential hits from different BLAST results, while before hits of same BLAST 
+results were compared.
+
+Depending on the sources between which the conflict arises, there are three 
+types of conflicts:
+
+\begin{itemize}
+\item Conflicts between a pair of unique-hits, i.e. from ($G_u$, $T_u$). There 
+are no such conflicts for the cDNA hits, and 7 conflicts for the oligo hits. 
+Checking their gene unique hit results, we found that all those hits reside 
+fully or partially in the intron region. 
+Consequently, those genes could not be identified as targets by blast against 
+the transcript model. 
+Similarly, the unique transcript hits are across exon boundaries of hit genes, 
+and as such they do not appear in the gene model blast results. 
+After applying our $Q_{hit}$ criterion, none passed the check and all  
+were discarded. 
+
+\item  Conflicts between one unique-hit and one top-hit, i.e. from ($G_u$, 
+$T_t$) or ($G_t$, $T_u$). None such conflict exist for the oligo probes. 
+When merging the cDNA results, there are 46 cases: 7 between ($G_u$, 
+$T_t$) and 39 between ($G_t$, $T_u$).
+In 4 out of 7 between ($G_u$, $T_t$), the top-hit passed $Q_{hit}$ 
+criterion. All 39 conflicts between ($G_t$, $T_u$) were resolved 
+with the top-hits winning.
+In total, 43 of 46 conflicts were resolved.
+In the table \ref{tab:magic-conflict-topuniq}, two examples are given 
+where the conflicts of this type are resolved. 
+
+%Conflicts between one unique-hit and one top-hit, i.e. from (Gu, TT) or (Tu, 
+%GT). There are 364 conflicts for the cDNA results: 305 in (Tu, GT) and 59 in 
+%(Gu, TT). 
+%In total, 62 out of 364 conflicts were resolved, with 19 unique hits and 43 
+%top-hits that `won'. 
+%In the 59 (Gu, TT) conflicts, 8 passed Qhit criterion:  in 4 cases the hit in 
+%Gu won, while in the other 4, the hit in TT won. 
+%In the 305 (Tu, GT) conflicts, 54 cases passed Qhit criterion: 15 unique hits 
+%in Tu won and 39 top-hit in GT won. 
+%In oligo results, there are 640 conflicts identified, 626 in (Tu, GT) and 14 
+%in 
+%(Gu, TT), but none passes the Qhit criterion. 
+%In the table below, two example cases are given where the conflicts of this 
+%type are resolved. 
+
+\begin{table}[b]
+	\centering
+	\begin{footnotesize}
+	\caption{The conflicts between one top hit and one unique hit} 
+	\label{tab:magic-conflict-topuniq}
+	\begin{tabular}{@{}c|cccccc@{}}
+	\toprule
+	& \textbf{Hit} & & & \textbf{Match} & & \\
+	& \textbf{type} & \textbf{Target} & \textbf{Coverage} & \textbf{length} 
+	& \textbf{Gaps} & \textbf{$e$-value} \\ 
+	\midrule
+	& $2^{nd}$  & GRMZM2G020553 & 61.8267 & 250 & 4 & $1.00E-107$ \\ 
+	Case 1 & \textbf{$G_t$} & \textbf{GRMZM5G865576} & 94.61358 & 403 & 2 & 0 
+	\\ 
+	& $T_u$ & GRMZM2G020553 & 61.8267 & 250 & 4 & $1.00E-108$ \\
+
+ 	\hline
+ 	
+	& $G_u$ & AC206201.3\_FG004 & 14.61412 & 89 & 0 & 5.00E-43 \\
+	Case 2 & $2^{nd}$ & AC206201.3\_FGT004 & 26.76519 & 162 & 3 & 5.00E-79 
+	\\
+	& $T_t$ & \textbf{GRMZM2G003109} & 73.23481 & 389 & 7 & 1.00E-111 \\
+	\bottomrule
+	\end{tabular}
+	\end{footnotesize}
+\end{table}
+
+\item Conflict between a pair of top-hits from ($G_t$, $T_t$). 
+Although none exists for the oligo probes, there are 38 such conflicts for 
+the cDNA probes. 
+After applying $Q_{hit}$ criterion, 18 conflicts passed the check. 
+As shown in the example in table \ref{tab:magic-conflict-tops}, the gene in the 
+first row ‘GRMZM5G854499’ is the `winning' target. 
+It’s has a $Q_{hit}$ 0.967118 much higher than that of the best transcript 
+hit ‘GRMZM2G162184’ 0.31947. 
+Note that both gene blast and transcript blast identified the same two genes as 
+top two hits, although in different order.
+Indeed, for this type of conflicts, often the same two genes are competing for 
+the best target of a probe. 
+
+\end{itemize}
+
+\begin{table}
+	\centering
+	\begin{footnotesize}
+	\caption{The top hit conflict example} 
+	\label{tab:magic-conflict-tops}
+	\begin{tabular}{@{}cc|cccccc@{}}
+	\toprule
+	& & & & & \textbf{Match} & & \\
+	& & \textbf{Target} & \textbf{$Q_{hit}$} & \textbf{Coverage} & 
+	\textbf{Length} & \textbf{Gaps} & \textbf{$e$-value} \\ 
+	\midrule
+	Gm &
+	$1^{st}$ & \textbf{GRMZM5G854499} & \textbf{0.967118} & 100 & 509 & 3 & 0 \\
+	& $2^{nd}$ & GRMZM2G162184 & 0.31947 & 48.743 & 211 & 15 & 6e-36 \\
+	\hline
+	Tm & 
+	$2^{nd}$ & GRMZM5G854499 & 0.119923 & 12.766 & 65 & 1 & 1e-26 \\
+	& $1^{st}$ & GRMZM2G162184 & 0.31947 & 48.743 & 211 & 15 & 4e-36 \\
+	\bottomrule
+	\end{tabular}
+	\end{footnotesize}
+\end{table}
+
+Note as aforementioned, any winning top-hits marked as ambiguous in previous 
+step will be discarded.
+After merging gene blast output with transcript blast output, the result set 
+contains only one-to-one probe-to-gene mappings with high specificity to 
+guarantee a reliable biological interpretation of their measurements.
+
+
+
+\subsection{Step 4 – Filtering by hit quality}
+
+
+As mentioned in step 1, a loose criterion is used for BLAST in order to retain 
+as much information in the 
+further steps of our workflow. As a result, some hits in Gp could be of low 
+quality. To improve the quality 
+of the final result, an additional filter  is applied on each individual 
+probe-to-gene hit in Gp based on the 
+blast information retained with the identified target gene. Due to sequence 
+differences, different cutoffs 
+were applied on oligo and cDNA probes. For oligo sequences, the filter 
+($num\_gaps = 0$ and $identity >= 95$) 
+is applied, which removes any result that is gapped or with low identity. For 
+short probe sequences, a gap 
+or a mismatch can have a great influence on the binding specificities of the 
+target sequences. This 
+removes 6907 probes. 
+For the much longer cDNA sequences, a looser filter ($num\_gaps =< 20$ and 
+$identity >= 80$) is applied, which removes 406 probes. 
+
+
+\subsection*{Summary}
+
+The result after applying the entire four step workflow is presented in Table 
+5. We successfully identified 
+the target genes for $57\%$ of oligo probes and $65\%$ of cDNA ones. By 
+incorporating 
+a BLAST analysis against 
+the Gene Model, we successfully improved the overall mapping rate ($15\%$ 
+(5162/38774) for cDNA and $6\%$ 
+(5247/91037) for oligo) without compromising the mapping quality between probe 
+and target gene 
+sequences. Although ideally each probe should produce a hit on only one target 
+gene, the fact that $35\%$ of 
+cDNA results come from the top-hit identified from multiple gene mappings shows 
+that the reality is far 
+from ideal, and it is very important for a probe mapping flow to handle 
+multiple mapping issue. Whereas 
+only 11 out of 91037 oligo probes produce hits in top-hit lists, which 
+demonstrates evidently that the 
+strict probe sequence selection processes ensure good probe specificity, and 
+result in a more reliable 
+biological interpretation of their measurements. 
+
+
+
+
+
 
 
 
