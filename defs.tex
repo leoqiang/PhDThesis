@@ -26,20 +26,35 @@
 
 % Personal settings [FU]
 
+
+\renewcommand{\arraystretch}{1.2}  % use 1.2 line space in table
+
+
+
+
+\usepackage[table]{xcolor} % use grey color for even rows in table
 \usepackage{textcomp} % for straight quote sign
 \usepackage{threeparttable} % for table with extra notes
+\usepackage{threeparttablex} % extend threeparttable to work with longtable 
+%package
 \usepackage{array} % redefined tabular env. for table
 \usepackage{rotating} 
 % NOTE: if pdfsync is required, use with novbox option, otherwise mess up with tabular env.
 % \usepackage[novbox]{pdfsync}
 % Ref: http://tex.stackexchange.com/questions/49487/tabular-tabularx-automatic-linebreak-p-m-b-doesnt-work-as-expected
-
-\usepackage[Q=yes,pverb-linebreak=no]{examplep}
-% introduce \Q{} command to input underscore as normal text
-% ref: http://tex.stackexchange.com/questions/48632/underscores-in-words-text
+\usepackage{booktabs} % to provide hlines of different weight (thickness)
+% Ref: 
+%http://tex.stackexchange.com/questions/3445/latex-tables-how-do-i-make-bold-horizontal-lines-typically-hline
+\usepackage{colortbl}	% grey line
 
 \usepackage{footmisc} % for reuse footnote using label
 
+
+\usepackage[font={small,it}]{caption} % overwrite default by using small and 
+%italic font for caption
+\usepackage[Q=yes,pverb-linebreak=no]{examplep}
+% introduce \Q{} command to input underscore as normal text
+% ref: http://tex.stackexchange.com/questions/48632/underscores-in-words-text
 \usepackage{upgreek} % for up stand greek characters, e.g. \upmu
 
 \usepackage{changepage} % to adjust row adjustwidth for manual text indentation
@@ -47,16 +62,7 @@
 
 \usepackage{hyperref}
 
-\usepackage{booktabs} % to provide hlines of different weight (thickness)
-% Ref: 
-%http://tex.stackexchange.com/questions/3445/latex-tables-how-do-i-make-bold-horizontal-lines-typically-hline
-
-\usepackage[font={small,it}]{caption} % overwrite default by using small and 
-%italic font for caption
-
-\usepackage[table]{xcolor} % use grey color for even rows in table
-
-\renewcommand{\arraystretch}{1.2}  % use 1.2 line space in table
+\usepackage{setspace} % to adjust line space
 
 
 % NOTE: this section has been commented out, as the issue with bib file is solved externally, check bib-thesis.readme
@@ -71,3 +77,10 @@
 %%\usepackage{CJKutf8}
 %%
 %% NOTE: refer http://tex.stackexchange.com/questions/44694/fontenc-vs-inputenc
+
+
+% Adjust the top margin and text height to reduce pages. But this only reduces  
+% 4 out of 124 pages, not worth the efforts
+% 
+%\addtolength{\topmargin}{-.10in}
+%\addtolength{\textheight}{.5in}

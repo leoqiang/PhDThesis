@@ -48,7 +48,7 @@ microarray experiments to support their research.
 Organisms}
 \glossary{name=GEO, description=Gene Expression Omnibus}
 
-\section{introduction}
+\section{Introduction}
 
 Microarrays are the main technology for large-scale transcriptional gene expression profiling. Scientific journals generally require the deposit of these high-throughput experiments in public microarray databases, such as Gene Expression Omnibus (GEO) \cite{Barrett2011} or ArrayExpress \cite{Parkinson2009}, upon publication. These databases are an extremely rich source of information, containing freely accessible data for thousands of experiments and a multitude of different organisms, and in theory provide an opportunity to analyse gene expression of a particular species at a global level. They hold the potential to expand the scope of any smaller scale study: mining the information contained in such databases offers molecular biologists the possibility to view their own dedicated experiments and analysis in light of what is already available. So far however, this wealth of public information remains largely untapped because these databases do not allow for a direct and integrated exploration of their data. The opportunity of combining all public experiments for a single organism has not been explored due to practical issues that can ultimately be attributed to the large heterogeneity inherent to microarray data. Data sets originate from different experimenters or labs and microarrays do not constitute a uniform technology. Multiple microarray platforms exist and are manufactured in different ways. Even for similar platforms, protocols for sample preparation, labelling, hybridization and scanning can vary greatly. There are also no requirements imposed \cite{Brazma2009, Brazma2001} regarding the format of the platform descriptions and expression measurements themselves, as well as the degree of preprocessing done on these values, which further complicates the matter of experiment integration from a practical point of view.
 
@@ -83,8 +83,8 @@ for exploring, visualizing, and analysing the expression data.
 
 \todo{add some lines to refer to the back-end system for more details}
 
-\subsection{Cross-platform expression compendion creation 
-methodology}\label{sec:colombos-comp-method}
+\subsection{Cross-platform expression compendion creation methodology} 
+\label{sec:colombos-comp-method}
 
 The compendia are built in three major steps. The first step is the retrieval 
 of microarray experiments and associated platforms from Gene Expression Omnibus 
@@ -476,60 +476,73 @@ While the retrieval of already known Fur regulon genes combined with a set of li
 
 
 
-\section{Conclusions and future directions}
+\section{Conclusions and future directions}\todo{Move future directions into 
+the last chapter}
 
-\begin{table}
+\begin{sidewaystable}
 	\centering
 	\begin{threeparttable}
-	\begin{footnotesize}
+	\begin{small}
 	\caption{Conceptual comparison of COLOMBOS with similar initiatives}
 	\label{tab:colTB-comp}
-	\begin{tabular}{p{2cm} p{2.2cm} p{2cm} p{2cm} p{2.3cm}}
-	%\begin{tabular}{  p{0.2\linewidth} p{0.2\linewidth} p{0.2\linewidth} 
-	%p{0.2\linewidth} p{0.2\linewidth} }
+%	\begin{tabular}{p{3cm} p{4cm} p{4cm} p{4cm} p{5cm}}
+%	\begin{tabular}{p{2cm} p{2.2cm} p{2cm} p{2cm} p{2.3cm}}
+	\begin{tabular}{ @{}|>{\raggedright}p{0.13\linewidth} 
+	>{\raggedright}p{0.2\linewidth} >{\raggedright}p{0.15\linewidth} 
+	>{\raggedright}p{0.22\linewidth} >{\raggedright}p{0.18\linewidth}|@{}}
+	
 		\toprule
 		 & {\centering\bf\small COLOMBOS} & {\centering\bf\small M3D} & 
 		 {\centering\bf\small GXA} & {\centering\bf\small GeneVestigator} 
-		 \\
+		 \tabularnewline
 		\midrule
-		\multicolumn{2}{l}{\bf DB CONTENT}  &  &  &  \\
-		\hline \\[-1.8ex]
+		\multicolumn{5}{|l|}{\bf Database Content} \tabularnewline
+		\hline
 		Expression data\tnote{1} & Cross-platform compendia & Single platform 
 		compendia (Affymetrix) & Experiment centered (ArrayExpress 
-		meta-analysis) & Single platform compendia (Affymetrix)\\[1ex]
-		
+		meta-analysis) & Single platform compendia 
+		(Affymetrix)\tabularnewline[1ex]
+		\arrayrulecolor{Gray}\hline
 		Organisms & Prokaryotes (3) & Prokaryotes (2) and a eukaryote & 
-		Eukaryotes (10) & Eukaryotes (9) and a prokaryote \\[1ex] 
-		
+		Eukaryotes (10) & Eukaryotes (9) and a prokaryote \tabularnewline[1ex] 
+		\arrayrulecolor{Gray}\hline
 		Gene annotation & Incroporation of multiple species-specific DBs & 
-		Referal to SGD, BioCyc & EBI & None\\[1ex] 
-		
+		Referal to SGD, BioCyc & EBI & None\tabularnewline[1ex] 
+		\arrayrulecolor{Gray}\hline
 		Microarray annotation & Microarray annotation and condition 
 		ontology\tnote{2} & Microarray annotation & Microarray annotation and 
-		condition ontology\tnote{2} & Microarray annotation \\[1ex] 
-		
+		condition ontology\tnote{2} & Microarray annotation 
+		\tabularnewline[1ex] 
+		\arrayrulecolor{Gray}\hline
 		Tools suite & Interactive visualization, expression analysis & 
 		Visualization, expression analysis & Interactive visualization, 
 		expression analysis & Interactive visualization, expression analysis 
-		\\[1ex] 
-		\hline \\[-1.8ex]
-		{\bf FUNCTIONALITY} \\
-		\hline \\[-1.8ex]
+		\tabularnewline
+		\arrayrulecolor{Gray}\hline
+		
+		\arrayrulecolor{Black}
+		%\tabularnewline[-2.5ex] % add a bit of space, break right vertical line
+		\multicolumn{5}{|l|}{\bf Functionalities}
+		\tabularnewline
+		\hline
 		Expression analysis\tnote{3} & Multiple queries & Single query & Single 
-		query & Single query (limited) \\[1ex] 
-		
+		query & Single query (limited) \tabularnewline[1ex] 
+		\arrayrulecolor{Gray}\hline
 		Query genes by \ldots & Gene IDs; functional or structural 
-		characteristics & Gene IDs & Gene/protein IDs & Gene IDs \\[1ex] 
-		
+		characteristics & Gene IDs & Gene/protein IDs & Gene IDs 
+		\tabularnewline[1ex] 
+		\arrayrulecolor{Gray}\hline	
 		Query arrays by \ldots & Experiment, annotation, or ontology & 
 		Experiment, annotation & Experiment, annotation, or ontology & 
-		Annotation \\[1ex] 
-		
+		Annotation \tabularnewline[1ex] 
+		\arrayrulecolor{Gray}\hline
 		Download & Analysis results and/or entire compendia & Analysis results 
 		and/or entire compendia & Only experiments indirectly (through 
-		ArrayExpress) & Analysis results (limited) \\
-		\bottomrule 
+		ArrayExpress) & Analysis results (limited) \tabularnewline
+		\arrayrulecolor{Black}\bottomrule 
 	\end{tabular}
+	\end{small}
+	\begin{tiny}
 	\begin{tablenotes}
 		\item[1] Compendium: a data matrix (genes in rows, microarrays in 
 		columns) combining expression measurements from different experiments 
@@ -553,9 +566,10 @@ While the retrieval of already known Fur regulon genes combined with a set of li
 		results can be explored, e.g. by combining or differentiating single 
 		query results.
 	\end{tablenotes}
-	\end{footnotesize}
+	\end{tiny}
 	\end{threeparttable}
-\end{table}
+\end{sidewaystable}
+
 
 
 In this work we aim at closing the gap towards an encompassing expression 

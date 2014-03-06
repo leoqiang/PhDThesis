@@ -19,3 +19,25 @@ git repository initialization readme
 	- push it onto your github online repository
 
 	http://stackoverflow.com/questions/4658606/import-existing-source-code-to-github/8012698
+	
+
+general update command
+============
+
+	* check files modified
+	
+		git status
+		
+	* add files need to be committed
+	
+		git add path\file_name
+		
+	* commit changes
+	
+		git commit -m ""
+		
+	* add changes to the github
+	
+		git push origin master
+		
+	
