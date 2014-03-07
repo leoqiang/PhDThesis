@@ -6,16 +6,16 @@
 \instructionsintroduction
 
 % NOTE: no abstract for each section, otherwise mess up page numbering!!
-\textbf{Abstract}
-To facilitate the exploration of publicly available Zea mays
-expression data, we constructed a maize expression compendium,
-making use of an integration methodology and a consistent probe to
-gene mapping based on the 5b.60 sequence release of Zea mays. The
-compendium is made available through a web portal MAGIC that
-hosts a variety of analysis tools to easily browse and analyse the
-data. Our compendium is different from previous initiatives in combining 
-expression values across different experiments by providing a consistent 
-gene annotation across different platforms.
+%\textbf{Abstract}
+%To facilitate the exploration of publicly available Zea mays
+%expression data, we constructed a maize expression compendium,
+%making use of an integration methodology and a consistent probe to
+%gene mapping based on the 5b.60 sequence release of Zea mays. The
+%compendium is made available through a web portal MAGIC that
+%hosts a variety of analysis tools to easily browse and analyse the
+%data. Our compendium is different from previous initiatives in combining 
+%expression values across different experiments by providing a consistent 
+%gene annotation across different platforms.
 
 
 
@@ -23,12 +23,12 @@ gene annotation across different platforms.
 Owing to its importance as sustainable food and feedstock,
 maize genomics is of high academic and industrial relevance.
 As a result, microarrays have been widely applied to interrogate
-the maize transcriptome, with currently4100 maize gene expression 
+the maize transcriptome, with currently over one hundred maize gene expression 
 experiments being publicly available in online repositories
 such as GEO \cite{Barrett2011} and ArrayExpress \cite{Parkinson2009}. 
 However, cross-platform differences, the lack of
-consistent platform and measurement descriptions and inconsistent 
-gene annotations in maize complicated the straightforward
+consistent platform and measurement descriptions, and inconsistent 
+gene annotations complicated the straightforward
 use of these data.
 
 To integrate the data from different array platforms in a readily 
@@ -70,25 +70,34 @@ oligo and cDNA probes, respectively, as they considerably differ in length
 and specificity. For probes that mapped to multiple genes, we identified
 the most specific hit by comparing the hit quality across different targets.
 Only probes for which a sufficiently unique probe-to-gene mapping (details 
-in Supplementary Methods)\todo{supplementary, add here or into backend chapter} 
-could be identified were retained for
+in Section \ref{ch:apd-magic}) could be identified were retained for
 compendium construction.
 
 \subsubsection{Expression data homogenization}
 
-Microarray experiments were retrieved from GEO and ArrayExpress. Each experiment can be
-composed of multiple arrays. A distinction is made between one- and
-two-channel arrays, which differ from each other in the number of samples 
-tested per array. Irrespective of the used platform, raw expression
-intensities were extracted for each channel (sample) separately. To make
-measurements between one- and two-channel platforms comparable, all
+Microarray experiments were retrieved from GEO and ArrayExpress. Each 
+experiment can be composed of multiple arrays. 
+A distinction is made between one- and two-channel arrays, which differ from 
+each other in the number of samples tested per array. 
+Irrespective of the used platform, raw expression intensities were extracted 
+for each channel (sample) separately. 
+To make measurements between one- and two-channel platforms comparable, all
 expression measurements were converted to log ratios (as contrasts) that
 compare the expression between a test and a reference sample, respectively, 
-both from the same experiment. For each contrast, proper test and
-reference samples were assigned based on the corresponding experiment
-annotation. Raw expression data were subsequently normalized using
-dedicated procedures (Engelen et al., 2011) and mapped to the corresponding 
-genes based on the probe annotation (see Section 2.1.1).
+both from the same experiment. 
+For each contrast, proper test and reference samples were assigned based on the 
+corresponding experiment annotation. 
+Raw expression data were subsequently normalized using dedicated procedures 
+(\cite{Engelen2011}) and mapped to the corresponding genes based on the probe 
+annotation (see Section 2.1.1). 
+Special strategies have been developed to handle data generated using 
+Affymetrix platform and data generated on multiple-chip 
+platforms\footnote{Multiple-chip platform are multiple microarray chips that 
+are designed together with their probes targeting complementary gene sets, and 
+that are used in combination to interrogate the same biological sample in order 
+to measure the expression levels of more genes than would be possible with 
+only one chip.}. 
+The details are explained in Section \ref{apd:magic-datanorm}.
 
 
 \subsection{Compendium annotation}
@@ -149,21 +158,58 @@ accompanied with corresponding annotation information.
 
 \subsubsection{Missing value handling}
 
-Because most of the microarray platforms that MAGIC relies on were 
-developed before the genome release of maize, none of them cover the full
-FGS gene set, and overlap in measured genes can be low for some platform 
-combinations (Supplementary Tables S2 and S3)\todo{supplementary file}. We developed
-functionalities that help users to control the number of missing values
-in their analysis results (Help section 6)\todo{Add more concrete description, check online help section and supplementary file}.
+Most of the microarray platforms that MAGIC relies on were developed before the 
+genome release of maize. 
+None of them cover the full FGS gene set, and overlap in measured genes can be 
+low for some platform combinations (Supplementary Tables 
+\ref{tab:maize-platform-overview} and 
+\ref{tab:maize-platform-overlap}).
+Consequently, each contrast contains some missing values, as not all genes are 
+measured in the corresponding platforms.
+
+Several strategies are employed to tackle this issue.  While creating the 
+compendium, FGS genes without any measurement are removed.  
+We further extended the web port with extra functionalities that help users to 
+evaluate and control the number of missing values in their analysis results.
+%
+In every module creation and modification functions that select(or remove) 
+genes or contrasts, the missing value information is provided for each 
+candidate, and can be utilized to filter out those having too few measurements.
+%
+However, under certain situation, it is not possible to directly control the 
+candidates based on missing values, for example, manually adding genes into a 
+module.
+%
+Alternatively, the percentage of the missing value is calculated for each 
+module.
+User can consult this information and take further action if necessary.
+%
+By integrating these functionalities into the web portal, the amount of missing 
+value allowed in the user data can be easily contained.
+%
+A detailed explanation for those functionalities are provided in an 
+online help section dedicated to this issue. 
 
 
-\textbf{reminder}
 
-In practical use, we noticed that the default contrast selection criterion "inverse coefficient of variance (iCV)" statistics previously used tends to select contrasts where most candidates does not show any differentiated expressions instead of those where a fraction of the candidates show strong changes, as its value deteriorates rapidly with a small portion of genes with deviated expression pattern from the majority whereas retains high for those contrasts where most candidates has no differential expressions consistently.
+%\textbf{reminder}
+%
+%In practical use, we noticed that the default contrast selection criterion 
+%"inverse coefficient of variance (iCV)" statistics previously used tends to 
+%select contrasts where most candidates does not show any differentiated 
+%expressions instead of those where a fraction of the candidates show strong 
+%changes, as its value deteriorates rapidly with a small portion of genes with 
+%deviated expression pattern from the majority whereas retains high for those 
+%contrasts where most candidates has no differential expressions consistently.
+%
+%The matter is exacerbated further by two factors. First, there is a large 
+%amount of missing values. The more values are missing, the more consistent the 
+%expressions of the candidates can be as less values are used to calculate the 
+%standard deviations used to calculate iCV. Second, most maize pathways or GO 
+%annotations are connected to large number of genes potentially with 
+%diversified 
+%functionalities and expression patterns... 
 
-The matter is exacerbated further by two factors. First, there is a large amount of missing values. The more values are missing, the more consistent the expressions of the candidates can be as less values are used to calculate the standard deviations used to calculate iCV. Second, most maize pathways or GO annotations are connected to large number of genes potentially with diversified functionalities and expression patterns... 
-
-For bacterial species, this issue is not 
 
 
 
@@ -178,19 +224,22 @@ included. The contrasts consist of 69 experiments obtained from
 GEO and ArrayExpress, amounting to 1749 microarrays. Details
 on the composition of the compendium in terms of the number
 of genes and experiments covered per platform can be found in
-Supplementary Tables S1 and S2. On average, a gene is measured 
-in 9 of the 26 platforms and has been measured in 592 of
-1310 contrasts (Supplementary Figs S1 and S2)\todo{supplementary}. The compendium 
-can be downloaded through its web portal MAGIC. An
-elaborate online help, together with two tutorial case studies,
+Tables \ref{tab:maize-platform-overview} and 
+\ref{tab:maize-exp-overview}. 
+On average, a gene is measured in 9 of the 26 platforms and has been measured 
+in 592 of 1310 contrasts (Figures \ref{fig:maize-accu-platform-count} and 
+\ref{fig:maize-accu-contrast-count}). 
+The compendium can be downloaded through its web portal MAGIC. 
+An elaborate online help, together with two tutorial case studies,
 illustrates how the various functionalities of MAGIC can be
-used to infer new biology. The case studies clearly illustrate
-how information from different platforms contributes to the results 
-obtained by MAGIC, and how to cope with missing values
-that could become abundant if information from certain sets of
+used to infer new biology. 
+The case studies clearly illustrate how information from different platforms 
+contributes to the results obtained by MAGIC, and how to cope with missing 
+values that could become abundant if information from certain sets of
 platforms is combined.
 
-\todo{A table for comparison}In contrast to MAGIC, comparable initiatives treat data from
+\todo{[magic]A table to compare diff. method}
+In contrast to MAGIC, comparable initiatives treat data from
 different platforms or experiments separately. Genevestigator
 (Hruz et al., 2008) and CORNET (De Bodt et al., 2012) construct 
 separate compendia for the Affymetrix Maize Genome
@@ -210,10 +259,6 @@ step (Fierro et al., 2008) and enabling the construction
 of a much larger compendium and the direct data analysis across
 different platforms and experiments.
 
-
-\section{Conclusion}
-
-??
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
