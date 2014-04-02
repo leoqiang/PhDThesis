@@ -81,23 +81,23 @@ A distinction is made between one- and two-channel arrays, which differ from
 each other in the number of samples tested per array. 
 Irrespective of the used platform, raw expression intensities were extracted 
 for each channel (sample) separately. 
-To make measurements between one- and two-channel platforms comparable, all
-expression measurements were converted to log ratios (as contrasts) that
-compare the expression between a test and a reference sample, respectively, 
-both from the same experiment. 
-For each contrast, proper test and reference samples were assigned based on the 
-corresponding experiment annotation. 
-Raw expression data were subsequently normalized using dedicated procedures 
+The intensity data were subsequently normalized using dedicated procedures 
 (\cite{Engelen2011}) and mapped to the corresponding genes based on the probe 
 annotation (see Section 2.1.1). 
+For each contrast, proper test and reference samples from the same experiment 
+were assigned based on their corresponding annotations. 
+To make measurements between one- and two-channel platforms comparable, all
+expression measurements were converted to log ratios (as contrasts) that
+compare the expression between the test and reference samples.
 Special strategies have been developed to handle data generated using 
-Affymetrix platform and data generated on multiple-chip 
-platforms\footnote{Multiple-chip platform are multiple microarray chips that 
-are designed together with their probes targeting complementary gene sets, and 
-that are used in combination to interrogate the same biological sample in order 
-to measure the expression levels of more genes than would be possible with 
-only one chip.}. 
+Affymetrix platform and multiple-chip platforms\footnote{Multiple-chip platform 
+are multiple microarray chips that are designed together with their probes 
+targeting complementary gene sets, and that are used in combination to 
+interrogate the same biological sample in order to measure the expression 
+levels of more genes than would be possible with only one chip.}. 
 The details are explained in Section \ref{apd:magic-datanorm}.
+\todo{Mention the supplementary in a more subtle way, the current one is too 
+intruding}
 
 
 \subsection{Compendium annotation}
