@@ -6,158 +6,254 @@
 \instructionsintroduction
 
 % NOTE: no abstract for each section, otherwise mess up page numbering!!
-\textbf{Abstract}
-
-\textbf{Background:} Microarrays are the main technology for large-scale 
-transcriptional gene expression profiling, but the large bodies of data 
-available in public databases are not useful due to the large heterogeneity. 
-There are several initiatives that attempt to bundle these data into expression 
-compendia, but such resources for bacterial organisms are scarce and limited to 
-integration of experiments from the same platform or to indirect integration of 
-per experiment analysis results.
-
-\textbf{Methodology/Principal Findings:} We have constructed comprehensive 
-organism-specific cross-platform expression compendia for three bacterial model 
-organisms ({\it Escherichia coli}, {\it Bacillus subtilis}, and {\it Salmonella 
-enterica serovar Typhimurium}) together with an access portal, dubbed COLOMBOS, 
-that not only provides easy access to the compendia, but also includes a suite 
-of tools for exploring, analysing, and visualizing the data within these 
-compendia. It is freely available at 
-\url{http://bioi.biw.kuleuven.be/colombos}. The compendia are unique in 
-directly combining expression information from different microarray platforms 
-and experiments, and we illustrate the potential benefits of this direct 
-integration with a case study: extending the known regulon of the Fur 
-transcription factor of {\it E. coli}. The compendia also incorporate extensive 
-annotations for both genes and experimental conditions; these heterogeneous 
-data are functionally integrated in the COLOMBOS analysis tools to 
-interactively browse and query the compendia not only for specific genes or 
-experiments, but also metabolic pathways, transcriptional regulation 
-mechanisms, experimental conditions, biological processes, etc.
-
-\textbf{Conclusions/Significance:} We have created cross-platform expression 
-compendia for several bacterial organisms and developed a complementary access 
-port COLOMBOS, that also serves as a convenient expression analysis tool to 
-extract useful biological information. This work is relevant to a large 
-community of microbiologists by facilitating the use of publicly available 
-microarray experiments to support their research.
+%\textbf{Abstract}
+%
+%\textbf{Background:} Microarrays are the main technology for large-scale 
+%transcriptional gene expression profiling, but the large bodies of data 
+%available in public databases are not useful due to the large heterogeneity. 
+%There are several initiatives that attempt to bundle these data into 
+%expression 
+%compendia, but such resources for bacterial organisms are scarce and limited 
+%to 
+%integration of experiments from the same platform or to indirect integration 
+%of 
+%per experiment analysis results.
+%
+%\textbf{Methodology/Principal Findings:} We have constructed comprehensive 
+%organism-specific cross-platform expression compendia for three bacterial 
+%model 
+%organisms ({\it Escherichia coli}, {\it Bacillus subtilis}, and {\it 
+%Salmonella 
+%enterica serovar Typhimurium}) together with an access portal, dubbed 
+%COLOMBOS, 
+%that not only provides easy access to the compendia, but also includes a suite 
+%of tools for exploring, analysing, and visualizing the data within these 
+%compendia. It is freely available at 
+%\url{http://bioi.biw.kuleuven.be/colombos}. The compendia are unique in 
+%directly combining expression information from different microarray platforms 
+%and experiments, and we illustrate the potential benefits of this direct 
+%integration with a case study: extending the known regulon of the Fur 
+%transcription factor of {\it E. coli}. The compendia also incorporate 
+%extensive 
+%annotations for both genes and experimental conditions; these heterogeneous 
+%data are functionally integrated in the COLOMBOS analysis tools to 
+%interactively browse and query the compendia not only for specific genes or 
+%experiments, but also metabolic pathways, transcriptional regulation 
+%mechanisms, experimental conditions, biological processes, etc.
+%
+%\textbf{Conclusions/Significance:} We have created cross-platform expression 
+%compendia for several bacterial organisms and developed a complementary access 
+%port COLOMBOS, that also serves as a convenient expression analysis tool to 
+%extract useful biological information. This work is relevant to a large 
+%community of microbiologists by facilitating the use of publicly available 
+%microarray experiments to support their research.
 
 
 % Glossary section to define all the glossaries
-\todo{Check and add all abbreviations and symbols}
+\todo{[colombos]Check and add all abbreviations and symbols}
 \glossary{name=COLOMBOS, description=Collection of Microarrays for Bacterial 
 Organisms}
 \glossary{name=GEO, description=Gene Expression Omnibus}
 
 \section{Introduction}
 
-Microarrays are the main technology for large-scale transcriptional gene expression profiling. Scientific journals generally require the deposit of these high-throughput experiments in public microarray databases, such as Gene Expression Omnibus (GEO) \cite{Barrett2011} or ArrayExpress \cite{Parkinson2009}, upon publication. These databases are an extremely rich source of information, containing freely accessible data for thousands of experiments and a multitude of different organisms, and in theory provide an opportunity to analyse gene expression of a particular species at a global level. They hold the potential to expand the scope of any smaller scale study: mining the information contained in such databases offers molecular biologists the possibility to view their own dedicated experiments and analysis in light of what is already available. So far however, this wealth of public information remains largely untapped because these databases do not allow for a direct and integrated exploration of their data. The opportunity of combining all public experiments for a single organism has not been explored due to practical issues that can ultimately be attributed to the large heterogeneity inherent to microarray data. Data sets originate from different experimenters or labs and microarrays do not constitute a uniform technology. Multiple microarray platforms exist and are manufactured in different ways. Even for similar platforms, protocols for sample preparation, labelling, hybridization and scanning can vary greatly. There are also no requirements imposed \cite{Brazma2009, Brazma2001} regarding the format of the platform descriptions and expression measurements themselves, as well as the degree of preprocessing done on these values, which further complicates the matter of experiment integration from a practical point of view.
+Over the last decade, the high-throughput omics technology led/driven by the 
+microarray platform has revolutionalized the molecular biology research. 
+With the unprecedented ability to globally probe gene expressions, it was 
+quickly adopted by every research lab generating colossal amount of data. 
+With a few exceptions, most experiments designed to address particular 
+biological question(s) are of \textit{small-scale} covering a limited set of 
+experimental conditions.
+Given the complexity of a living cell and its interaction with the 
+environment, it has been shown that computational analysis of 
+\textit{large-scale} dataset across diverse experimental conditions and cell 
+types is a powerful tool to reverse engineer regulatory networks 
+\cite{Faith2007, Basso2005, Ernst2008}, to study its condition dependent 
+behavior \cite{Lemmens2009, Fadda2009}, and to identify compound mode of 
+action  \cite{Gardner2003, Basso2005, DiBernardo2005}.
+Although for many species, experiments publicly available in Gene Expression 
+Omnibus (GEO) \cite{Barrett2011} or ArrayExpress \cite{Parkinson2009} cover 
+a broad range of the conditions, a direct and integrated computational analysis 
+of those data is not possible.
+Data are segregated per experiment due to the lack of uniformity in 
+reporting expression data, the heterogeneity of the microarray platforms, 
+and the incomplete and inconsistent meta information specifying experimental 
+conditions.
 
-Despite such difficulties, several initiatives exist to actively build expression compendia from public resources. Most existing compendia can roughly be divided in two groups \cite{Fierro2008}: those that directly integrate single-platform experiments, and those that indirectly integrate cross-platform experiments. Combining data from a single platform makes the in-between experiment normalization and probe mapping relatively straightforward, so that the quantitative measures of gene expression can be analysed directly across experiments. Most single-platform compendia databases, such as for instance M$^{\textrm{3D}}$ \cite{Faith2008}, or the commercial Genevestigator \cite{Hruz2008}, focus on Affymetrix, one of the more robust and reproducible platforms \cite{Bammler2005, Irizarry2005}. Combining data from different platforms, even to the extent of combining data from single- and dual-channel microarrays, is generally done by indirect meta-analysis as opposed to directly integrating the actual expression values: one first applies the desired analysis procedure (e.g. identifying differentially expressed genes, clustering gene expression profiles, etc.) on each single data set within the compendium separately, and subsequently combines the derived results. These compendia are often topic-specific, collecting all publicly available experimental information related to a subject matter of interest. ITTACA \cite{Elfilali2006} and ONCOMINE \cite{Rhodes2007}, for instance, focus on cancer in human; Gene Aging Nexus \cite{Pan2007} on aging in several species. There are exceptions though, such as the large ATLAS \cite{Kapushesky2010} initiative from ArrayExpress.
+Existing compendia alleviate the aforementioned data integration issues by 
+either directly integrating data across experiments albeit limited by only 
+those generated on a single-platform \cite{Faith2008, Hruz2008} 
+or combining results of individual experiment through meta-analysis to avoid 
+direct data integration across experiments 
+\cite{Rhodes2007, Pan2007, Elfilali2006, Kapushesky2010}.
+Compendia created by meta-analysis are limited by the predefined  
+functionalities provided by the system, hence lack of flexibility to 
+incorporate new analysis.
+The compendia created by direct integration, however, retain actual expression 
+values, hence the compendia can be readily analyzed by the existing and 
+potential methods.
+For eukaryotic model organisms, such a single-platform approach works well 
+as the compendium based on Affymetrix chips can achieve a broad scope on 
+experimental condition due to the platforms popularity.
+For prekaryote, however, the single-platform constraint severely circumscribes 
+the scope of the compendium created due to the lack of such a dominate platform.
+For example, for model organisms such as {\it E. coli}, even the most popular 
+platform `Affymetrix GeneChip E. coli Genome 2.0 Array' is used by less then 
+one thirds of experiments. A significant portion of data is missed out on 
+when considering only one platform.
 
-Most of these compendia center on eukaryotic organisms; only M$^{\textrm{3D}}$ 
-has substantial compendia for two bacterial species ({\it Escherichia coli} and 
-{\it Shewanella oneidensis}). The compendia in M$^{\textrm{3D}}$ also have the 
-advantage of retaining actual expression values, which broadens the scope of 
-potential analysis procedures compared to indirect meta-analysis, but they are 
-limited in the number of experiments they can include due to their 
-single-platform nature. For eukaryotic model organisms considerable amounts of 
-data are available and relying on only one platform can still lead to sizeable 
-compendia with a broad scope in condition content, such as the human compendium 
-constructed based on the Affymetrix U133A platform with over 5000 samples 
-\cite{Lukk2010}. For prokaryote organisms, even model organisms such as {\it E. 
-coli}, much less data is available and a significant portion is missed out on 
-when considering only one platform. To have the advantage of direct 
-integration, while not being limited to a single platform, we have devised a 
-strategy that directly integrates expression data across platforms and 
-experiments, and have used it to create expression compendia for several 
-bacterial organisms. To increase their usability for a large community of 
-microbiologists, these compendia have also been extensively annotated and are 
-now being made available through COLOMBOS. COLOMBOS stands 
-for COLlection Of Microarrays for Bacterial OrganismS. It is a web portal that 
-provides easy access to the compendia and has an integrated suite of data tools 
-for exploring, visualizing, and analysing the expression data.
+To have the advantage of direct integration, while not being limited to a 
+single platform, we have devised a strategy that directly integrates expression 
+data across platforms and experiments creating a compendium provides an 
+unprecedentedly broad coverage on experimental conditions.
+As such a cross-platform compendium benefits most the microbiology research 
+community, we have applied our method to create compendia for three 
+bacteria species: \textit{Escherichia coli}, \textit{Bacillus 
+subtilis}, and \textit{Salmonella enterica serovar Typhimurium}.  
+Furthermore, to increase their usability for a large community of 
+microbiologists, these compendia are being made available through COLOMBOS 
+(COLlection Of Microarrays for Bacterial OrganismS). 
+It is a web portal that provides easy access to the compendia and has an 
+integrated suite of data tools for exploring, visualizing, and analysing the 
+expression data.
+In this Chapter, we first briefly outline the compendium methodology, then 
+focus on the content of the bacterial compendia and the COLOMBOS access portal. 
+Interested reader can find the detailed description about the methodology in 
+Chapter \ref{ch:command}.
 
 
 
 \section{Methods}
 
-\todo{add some lines to refer to the back-end system for more details}
 
-\subsection{Cross-platform expression compendion creation methodology} 
+\subsection{Cross-platform expression compendium} 
 \label{sec:colombos-comp-method}
 
-The compendia are built in three major steps. The first step is the retrieval 
-of microarray experiments and associated platforms from Gene Expression Omnibus 
-(GEO) and ArrayExpress. Representation discrepancies prevalent in experimental 
-data directly obtained from online databases are systematically removed and the 
-resulting data are then stored as available in a uniform format. `As available' 
-does not necessarily equate to raw scanner output, since there are no MIAME 
-reporting standards regarding the measurement units of expression 
-\cite{Brazma2001, Brazma2009}. Often raw intensities are not provided in the 
-public databases (especially for older experiments), and only already processed 
-data are reported. At this stage probes are also mapped in a platform-specific 
-manner to a unique list of genes which is constructed based on the organism's 
-RefSeq file at NCBI \cite{Pruitt2007} and which corresponds to the rows of the 
-final compendium. If probe sequences are available or can be obtained from the 
-platform description, the mapping is driven by sequence homology searches using 
-BLAST \cite{Altschul1997}. If not, a probe's target gene is identified by other 
-probe info, namely -and in order of preference: locus tags, alternative gene 
-tags, or common gene names.
 
-In a next phase, the condition contrasts that will be represented in the 
-compendium are defined and annotated. Based on their biological role in an 
-experimental survey, hybridizations are labelled `reference' or `test' on a per 
-experiment-and-platform combination basis and matched to produce a set of 
-condition contrasts. For a single channel experiment, one or more 
-hybridizations are chosen as references for the remaining tests. For dual 
-channel experiments, usually one of every two array
-hybridizations serves as a reference to the other, as this inherently counters 
-much probe spot associated variation in the measurements. There are exceptions 
-however, such as when one of the hybridizations on an array does not constitute 
-an identifiable and unique biological condition for which the transcriptome was 
-assessed (e.g. a sample of genomic DNA or a pool of different samples that 
-cannot be considered as biological replicates). These hybridizations are 
-discarded and the experiment is further treated as if it was a single channel 
-experiment. In this way we ensure that every contrast has a biologically 
-interpretable meaning: its associated log-ratios measure changes in expression 
-in response to quantifiable stimuli that are altered from reference to test. 
-Using a set of formal hierarchically structured condition properties 
-(representing for instance mutations, compounds in the growth medium, 
-treatments, and general growth conditions), we can then specify the annotation 
-of each condition contrast rigidly as a vector representing the differences for 
-these property values between the test and reference condition. This 
-representation enables a mathematical comparison and automatic organization of 
-contrasts based on the conditions that are surveyed, but it is a labor 
-intensive manual curation process where information often needs to be retrieved 
-from original publications, supplementary data and occasionally directly from 
-the authors. The condition properties themselves are further structured in a 
-condition ontology tree. This ontology employs the same classes as the Gene 
-Ontology biological process subtree terms \cite{Gene2010} and maps the 
-condition properties used to annotate the condition contrasts to one or more 
-biological processes or functionalities they most likely affect.
+The bacterial compendia are created following the methodology described in 
+Chapter \ref{ch:command}.
+It consists of three main steps designed specifically to remove the 
+aforementioned hurdles that prevent direct data integration.
+First, the gene expression data and the corresponding experiment and platform 
+information are extracted from the experimental data directly obtained from 
+GEO and ArrayExpress, removing the prevalent representation discrepancies in it.
+%
+Next, a contrast is defined between two samples, whose gene expression levels 
+are measured in the same experiment, one as reference and the other as test.
+The annotations are curated for each contrast by carefully analyzing both the 
+information stored in online database and the corresponding publication(s) when 
+available, specifying both the characteristic differences (e.g. the strain 
+information) and the difference in the experimental conditions between the test 
+and reference samples.
+%
+At last, the raw expression data are first normalized per experiment using 
+dedicated procedures that respect the characteristics of the microarray 
+platform used, and subsequently log ratios are calculated for each contrast 
+between its pair of carefully chosen samples, representing genes expression 
+variations caused by the sample difference, the experimental condition 
+difference, or the combination of two.
+The log ratio calculation, capable of removing certain technical variations 
+from the normalized data, inherently improves the data consistency across 
+platforms and experiments \cite{Shi2006, Shi2008}.
+%
+Following our methodology, the compendium created is, \textit{de facto}, a 
+matrix containing log-ratio expression values, in which each row correspond to 
+one gene and each column one contrast.
 
-The final part in the creation of a compendium is the homogenization of the 
-expression data: several preprocessing procedures are conducted to render 
-expression levels comparable between different experiments and platforms. 
-Crucial steps in this preprocessing are array-specific and depend on both the 
-technological platform that was used to perform the experiment, as well as on 
-the reported units of expression and the type of normalizations that might have 
-already been done. In general we adhere to the following principles: 1) 
-whenever possible, raw intensities are preferred as data source over normalized 
-data provided by the public repository, 2) no local background or mismatch 
-probe correction procedures are performed to avoid an increase in intensity 
-error variance for lower, less reliable intensity levels 
-\cite{Ritchie2007,Engelen2006,Li2001}, 3) non-linear normalization techniques 
-are performed to account for global inter-hybridization differences (e.g. loess 
-fit to remove dye-related discrepancies on dual channel arrays \cite{Yang2002}, 
-quantile normalization for high-density oligonucleotide experiments 
-\cite{Bolstad2003}) and 4) log-ratios are created for single-channel data 
-according to the condition contrast definitions and combined with the dual 
-channel measurements.
+
+\todo{providing a table for platform based data breakdown (cross-platform 
+benefit)}
+
+% original colombos section, replaced by above text due to extra chapter of 
+%command
+
+%The compendia are built in three major steps. The first step is the retrieval 
+%of microarray experiments and associated platforms from Gene Expression 
+%Omnibus 
+%(GEO) and ArrayExpress. Representation discrepancies prevalent in experimental 
+%data directly obtained from online databases are systematically removed and 
+%the 
+%resulting data are then stored as available in a uniform format. `As 
+%available' 
+%does not necessarily equate to raw scanner output, since there are no MIAME 
+%reporting standards regarding the measurement units of expression 
+%\cite{Brazma2001, Brazma2009}. Often raw intensities are not provided in the 
+%public databases (especially for older experiments), and only already 
+%processed 
+%data are reported. At this stage probes are also mapped in a platform-specific 
+%manner to a unique list of genes which is constructed based on the organism's 
+%RefSeq file at NCBI \cite{Pruitt2007} and which corresponds to the rows of the 
+%final compendium. If probe sequences are available or can be obtained from the 
+%platform description, the mapping is driven by sequence homology searches 
+%using 
+%BLAST \cite{Altschul1997}. If not, a probe's target gene is identified by 
+%other 
+%probe info, namely -and in order of preference: locus tags, alternative gene 
+%tags, or common gene names.
+%
+%In a next phase, the condition contrasts that will be represented in the 
+%compendium are defined and annotated. Based on their biological role in an 
+%experimental survey, hybridizations are labelled `reference' or `test' on a 
+%per 
+%experiment-and-platform combination basis and matched to produce a set of 
+%condition contrasts. For a single channel experiment, one or more 
+%hybridizations are chosen as references for the remaining tests. For dual 
+%channel experiments, usually one of every two array
+%hybridizations serves as a reference to the other, as this inherently counters 
+%much probe spot associated variation in the measurements. There are exceptions 
+%however, such as when one of the hybridizations on an array does not 
+%constitute 
+%an identifiable and unique biological condition for which the transcriptome 
+%was 
+%assessed (e.g. a sample of genomic DNA or a pool of different samples that 
+%cannot be considered as biological replicates). These hybridizations are 
+%discarded and the experiment is further treated as if it was a single channel 
+%experiment. In this way we ensure that every contrast has a biologically 
+%interpretable meaning: its associated log-ratios measure changes in expression 
+%in response to quantifiable stimuli that are altered from reference to test. 
+%Using a set of formal hierarchically structured condition properties 
+%(representing for instance mutations, compounds in the growth medium, 
+%treatments, and general growth conditions), we can then specify the annotation 
+%of each condition contrast rigidly as a vector representing the differences 
+%for 
+%these property values between the test and reference condition. This 
+%representation enables a mathematical comparison and automatic organization of 
+%contrasts based on the conditions that are surveyed, but it is a labor 
+%intensive manual curation process where information often needs to be 
+%retrieved 
+%from original publications, supplementary data and occasionally directly from 
+%the authors. The condition properties themselves are further structured in a 
+%condition ontology tree. This ontology employs the same classes as the Gene 
+%Ontology biological process subtree terms \cite{Gene2010} and maps the 
+%condition properties used to annotate the condition contrasts to one or more 
+%biological processes or functionalities they most likely affect.
+%
+%The final part in the creation of a compendium is the homogenization of the 
+%expression data: several preprocessing procedures are conducted to render 
+%expression levels comparable between different experiments and platforms. 
+%Crucial steps in this preprocessing are array-specific and depend on both the 
+%technological platform that was used to perform the experiment, as well as on 
+%the reported units of expression and the type of normalizations that might 
+%have 
+%already been done. In general we adhere to the following principles: 1) 
+%whenever possible, raw intensities are preferred as data source over 
+%normalized 
+%data provided by the public repository, 2) no local background or mismatch 
+%probe correction procedures are performed to avoid an increase in intensity 
+%error variance for lower, less reliable intensity levels 
+%\cite{Ritchie2007,Engelen2006,Li2001}, 3) non-linear normalization techniques 
+%are performed to account for global inter-hybridization differences (e.g. 
+%loess 
+%fit to remove dye-related discrepancies on dual channel arrays 
+%\cite{Yang2002}, 
+%quantile normalization for high-density oligonucleotide experiments 
+%\cite{Bolstad2003}) and 4) log-ratios are created for single-channel data 
+%according to the condition contrast definitions and combined with the dual 
+%channel measurements.
 
 
 \subsection{COLOMBOS data analysis tools}
-COLOMBOS also provides a suite of intuitive tools for exploring, visualizing, 
+COLOMBOS provides a suite of intuitive tools for exploring, visualizing, 
 and analysing the expression data in the compendia. The interface is divided in 
 two main sections: a `Workspace panel' to the left and a `Data analysis panel' 
 to the right (Figure \ref{fig:colombos-tools}). The workspace panel is always 
@@ -212,11 +308,11 @@ annotation, or by condition ontology. When specifying only a set of genes,
 COLOMBOS will identify relevant condition contrasts based on the expression 
 values of the selected genes in the compendium (user defined relevance cut-off 
 that prioritizes both the magnitude as well as the consistency of the 
-expression changes; see Supplementary Text S1 for more details \todo{include 
-supplementary information}). Starting from only condition contrasts, COLOMBOS 
-retrieves the most variable genes for the defined contrasts and (as an optional 
-step) can identify clusters of co-expressed genes within this selection, which 
-can be added as distinct modules.
+expression changes; see Section \ref{ch:apd-colombos} for more details). 
+Starting from only condition contrasts, COLOMBOS retrieves the most variable 
+genes for the defined contrasts and (as an optional step) can identify clusters 
+of co-expressed genes within this selection, which can be added as distinct 
+modules.
 
 Once a module is defined, it can be visualized in an interactive manner (with 
 the option to export high-quality images), its expression values and contrast 
@@ -241,7 +337,7 @@ deciding which modules may be grouped or subtracted.
 Note that all of COLOMBOS' calculations, in both creating and editing modules, 
 explicitly take into account the relative nature of the expression values by 
 recognizing 0, implying no change, as the natural reference state of a 
-log-ratio (for details see Supplementary Text S1 \todo{include supplementary}). 
+log-ratio (details in Section \ref{ch:apd-colombos}). 
 Gene profile similarities are calculated by default as the uncentered Pearson 
 correlation, which assumes that the sample means (i.e. the means of two gene 
 expression profiles across a set of condition contrasts) are zero. Standard 
@@ -261,20 +357,20 @@ content).
 These expression compendia are essentially organism-specific matrices of 
 expression values derived from publicly available microarray experiments which 
 are homogenized to make them comparable. The rows of a compendium matrix 
-correspond to the known genes of the organism in question. We refer to the 
-columns as `condition contrasts' because they do not represent single 
-experimental conditions, but in fact always represent the difference between a 
+correspond to the known genes of the organism in question. Each column is a 
+`condition contrast' because it does not represent single experimental 
+condition, but in fact always represent the difference between a 
 test and reference condition (the expression values themselves are calculated 
 as expression log-ratios). Converting absolute measures of expression into 
 expression changes is the principal means for rendering expression values 
 comparable across platforms and experiments. Relative expression calculated 
-intra-experiment/platform (i.e. between two conditions measured for the same 
-microarray experiment and platform) negates much of the platform and experiment 
-specific variations that makes it impossible to reliably compare the absolute 
-quantities reported in different experiments \cite{Shi2006}.
+intra-experiment/platform (i.e. between two conditions measured in the same 
+microarray experiment using one platform) negates much of the platform and 
+experiment specific variations that makes it impossible to reliably compare the 
+absolute quantities reported in different experiments \cite{Shi2006}.
 
 
-\todo{Update the data to version 2}
+\todo{[colombos]Update the data to version 2}
 \begin{table}
 	\caption{An overview of the content of the three expression compendia that can be accessed through COLOMBOS}
 	\label{tab:colTB-overview}
@@ -476,8 +572,8 @@ While the retrieval of already known Fur regulon genes combined with a set of li
 
 
 
-\section{Conclusions and future directions}\todo{Move future directions into 
-the last chapter}
+\section{Conclusions and future directions}\todo{[colombos]Move future 
+directions into the last chapter}
 
 \begin{sidewaystable}
 	\centering
@@ -625,7 +721,7 @@ compendia's expression data.
 
 
 
-\section{Acknowledgements}\todo{move to preface}
+\section{Acknowledgements}\todo{[colombos]move to preface}
 We would like to thank Lore Cloots, Inge Thijs, Ivan Ischukov, Daniel Ryan, and Steven Oeyen for their valuable comments. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
