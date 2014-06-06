@@ -1,3 +1,378 @@
+@ARTICLE{Luo2010,
+  ABSTRACT = {Batch effects are the systematic non-biological differences 
+  between batches (groups) of samples in microarray experiments due to various 
+  causes such as differences in sample preparation and hybridization protocols. 
+  Previous work focused mainly on the development of methods for effective 
+  batch effects removal. However, their impact on cross-batch prediction 
+  performance, which is one of the most important goals in microarray-based 
+  applications, has not been addressed. This paper uses a broad selection of 
+  data sets from the Microarray Quality Control Phase II (MAQC-II) effort, 
+  generated on three microarray platforms with different causes of batch 
+  effects to assess the efficacy of their removal. Two data sets from 
+  cross-tissue and cross-platform experiments are also included. Of the 120 
+  cases studied using Support vector machines (SVM) and K nearest neighbors 
+  (KNN) as classifiers and Matthews correlation coefficient (MCC) as 
+  performance metric, we find that Ratio-G, Ratio-A, EJLR, mean-centering and 
+  standardization methods perform better or equivalent to no batch effect 
+  removal in 89, 85, 83, 79 and 75\% of the cases, respectively, suggesting 
+  that the application of these methods is generally advisable and ratio-based 
+  methods are preferred.},
+  AUTHOR   = {Luo, J and Schumacher, M and Scherer, A and Sanoudou, D and 
+  Megherbi, D and Davison, T and Shi, T and Tong, W and Shi, L and Hong, H and 
+  Zhao, C and Elloumi, F and Shi, W and Thomas, R and Lin, S and Tillinghast, G 
+  and Liu, G and Zhou, Y and Herman, D and Li, Y and Deng, Y and Fang, H and 
+  Bushel, P and Woods, M and Zhang, J},
+  JOURNAL  = {The pharmacogenomics journal},
+  MONTH    = {08},
+  NUMBER   = {4},
+  PAGES    = {278--91},
+  TITLE    = {{A comparison of batch effect removal methods for enhancement of 
+  prediction performance using MAQC-II microarray gene expression data.}},
+  VOLUME   = {10},
+  YEAR     = {2010},
+}
+
+@ARTICLE{Welsh2013,
+  ABSTRACT = {BACKGROUND: Many gene expression normalization algorithms exist 
+  for Affymetrix GeneChip microarrays. The most popular of these is RMA, 
+  primarily due to the precision and low noise produced during the process. A 
+  significant strength of this and similar approaches is the use of the entire 
+  set of arrays during both normalization and model-based estimation of signal. 
+  However, this leads to differing estimates of expression based on the 
+  starting set of arrays, and estimates can change when a single, additional 
+  chip is added to the set. Additionally, outlier chips can impact the signals 
+  of other arrays, and can themselves be skewed by the majority of the 
+  population. RESULTS: We developed an approach, termed IRON, which uses the 
+  best-performing techniques from each of several popular processing methods 
+  while retaining the ability to incrementally renormalize data without 
+  altering previously normalized expression. This combination of approaches 
+  results in a method that performs comparably to existing approaches on 
+  artificial benchmark datasets (i.e. spike-in) and demonstrates promising 
+  improvements in segregating true signals within biologically complex 
+  experiments. CONCLUSIONS: By combining approaches from existing normalization 
+  techniques, the IRON method offers several advantages. First, IRON 
+  normalization occurs pair-wise, thereby avoiding the need for all chips to be 
+  normalized together, which can be important for large data analyses. 
+  Secondly, the technique does not require similarity in signal distribution 
+  across chips for normalization, which can be important for maintaining 
+  biologically relevant differences in a heterogeneous background. Lastly, IRON 
+  introduces fewer post-processing artifacts, particularly in data whose 
+  behavior violates common assumptions. Thus, the IRON method provides a 
+  practical solution to common needs of expression analysis. A software 
+  implementation of IRON is available at [http://gene.moffitt.org/libaffy/].},
+  AUTHOR   = {Welsh, Eric a and Eschrich, Steven a and Berglund, Anders E and 
+  Fenstermacher, David a},
+  JOURNAL  = {BMC bioinformatics},
+  MONTH    = {01},
+  PAGES    = {153},
+  TITLE    = {{Iterative rank-order normalization of gene expression microarray 
+  data.}},
+  VOLUME   = {14},
+  YEAR     = {2013},
+}
+
+@ARTICLE{Choe2005,
+  ABSTRACT = {BACKGROUND: As more methods are developed to analyze 
+  RNA-profiling data, assessing their performance using control datasets 
+  becomes increasingly important. RESULTS: We present a 'spike-in' experiment 
+  for Affymetrix GeneChips that provides a defined dataset of 3,860 RNA 
+  species, which we use to evaluate analysis options for identifying 
+  differentially expressed genes. The experimental design incorporates two 
+  novel features. First, to obtain accurate estimates of false-positive and 
+  false-negative rates, 100-200 RNAs are spiked in at each fold-change level of 
+  interest, ranging from 1.2 to 4-fold. Second, instead of using an 
+  uncharacterized background RNA sample, a set of 2,551 RNA species is used as 
+  the constant (1x) set, allowing us to know whether any given probe set is 
+  truly present or absent. Application of a large number of analysis methods to 
+  this dataset reveals clear variation in their ability to identify 
+  differentially expressed genes. False-negative and false-positive rates are 
+  minimized when the following options are chosen: subtracting nonspecific 
+  signal from the PM probe intensities; performing an intensity-dependent 
+  normalization at the probe set level; and incorporating a signal 
+  intensity-dependent standard deviation in the test statistic. CONCLUSIONS: A 
+  best-route combination of analysis methods is presented that allows detection 
+  of approximately 70\% of true positives before reaching a 10\% 
+  false-discovery rate. We highlight areas in need of improvement, including 
+  better estimate of false-discovery rates and decreased false-negative rates.},
+  AUTHOR   = {Choe, Sung E and Boutros, Michael and Michelson, Alan M and 
+  Church, George M and Halfon, Marc S},
+  JOURNAL  = {Genome biology},
+  MONTH    = {01},
+  NUMBER   = {2},
+  PAGES    = {R16},
+  TITLE    = {{Preferred analysis methods for Affymetrix GeneChips revealed by 
+  a wholly defined control dataset.}},
+  VOLUME   = {6},
+  YEAR     = {2005},
+}
+
+@ARTICLE{Hubbell2002,
+  ABSTRACT = {MOTIVATION: We consider the problem of estimating values associated with gene expression from oligonucleotide arrays. Such estimates should linearly track concentration, yield non-negative results, have statistical guarantees of robustness against outliers, and allow estimates of significance and variance. RESULTS: A hierarchy of simple models is used to design robust estimators meeting these goals for both stand alone and comparative experiments. This algorithm has been validated against an extensive panel of known spike experiments, and shows comparable performance to existing standards.},
+  AUTHOR   = {Hubbell, Earl and Liu, Wei-min and Mei, Rui},
+  JOURNAL  = {Bioinformatics (Oxford, England)},
+  MONTH    = {12},
+  NUMBER   = {12},
+  PAGES    = {1585--92},
+  TITLE    = {{Robust estimators for expression analysis.}},
+  VOLUME   = {18},
+  YEAR     = {2002},
+}
+
+@ARTICLE{Laule2006,
+  ABSTRACT = {Gene function analysis often requires a complex and laborious 
+  sequence of laboratory and computer-based experiments. Choosing an effective 
+  experimental design generally results from hypotheses derived from prior 
+  knowledge or experimentation. Knowledge obtained from meta-analyzing 
+  compendia of expression data with annotation libraries can provide 
+  significant clues in understanding gene and network function, resulting in 
+  better hypotheses that can be tested in the laboratory.},
+  AUTHOR   = {Laule, Oliver and Hirsch-Hoffmann, Matthias and Hruz, Tomas and 
+  Gruissem, Wilhelm and Zimmermann, Philip},
+  JOURNAL  = {BMC bioinformatics},
+  MONTH    = {01},
+  PAGES    = {311},
+  TITLE    = {{Web-based analysis of the mouse transcriptome using 
+  Genevestigator.}},
+  VOLUME   = {7},
+  YEAR     = {2006},
+}
+
+@ARTICLE{Irizarry2006,
+  ABSTRACT = {MOTIVATION: In the Affymetrix GeneChip system, preprocessing 
+  occurs before one obtains expression level measurements. Because the number 
+  of competing preprocessing methods was large and growing we developed a 
+  benchmark to help users identify the best method for their application. A 
+  webtool was made available for developers to benchmark their procedures. At 
+  the time of writing over 50 methods had been submitted. RESULTS: We 
+  benchmarked 31 probe set algorithms using a U95A dataset of spike in 
+  controls. Using this dataset, we found that background correction, one of the 
+  main steps in preprocessing, has the largest effect on performance. In 
+  particular, background correction appears to improve accuracy but, in 
+  general, worsen precision. The benchmark results put this balance in 
+  perspective. Furthermore, we have improved some of the original benchmark 
+  metrics to provide more detailed information regarding precision and 
+  accuracy. A handful of methods stand out as providing the best balance using 
+  spike-in data with the older U95A array, although different experiments on 
+  more current arrays may benchmark differently. AVAILABILITY: The affycomp 
+  package, now version 1.5.2, continues to be available as part of the 
+  Bioconductor project (http://www.bioconductor.org). The webtool continues to 
+  be available at http://affycomp.biostat.jhsph.edu CONTACT: rafa@jhu.edu 
+  SUPPLEMENTARY INFORMATION: Supplementary data are available at Bioinformatics 
+  online.},
+  AUTHOR   = {Irizarry, Rafael a and Wu, Zhijin and Jaffee, Harris a},
+  JOURNAL  = {Bioinformatics (Oxford, England)},
+  MONTH    = {04},
+  NUMBER   = {7},
+  PAGES    = {789--94},
+  TITLE    = {{Comparison of Affymetrix GeneChip expression measures.}},
+  VOLUME   = {22},
+  YEAR     = {2006},
+}
+
+@ARTICLE{Altschul1990,
+  ABSTRACT  = {A new approach to rapid sequence comparison, basic local 
+  alignment search tool (BLAST), directly approximates alignments that optimize 
+  a measure of local similarity, the maximal segment pair (MSP) score. Recent 
+  mathematical results on the stochastic properties of MSP scores allow an 
+  analysis of the performance of this method as well as the statistical 
+  significance of alignments it generates. The basic algorithm is simple and 
+  robust; it can be implemented in a number of ways and applied in a variety of 
+  contexts including straightforward DNA and protein sequence database 
+  searches, motif searches, gene identification searches, and in the analysis 
+  of multiple regions of similarity in long DNA sequences. In addition to its 
+  flexibility and tractability to mathematical analysis, BLAST is an order of 
+  magnitude faster than existing sequence comparison tools of comparable 
+  sensitivity.},
+  AUTHOR    = {Altschul, S F and Gish, W and Miller, W and Myers, E W and 
+  Lipman, D J},
+  JOURNAL   = {Journal of Molecular Biology},
+  NUMBER    = {3},
+  PAGES     = {403--410},
+  PUBLISHER = {Elsevier},
+  TITLE     = {{Basic local alignment search tool}},
+  VOLUME    = {215},
+  YEAR      = {1990},
+}
+
+@ARTICLE{Rayner2006,
+  ABSTRACT = {BACKGROUND: Sharing of microarray data within the research 
+  community has been greatly facilitated by the development of the disclosure 
+  and communication standards MIAME and MAGE-ML by the MGED Society. However, 
+  the complexity of the MAGE-ML format has made its use impractical for 
+  laboratories lacking dedicated bioinformatics support. RESULTS: We propose a 
+  simple tab-delimited, spreadsheet-based format, MAGE-TAB, which will become a 
+  part of the MAGE microarray data standard and can be used for annotating and 
+  communicating microarray data in a MIAME compliant fashion. CONCLUSION: 
+  MAGE-TAB will enable laboratories without bioinformatics experience or 
+  support to manage, exchange and submit well-annotated microarray data in a 
+  standard format using a spreadsheet. The MAGE-TAB format is self-contained, 
+  and does not require an understanding of MAGE-ML or XML.},
+  AUTHOR   = {Rayner, Tim F and Rocca-Serra, Philippe and Spellman, Paul T and 
+  Causton, Helen C and Farne, Anna and Holloway, Ele and Irizarry, Rafael a and 
+  Liu, Junmin and Maier, Donald S and Miller, Michael and Petersen, Kjell and 
+  Quackenbush, John and Sherlock, Gavin and Stoeckert, Christian J and White, 
+  Joseph and Whetzel, Patricia L and Wymore, Farrell and Parkinson, Helen and 
+  Sarkans, Ugis and Ball, Catherine a and Brazma, Alvis},
+  JOURNAL  = {BMC bioinformatics},
+  MONTH    = {01},
+  PAGES    = {489},
+  TITLE    = {{A simple spreadsheet-based, MIAME-supportive format for 
+  microarray data: MAGE-TAB.}},
+  VOLUME   = {7},
+  YEAR     = {2006},
+}
+
+@ARTICLE{Brazma2003,
+  AUTHOR  = {Brazma, a.},
+  JOURNAL = {Nucleic Acids Research},
+  MONTH   = {01},
+  NUMBER  = {1},
+  PAGES   = {68--71},
+  TITLE   = {{ArrayExpress--a public repository for microarray gene expression 
+  data at the EBI}},
+  VOLUME  = {31},
+  YEAR    = {2003},
+}
+
+@ARTICLE{Edgar2002,
+  ABSTRACT = {The Gene Expression Omnibus (GEO) project was initiated in 
+  response to the growing demand for a public repository for high-throughput 
+  gene expression data. GEO provides a flexible and open design that 
+  facilitates submission, storage and retrieval of heterogeneous data sets from 
+  high-throughput gene expression and genomic hybridization experiments. GEO is 
+  not intended to replace in house gene expression databases that benefit from 
+  coherent data sets, and which are constructed to facilitate a particular 
+  analytic method, but rather complement these by acting as a tertiary, central 
+  data distribution hub. The three central data entities of GEO are platforms, 
+  samples and series, and were designed with gene expression and genomic 
+  hybridization experiments in mind. A platform is, essentially, a list of 
+  probes that define what set of molecules may be detected. A sample describes 
+  the set of molecules that are being probed and references a single platform 
+  used to generate its molecular abundance data. A series organizes samples 
+  into the meaningful data sets which make up an experiment. The GEO repository 
+  is publicly accessible through the World Wide Web at 
+  http://www.ncbi.nlm.nih.gov/geo.},
+  AUTHOR   = {Edgar, Ron and Domrachev, Michael and Lash, Alex E},
+  JOURNAL  = {Nucleic acids research},
+  MONTH    = {01},
+  NUMBER   = {1},
+  PAGES    = {207--10},
+  TITLE    = {{Gene Expression Omnibus: NCBI gene expression and hybridization 
+  array data repository.}},
+  VOLUME   = {30},
+  YEAR     = {2002},
+}
+
+@ARTICLE{Hruz2008,
+  ABSTRACT = {The Web-based software tool Genevestigator provides powerful 
+  tools for biologists to explore gene expression across a wide variety of 
+  biological contexts. Its first releases, however, were limited by the scaling 
+  ability of the system architecture, multiorganism data storage and analysis 
+  capability, and availability of computationally intensive analysis methods. 
+  Genevestigator V3 is a novel meta-analysis system resulting from new 
+  algorithmic and software development using a client/server architecture, 
+  large-scale manual curation and quality control of microarray data for 
+  several organisms, and curation of pathway data for mouse and Arabidopsis. In 
+  addition to improved querying features, Genevestigator V3 provides new tools 
+  to analyze the expression of genes in many different contexts, to identify 
+  biomarker genes, to cluster genes into expression modules, and to model 
+  expression responses in the context of metabolic and regulatory networks. 
+  Being a reference expression database with user-friendly tools, 
+  Genevestigator V3 facilitates discovery research and hypothesis validation.},
+  AUTHOR   = {Hruz, Tomas and Laule, Oliver and Szabo, Gabor and Wessendorp, 
+  Frans and Bleuler, Stefan and Oertle, Lukas and Widmayer, Peter and Gruissem, 
+  Wilhelm and Zimmermann, Philip},
+  JOURNAL  = {Advances in bioinformatics},
+  MONTH    = {01},
+  PAGES    = {420747},
+  TITLE    = {{Genevestigator v3: a reference expression database for the 
+  meta-analysis of transcriptomes.}},
+  VOLUME   = {2008},
+  YEAR     = {2008},
+}
+
+@ARTICLE{Zimmermann2004,
+  ABSTRACT = {High-throughput gene expression analysis has become a frequent 
+  and powerful research tool in biology. At present, however, few software 
+  applications have been developed for biologists to query large microarray 
+  gene expression databases using a Web-browser interface. We present 
+  GENEVESTIGATOR, a database and Web-browser data mining interface for 
+  Affymetrix GeneChip data. Users can query the database to retrieve the 
+  expression patterns of individual genes throughout chosen environmental 
+  conditions, growth stages, or organs. Reversely, mining tools allow users to 
+  identify genes specifically expressed during selected stresses, growth 
+  stages, or in particular organs. Using GENEVESTIGATOR, the gene expression 
+  profiles of more than 22,000 Arabidopsis genes can be obtained, including 
+  those of 10,600 currently uncharacterized genes. The objective of this 
+  software application is to direct gene functional discovery and design of new 
+  experiments by providing plant biologists with contextual information on the 
+  expression of genes. The database and analysis toolbox is available as a 
+  community resource at https://www.genevestigator.ethz.ch.},
+  AUTHOR   = {Zimmermann, Philip and Hirsch-Hoffmann, Matthias and Hennig, Lars 
+  and Gruissem, Wilhelm},
+  JOURNAL  = {Plant physiology},
+  MONTH    = {09},
+  NUMBER   = {1},
+  PAGES    = {2621--32},
+  TITLE    = {{GENEVESTIGATOR. Arabidopsis microarray database and analysis 
+  toolbox.}},
+  VOLUME   = {136},
+  YEAR     = {2004},
+}
+
+@ARTICLE{Li2001,
+  ABSTRACT = {Recent advances in cDNA and oligonucleotide DNA arrays have made 
+  it possible to measure the abundance of mRNA transcripts for many genes 
+  simultaneously. The analysis of such experiments is nontrivial because of 
+  large data size and many levels of variation introduced at different stages 
+  of the experiments. The analysis is further complicated by the large 
+  differences that may exist among different probes used to interrogate the 
+  same gene. However, an attractive feature of high-density oligonucleotide 
+  arrays such as those produced by photolithography and inkjet technology is 
+  the standardization of chip manufacturing and hybridization process. As a 
+  result, probe-specific biases, although significant, are highly reproducible 
+  and predictable, and their adverse effect can be reduced by proper modeling 
+  and analysis methods. Here, we propose a statistical model for the 
+  probe-level data, and develop model-based estimates for gene expression 
+  indexes. We also present model-based methods for identifying and handling 
+  cross-hybridizing probes and contaminating array regions. Applications of 
+  these results will be presented elsewhere.},
+  AUTHOR   = {Li, Cheng and Wong, Wing Hung},
+  JOURNAL  = {Proceedings of the National Academy of Sciences of the United 
+  States of America},
+  MONTH    = {01},
+  NUMBER   = {1},
+  PAGES    = {31--6},
+  TITLE    = {{Model-based analysis of oligonucleotide arrays: expression index 
+  computation and outlier detection.}},
+  VOLUME   = {98},
+  YEAR     = {2001},
+}
+
+@ARTICLE{Irizarry2003,
+  ABSTRACT = {High density oligonucleotide array technology is widely used in 
+  many areas of biomedical research for quantitative and highly parallel 
+  measurements of gene expression. Affymetrix GeneChip arrays are the most 
+  popular. In this technology each gene is typically represented by a set of 
+  11-20 pairs of probes. In order to obtain expression measures it is necessary 
+  to summarize the probe level data. Using two extensive spike-in studies and a 
+  dilution study, we developed a set of tools for assessing the effectiveness 
+  of expression measures. We found that the performance of the current version 
+  of the default expression measure provided by Affymetrix Microarray Suite can 
+  be significantly improved by the use of probe level summaries derived from 
+  empirically motivated statistical models. In particular, improvements in the 
+  ability to detect differentially expressed genes are demonstrated.},
+  AUTHOR   = {Irizarry, Rafael A and Bolstad, Benjamin M and Collin, Francois 
+  and Cope, Leslie M and Hobbs, Bridget and Speed, Terence P},
+  JOURNAL  = {Nucleic acids research},
+  MONTH    = {02},
+  NUMBER   = {4},
+  PAGES    = {e15},
+  TITLE    = {{Summaries of Affymetrix GeneChip probe level data.}},
+  VOLUME   = {31},
+  YEAR     = {2003},
+}
+
 @ARTICLE{Shi2008,
   ABSTRACT    = {Background: Reproducibility is a fundamental requirement in 
   scientific experiments. Some recent publications have claimed that 
