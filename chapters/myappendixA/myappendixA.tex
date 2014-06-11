@@ -1,54 +1,54 @@
 \chapter{Appendix A: expression compendium exploration 
 functionalities}\label{ch:apd-colombos}
 
-\ldots
-
 \instructionsappendices
 
+COLOMBOS provides rich functionalities to create and/or edit
+expression 'modules'. In chapter \ref{ch:distiller}, we explored the
+option that let COLOMBOS automatically identify relevantx contrasts
+based on the user specified query gene(s).
+%
+Alternatively one can also specify the conditions in interests and
+letting COLOMBOS automatically identify the genes that are
+over-expressed or under-expressed in them.  Furthermore, it is also
+possible to maintain the full control by specifying both the genes and
+the conditions in interests in order to check the behavior logged in
+the existing experimental data.
 
-%\label{apd:colombos}
+When specifying genes of interests, apart from manually inputting gene
+information, one can also select genes based on other annotations
+obtained from public databases, such as the transcription factor or
+sigma factor that regulates the gene’s transcription
+(\cite{Gama-Castro2008}), the pathway a gene belongs to
+(\cite{Karp2005}), or the transcription unit a gene belongs to
+(\cite{Karp2005}).  These functionalities are available as options in
+the gene selection section of the module creation panel.
 
-COLOMBOS provides rich functionalities to create and/or edit expression 
-'modules'. In chapter \ref{ch:distiller}, we explored the option that let 
-COLOMBOS automatically identify relevant condition contrasts based on 
-the user specified query gene(s).  Alternatively one can also 
-specify the conditions in interests and letting COLOMBOS automatically identify 
-the genes that are over-expressed or under-expressed in them. Furthermore, it 
-is also possible to maintain the full control by specifying both the genes and 
-the conditions in interests in order to check the behavior logged in the 
-existing experimental data.
-
-When specifying genes of interests, apart from manually inputting gene 
-information, one can also select genes based on other annotations obtained from 
-public databases, such as the transcription factor or sigma factor that 
-regulates the gene’s transcription (\cite{Gama-Castro2008}), the pathway a gene 
-belongs to (\cite{Karp2005}), or the transcription unit a gene belongs to 
-(\cite{Karp2005}). 
-These functionalities are available as options in the gene selection section 
-of the module creation panel. 
-
-Additionally, several alternative functions are provided to choose the 
-condition contrasts besides the condition selection based on expression values 
-as used here. In case one is interested in specific experiments, one can select 
-them directly. When a user is interested in specific types of condition 
-properties, a condition hierarchy is available. The properties are grouped into 
-4 major categories: Genomic, Growth, Medium, and Treatment. Subcategories exist 
-under each major category to further classify them. This functionality can be 
-reached through option `By annotation' in the condition selection section 
-of the module creation panel. One can also use the condition 
-property ontology in a similar way by selecting `By ontology' in the condition 
+Additionally, several alternative functions are provided to choose the
+contrasts besides the condition selection based on expression values
+as used here. In case one is interested in specific experiments, one
+can select them directly. When a user is interested in specific types
+of condition properties, a condition hierarchy is available. The
+properties are grouped into 4 major categories: Genomic, Growth,
+Medium, and Treatment.  Subcategories exist under each major category
+to further classify them.  This functionality can be reached through
+option `By annotation' in the condition selection section of the
+module creation panel.  One can also use the condition property
+ontology in a similar way by selecting `By ontology' in the condition
 selection section.
 
-For automatic expression value based contrasts or genes selection procedures, 
-the calculations used to score relevance of a contrast for 
-a set of genes, similarity of genes across a set of contrasts, or variability 
-of a gene across a set of contrasts, are explained in the following sections.  
-In addition, we also explained the enrichment calculation, the user module data 
-exportation, and the advantages for the registered users here.
+For automatic expression value based contrasts or genes selection
+procedures, the calculations used to score the relevance of a contrast
+for a set of genes, the similarity of genes across a set of contrasts,
+the variability of a gene across a set of contrasts, and the Gene
+Ontology term enrichment are explained in this section.
+%% In addition, we also explained the enrichment calculation,
+%% the user module data exportation, and the advantages for the
+%% registered users here.
 
-Even more options are available when the user modifies an existing 
-module. To check all available functionalities, we refer the online manual of 
-COLOMBOS.
+Even more options are available when the user modifies an existing
+module.  To check all available functionalities, we refer the online
+help section available at COLOMBOS site.
 
 
 
@@ -162,34 +162,38 @@ The GO (Gene Ontology) enrichment $p$-value is calculated based on a
 chance of a GO term appearing in a random gene set having the same number of 
 genes as the module in comparison, and the more significant a GO term is 
 enriched in the module.
+%
 \todo{[apdxA]Add formula and brief explanations here}
 
-\section{User module data export}\label{apd:data-download}
 
-Once a module is created, it can be exported in the format described 
-in Section \ref{sec:dist-format-col}. 
-To do so first click the module in the workspace to show its 
-overview tab. 
-Then click the `download' button located at the up right corner of 
-this tab to show the download window. 
-This automatically sends a request to the server to generate the data file for 
-the current module. 
-When ready, a link to the generated data file will appear in the window. 
-User can click it to save the module data.
+%% ------------  Following two sections removed, not so relevant ...  [201406]
+
+%% \section{User module data export}\label{apd:data-download}
+
+%% Once a module is created, it can be exported in the format described 
+%% in Section \ref{sec:dist-format-col}. 
+%% To do so first click the module in the workspace to show its 
+%% overview tab. 
+%% Then click the `download' button located at the up right corner of 
+%% this tab to show the download window. 
+%% This automatically sends a request to the server to generate the data file for 
+%% the current module. 
+%% When ready, a link to the generated data file will appear in the window. 
+%% User can click it to save the module data.
 
 
-\section{Registered users}\label{apd:colombos-user}\todo{[apdxA]extend and 
-update 
-it}
+%% \section{Registered users}\label{apd:colombos-user}\todo{[apdxA]extend and 
+%% update 
+%% it}
 
-An anonymous user can use the analysis interface without logging in, but the 
-data generated will be lost when the webpage is closed. A registered user has 
-the advantage of being able to save the workspace, and load it again any other 
-time when logged in. It takes only two steps to create a new user. After 
-logging in, the `Data' menu in the workspace panel will have items 
-`Load', `Save', and `Save As' enabled.
+%% An anonymous user can use the analysis interface without logging in, but the 
+%% data generated will be lost when the webpage is closed. A registered user has 
+%% the advantage of being able to save the workspace, and load it again any other 
+%% time when logged in. It takes only two steps to create a new user. After 
+%% logging in, the `Data' menu in the workspace panel will have items 
+%% `Load', `Save', and `Save As' enabled.
 
-\todo{[apdxA]user information and workspace management panel}
+%% \todo{[apdxA]user information and workspace management panel}
 
 
 
