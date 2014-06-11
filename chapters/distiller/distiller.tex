@@ -131,33 +131,61 @@ condition dependent way from large-scale expression compendia.
 
 \subsection{Cross platform expression compendium}\label{sec:dist-comp} 
 
-The cross platform expression compendium consists of a large amount of publicly 
-available microarrays derived from different platforms (e.g. cDNA microarrays, 
-Affymetrix). 
-Data were normalized to remove cross platform differences and 
-experimental conditions were annotated in a formal manner (see Section 
-\ref{sec:colombos-comp}).
-The expression data are presented as expression log ratios of measurements in a 
-test condition versus a reference condition.
-A \textit{condition contrast} is the set of all 
-genes' expression log ratios, each of which represents the log ratio of a 
-gene's expression values obtained in one particular experiment for which a test 
-is compared to a reference conditions. 
-The condition annotations of each contrast thus indicate which aspect(s) 
-(experimental conditions) has/have been changed between the test and reference 
-samples.  
-Please refer Section \ref{sec:colombos-comp} for more details about 
-the compendium and its condition annotations.
+An expression compendium is essentially an organism-specific matrix of
+expression values derived from publicly available microarray experiments which
+are homogenized to make them comparable. The rows of the matrix correspond to
+the known genes of the organism in question.
+%
+Each column is a \textit{contrast} defined as a comparison between two different
+biological samples, one acting as a test and the other as a reference.
+%
+The expression values are calculated as expression log-ratios representing gene
+expression changes induced by the difference between samples.
+%
+Relative expression calculated intra-experiment/platform (i.e. between two
+conditions measured in the same microarray experiment using one platform)
+negates much of the platform and experiment specific variations that makes it
+impossible to reliably compare the absolute quantities reported in different
+experiments \cite{Shi2006}.
+%
+The extensive annotations are manually curated for each contrast, specifying
+which aspect(s) (experimental conditions) has/have been changed between the test
+and reference samples.
+%
+The methodology utilized to create such a compendium is explained in details in
+Chapter \ref{ch:command},
+\todo{REWRITTEN}
 
-The \textit{Escherichia coli} compendium used in here  
-contains 1429 condition contrasts obtained from 1747 microarrays of 84 
-experiments across 35 platforms, covering the expression profiles of 4295 genes 
-under various conditions annotated by 242 different condition properties 
-grouped under 56 condition ontology terms.
-Furthermore, several sources of gene information from main curated databases 
-are integrated into the compendium as well, such as, the pathway and operon 
-information from EcoCyc \cite{Keseler2009}, the Gene Ontology annotation from 
-UniProt GOA \cite{Camon2004}, and the regulon information from RegulonDB 
+%% The cross platform expression compendium consists of a large amount of publicly 
+%% available microarrays derived from different platforms (e.g. cDNA microarrays, 
+%% Affymetrix). 
+%% Data were normalized to remove cross platform differences and 
+%% experimental conditions were annotated in a formal manner (see Section 
+%% \ref{sec:colombos-comp}).
+%% The expression data are presented as expression log ratios of measurements in a 
+%% test condition versus a reference condition.
+%% A \textit{condition contrast} is the set of all 
+%% genes' expression log ratios, each of which represents the log ratio of a 
+%% gene's expression values obtained in one particular experiment for which a test 
+%% is compared to a reference conditions. 
+%% The condition annotations of each contrast thus indicate which aspect(s) 
+%% (experimental conditions) has/have been changed between the test and reference 
+%% samples.  
+%% Please refer Section \ref{sec:colombos-comp} for more details about 
+%% the compendium and its condition annotations.
+
+
+
+The \textit{Escherichia coli} compendium used in here contains 1429 condition
+contrasts obtained from 1747 microarrays of 84 experiments across 35 platforms,
+covering the expression profiles of 4295 genes under various conditions
+annotated by 242 different condition properties grouped under 56 condition
+ontology terms.
+%
+Furthermore, several sources of gene information from main curated databases are
+integrated into the compendium as well, such as, the pathway and operon
+information from EcoCyc \cite{Keseler2009}, the Gene Ontology annotation from
+UniProt GOA \cite{Camon2004}, and the regulon information from RegulonDB
 \cite{Gama-Castro2008}. (see Table \ref{tab:colTB-overview})
 
 %The condition annotation is specified using a set of formal condition 
@@ -201,41 +229,47 @@ in the organism's intra- or extracellular environment. This is called
 \textit{coexpression}. The evidence of coexpression points to a functional 
 relationship between coexpressed genes, and might sometimes be an indication of 
 shared regulatory programs. 
-Such a functional relatedness is only enforced when 
-coexpression occurs across multiple different conditions. Since each value in 
-our data set does not represent an absolute measure of expression, but rather a 
-relative one associated to a condition contrast (test versus reference), 
-coexpression in this case translates to genes showing log ratios that are 
-significantly different from zero for at least one condition contrast, and for 
-each of the involved contrasts show coherent changes in the same direction 
-(either up or down). Both methods that we apply in this chapter, COLOMBOS and 
-DISTILLER, employ different computations to score this coexpression, but 
-essentially look for the same phenomenon.
+%
+Such a functional relatedness is only enforced when coexpression occurs across
+multiple different conditions. Since each value in our data set does not
+represent an absolute measure of expression, but rather a relative one
+associated to a contrast (test versus reference), coexpression in this case
+translates to genes showing log ratios that are significantly different from
+zero for at least one condition contrast, and for each of the involved contrasts
+show coherent changes in the same direction (either up or down).
+%
+The methods, COLOMBOS and DISTILLER, demonstrated in this chapter employ
+different computations to score this coexpression, but essentially look for the
+same phenomenon.
 
-Notice that genes are only coexpressed under certain condition contrasts. This 
-combined set of genes and condition contrasts, where the coexpression pattern 
-appears, is what we refer to here as a \textit{module}. Extra constraints can 
-be used to tune the module concept for specific purposes. For example, the 
-requirement could be added that genes in the module should have some (known) 
-motifs in common.
+Genes are only coexpressed under certain condition contrasts. This combined set
+of genes and condition contrasts, where the coexpression pattern appears, is
+what we refer to as a \textit{module}. Extra constraints can be used to tune the
+module concept for specific purposes. For example, extra requirements could be
+added that genes in the module should have (known) motif(s) in common.
 
 
 \subsection{COLOMBOS}
-COLOMBOS, an acronym for \textit{COLections Of Micrcroarrays for Bacterial 
-OrganismS}, is a web service \cite{COLOMBOS} (Fig. \ref{fig:colombos}) for 
-interactively exploring, querying, analyzing and visualizing data from cross 
-platform expression compendia through an intuitive interface. 
-Currently it 
-provides the possibility to query expression compendia based on the annotation 
-of their experimental condition contrasts and/or genes. COLOMBOS can be used 
-for instance to search for genes being coexpressed with one or more genes of 
-interest under a pre-specified set of condition contrasts, or to search for the 
-condition contrasts in an expression compendium under which a pre-specified 
-gene set is coexpressed. As such, it can identify coexpression modules based on 
-user input. In COLOMBOS, modules can be visualized as interactive heatmaps, 
-showing the annotation of genes and condition contrasts as obtained from public 
-databases and corresponding literature. More details of COLOMBOS are discussed 
-in Chapter \ref{ch:colombos}.
+
+COLOMBOS, an acronym for \textit{COLections Of Micrcroarrays for Bacterial
+  OrganismS}, is a web service \cite{COLOMBOS, Meysman2014}
+(Fig. \ref{fig:colombos}) for interactively exploring, querying, analyzing and
+visualizing data from cross platform expression compendia through an intuitive
+interface.
+%
+Currently it provides the possibility to query expression compendia based on the
+annotation of their contrasts and/or genes.
+%
+This service can be used, for instance, to search for genes being coexpressed
+with one or more genes of interest under a pre-specified set of condition
+contrasts, or to search for the condition contrasts in an expression compendium
+under which a pre-specified gene set is coexpressed. As such, it can identify
+coexpression modules based on user input.
+%
+In COLOMBOS, modules can be visualized as interactive heatmaps, showing the
+annotation of genes and condition contrasts as obtained from public databases
+and corresponding literature. More details of COLOMBOS are discussed in Chapter
+\ref{ch:colombos}.
 
 \begin{figure}[tb]
 	\centering
@@ -249,90 +283,99 @@ in Chapter \ref{ch:colombos}.
 	\label{fig:colombos}
 \end{figure}
 
-Currently COLOMBOS (v1.0) runs on three browsers: Firefox, Google Chrome, and 
-Opera. Be sure that you are using the latest version of the browser to have the 
-best compatibilities. Please check the website for updated information. 
+Currently COLOMBOS (v2.0) runs on three browsers: Firefox, Google Chrome,
+Safari, and Opera. Be sure that you are using the latest version of the browser
+to have the best compatibilities. Please check the website for updated
+information.
 % Please refer to \textbf{Note 1} for version and supported browsers of the 
 %website.
 
 \subsubsection{COLOMBOS expression data format}\label{sec:dist-format-col}
-As the expression compendium is an integrate part of the COLOMBOS web service, 
-no input files are required to use it.  
-It does provide a tab delimited ASCII file format for expression data export, 
-containing information on the user created module consisting of a particular 
-set of genes and the corresponding set of condition contrasts under which these 
-genes are coexpressed. 
-There are two sections in this file. The first one describes the 
-condition information of the module. It specifies for each condition contrast 
-the name and description of its test and reference sample, the corresponding 
-experiment identifier, the online database from which the experiment was 
-retrieved, the microarray platform used to measure the sample hybridizations, 
-and finally, the annotated contrast condition changes between the test and the 
-reference sample. The second section contains three parts: the corresponding 
-condition contrast identifiers in the first row; the gene information (gene 
-locus tag, gene name, and internal gene identifier) in the first three columns; 
-and the log ratio expression data from the expression matrix. Note that 
-starting from the 4$^{th}$ column, each column in the file corresponds to one 
-condition contrast. Each of the rows represents one gene and its expression 
+To use COLOMBOS requires no input file, as the expression compendium is an
+integrate part of It.  
+%
+It does provide a tab delimited ASCII file format for expression data export,
+containing information on the user created module consisting of a particular set
+of genes and the corresponding set of contrasts under which these genes are
+coexpressed.
+%
+There are two sections in this file. The first one describes the condition
+information of the module. It specifies for each contrast the name and
+description of its test and reference sample, the corresponding experiment
+identifier, the online database from which the experiment was retrieved, the
+microarray platform used to measure the sample hybridizations, and finally, the
+annotated condition changes between the test and the reference sample.
+%
+The second section contains three parts: the corresponding contrast identifiers
+in the first row; the gene information (gene locus tag, gene name, and internal
+gene identifier) in the first three columns; and the expression log-ratios of
+the compendium.
+%
+Starting from the 4$^{th}$ column, each column in the file corresponds to one
+condition contrast. Each of the rows represents one gene and its expression
 values for different condition contrasts.
 
 
 \subsection{DISTILLER}\label{sec:dist-distiller}
-DISTILLER stands for \textit{Data Integration System To Identify Links in 
-Expression Regulation}. It is a data integration framework that searches for 
-condition dependent transcriptional modules by combining expression data with 
-information on the interaction between a regulator and its corresponding target 
-genes, for instance based on motif screening. A module is here defined as a set 
-of genes that are both coexpressed across a sufficiently large number of 
-columns in the expression matrix and that share motif instances for the same 
-regulator(s). Note that the expression data used by DISTILLER could be either 
-absolute expression values or log ratios. 
+DISTILLER (\textit{Data Integration System To Identify Links in Expression
+  Regulation}) is a data integration framework that searches for condition
+dependent transcriptional modules by combining expression data with information
+on the interaction between a regulator and its corresponding target genes, for
+instance based on motif screening. A module is here defined as a set of genes
+coexpressed under a sufficiently large number of conditions and sharing the
+motif instances of the same regulator(s).  The expression data used by DISTILLER
+could be either absolute expression values or log-ratios.
 
-DISTILLER searches the modules in a global fashion over the entire dataset 
-through three steps: identification candidate modules, module filtering, and 
-module extension. 
-Built on advanced itemset mining approaches, it first 
-exhaustively enumerates all possible valid \textit{closed} modules (see next 
-Section) as candidates. The candidates are partially redundant as 
-they might share the same genes or condition contrasts. 
-Therefore, in the second step (filtering), a module prioritization is provided 
-in which an interest score is assigned to each module. The score takes into 
-account the probability that a module of the same size can be found by chance 
-in the input dataset, but at the same time, penalizes the overlaps with those 
-modules that have already been reported. The top ranking modules are 
-statistically significant yet distinctive, and thus selected as the output of 
-this step. 
-These initial modules obtained by DISTILLER are usually called `\textit{seeds}' 
-as they are obtained under stringent thresholds. 
-This has the advantage that all identified interactions between a transcription 
-factor and its target genes are highly reliable (high precision), but that true 
-interactions might be missed (lower sensitivity).  
-Hence, in the last step (module extension), the obtained 
-modules can be further extended with additional genes by relaxing the used 
-thresholds on the required minimal coexpression level and motif score.  Note 
-that it is not required to execute all three steps. 
-The result of each step can be analyzed and visualized by the user 
-independently.
+DISTILLER searches the modules in a global fashion over the entire dataset
+through three steps: identification candidate modules, module filtering, and
+module extension.
+%
+Built on advanced itemset mining approaches, it first exhaustively enumerates
+all possible valid \textit{closed} modules (see next Section) as candidates. The
+candidates are partially redundant as they might share the same genes or
+condition contrasts.
+%
+Therefore, in the filtering step, modules are prioritized by calculating an
+interest score for each of them.  The score takes into account the probability
+that a module of the same size can be found by chance in the input dataset,
+whereas, at the same time, penalizes the overlaps between modules.
+%
+The resulting top ranking modules are statistically significant yet distinctive.
+These initial modules obtained under stringent thresholds are called
+`\textit{seeds}', in which the identified interactions between a transcription
+factor and its target genes are highly reliable (high precision).  However, some
+true interactions might be missed (lower sensitivity).
+%
+Hence, in the last module extension step, the modules retained after filtering
+are further extended with additional genes by applying relaxed thresholds on
+minimal coexpression level and motif score.
+%
+Note that it is not required to execute all three steps.  The result of each
+step can be analyzed and visualized independently.
 
 The DISTILLER web service \cite{DISTILLER} (Fig. \ref{fig:distiller}) is 
 designed to leverage the difficulty of applying the algorithm by providing an 
 easy-of-use and consistent interface that links all three steps together. 
-The interface is separated into two sections vertically. The information panel 
-at the top provides a brief explanation of the site's functionality. The 
-project panel at the bottom is where the user interacts with the site to use 
-our DISTILLER service. 
-The panel is further divided into three sections horizontally.  At left, the 
-`Project Information' panel provides information of the current project and the 
-links to access the input, output, and log files.  
-The `Operation' panel at the center is where user can run DISTILLER algorithm.  
-It has three tabs, each of which provides access to one step of the
-algorithm, namely, module detection, module filtering, module extension.  Based 
-on the step selected in the `Operation' panel, the explanation for the 
-corresponding parameter settings and the input data file format (if required) 
-is provided in the `Online help' panel at right for your reference.
-The website is guaranteed to work properly on Firefox and Google Chrome.
-Efforts are undertaken to make it compatible with other browsers as well. 
-Please check the website for updated information. % For compatibility issues, 
+%
+The interface is separated into two sections vertically. The information panel
+at the top provides a brief explanation of the site's functionality. The project
+panel at the bottom is where the user interacts with the site.
+%
+It is further divided horizontally into three sections.  At left, the `Project
+Information' panel provides information of the current project and the links to
+access the input, output, and log files.
+%
+The `Operation' panel at the center is where a user runs DISTILLER algorithm.
+It has three tabs, each of which provides access to one step of the algorithm,
+namely, module detection, module filtering, and module extension.
+%
+The explanation for the parameter settings and the input data file format (if
+required) of the corresponding step selected in the `Operation' panel are
+provided in the `Online help' panel at right for your reference.  
+%
+The website works properly on Firefox and Google Chrome.  Efforts are undertaken
+to make it compatible with other browsers as well.  Please check the website for
+updated information. % For compatibility issues,
 %please refer to \textbf{Note 1}.
 
 \begin{figure}[tb]
@@ -349,141 +392,136 @@ matrix, across which DISTILLER defines coexpression, correspond to the
 condition contrasts as defined in the compendium (see Section 
 \ref{sec:dist-comp}). 
 
+\paragraph{Closed module}
+A module is considered \textit{closed} if it cannot be further extended by any
+other gene without reducing the number of motifs shared by all of its genes. To
+search such a candidate, the algorithm \cite{Lemmens2009} starts with the
+smallest module that contains only one gene, and gradually extends them by
+merging with other modules. A candidate is found when any extension violates the
+conditions implied by `closed'.  Only closed modules that contain the minimal
+number of motifs and condition contrasts are considered valid.
+% (meet the required minimal Supports on the motifs and condition contrasts)
 
-\subsubsection{Closed module}
-A module is considered \textit{closed} if it cannot be further extended by any 
-other gene without reducing the number of motifs shared by all of its genes. To 
-search such a candidate, the algorithm \cite{Lemmens2009} starts with the 
-smallest module that contains only one gene, and gradually extends them by 
-merging with other modules. A candidate is found when any extension violates 
-the conditions implied by `closed'. 
-Only closed modules that contain the minimal number of 
-motifs and condition contrasts are considered valid (meet the required minimal 
-Supports on the motifs and condition contrasts)
+
 
 \subsubsection{DISTILLER input file format}\label{sec:distiller-infile-format}
 DISTILLER requires two input files: an expression data file and a motif data 
 file. In the case study described here, the expression data file contains the 
-log ratio expression values for each gene under each condition contrast. Two 
-possible input formats are allowed for the expression data file. 
-The first one is a matrix based flat file format, in which each row represents 
-the data of one gene; each column represents a condition contrast in the 
-expression compendium. 
-The only exception is the first row, where the identifiers of each condition 
-contrast are specified, with the first column either left empty or specified 
-as `gene name'.  
-The gene names are specified in the first column of each row.  
-The second format that is permitted is the format of the expression data file 
-that can be obtained for each user created module from COLOMBOS (see Section 
-\ref{sec:dist-format-col}).
-Due to the possible large size of the expression data set, the system further 
-supports the expression data file in two compression types, namely, 
-Zip\footnote{In case of zip file, the 
-system allows only one file in the compressed file that is the input expression 
-data file. An error is generated when this condition is violated.} and Gzip.
+expression log-ratios for each gene under each contrast. 
+%
+Two possible input formats are allowed for the expression data file.  The first
+one is a matrix based flat file format with header, in which, the first row
+contains the identifiers of each contrast, each subsequent row corresponds to a
+gene, each column represents a contrast.  Gene name is used to specify a gene in
+the first column of each row.
+%
+The second format is that of the COLOMBOS expression data export file (see
+Section \ref{sec:dist-format-col}).  
+%
+The system further supports the use of two most common compression formats to
+handle the large data set, namely, Zip\footnote{In case of zip file, the system
+  allows only one file in the compressed file that is the input expression data
+  file. An error is generated when this condition is violated.} and Gzip.
 
 
 The motif data file contains the results of a motif screening analysis 
 \cite{Hertzberg2005}. 
-Each motif screening score indicates the probability that a motif instance is 
-present in the promoter region of a gene, with the maximum score 1 and the 
-minimum score 0. These data are also imported in a matrix format file, where 
-the rows in the file represent the genes and the columns represent the motifs 
-for which the screening was performed. Similarly to the expression data, the 
-first row in the file contains the motif information with one motif name in 
-each column, and from the second row on, each row represents one gene's motif 
-scores with the corresponding gene name specified in the first column.
+%
+Each motif screening score indicates the probability that a motif instance is
+present in the promoter region of a gene, with 1 as the maximum score and 0 the
+minimum.
+%
+The data is specified in a text file containing a data matrix with header, in
+which the header are motif names, the row corresponds to gene, and the column
+represents the motifs screened.  Similarly to the expression data, except for
+the header, each row starts with gene name specifying the corresponding gene.
 
-In addition to the two files mentioned above, users can provide an operon 
-information file that will be used during the module extension step of 
-DISTILLER. It contains two items in each row, the first one is the gene that 
-belongs to an operon, and the second one is the first gene of that operon.
+Additionally, users can provide an operon information file that will be used
+during the module extension step.  It contains two items in each row, the gene
+that belongs to an operon, and an identifier of that operon.
 
-In DISTILLER, the expression and motif matrix are coupled in the gene 
-direction, so the user should make sure that the same gene identifiers are used 
-in both files (as well as in the operon information file, if included), 
-although the order of the genes does not have to be the same.
+In DISTILLER, the different data files are coupled in the gene direction, so the
+user should make sure that the same gene identifiers are used in each file,
+although the order of the genes need not to be the same.
+
 
 \subsubsection{DISTILLER output file format}\label{sec:distiller-outfile-format}
-For all three steps of DISTILLER, the outputs are 
-of the same format: `.m' file.  The file contains the information of the 
-identified modules, with each module described in a section, separated by an 
-empty line.  Each section contains four data fields, each representing a part 
-of the module information.  Given a section specifying the information for a 
-module $M$, the field `Significances' holds the $p$-values that were assigned 
-to $M$ by the itemset mining algorithm \cite{Zaki} used by DISTILLER.  The 
-field `items' contains the information of the genes that belong to $M$, each of 
-which is represented by its row number\footnote{When counting the row number 
-of a given gene, there are certain caveats. First, the title line should not be 
-counted. Second, the count should start from 0. Hence the first row is of row 
-number 0 instead of 1.} in the expression data input file. The field 
-`boxtidset1' specifies the contrasts of $M$, in which the genes in $M$ are 
-coexpressed, each of which is represented by its column number\footnote{To 
-count the column number referred in the `.m' file, the first column containing 
-gene information should not be counted, and it starts at 0.}
+All three steps of DISTILLER output the results in the same format: a `.m' file.
+%
+It contains the information of the identified modules, with each module
+described in a section, separated by an empty line.  
+%
+Each section contains four data fields.  Given a section specifying the
+information for a module $M$, the field `Significances' holds the $p$-values
+that were assigned to $M$ by the itemset mining algorithm \cite{Zaki} utilized
+by DISTILLER.  The field `items' contains the information of the genes that
+belong to $M$, each of which is represented by its row number\footnote{When
+  counting the row number of a given gene, there are certain caveats. First, the
+  header should not be counted.  Second, the count should start from 0. Hence
+  the first row is of row number 0 instead of 1.} in the expression data input
+file. The field `boxtidset1' specifies the contrasts of $M$, in which the genes
+in $M$ are coexpressed, each of which is represented by its column
+number\footnote{To count the column number referred in the `.m' file, the first
+  column containing gene information should not be counted, and it starts at 0.}
 % \footref{fn:dist-count} 
-in the expression data input file. Finally, the field `tidset1' 
-contains the motifs of $M$, which are shared by the genes in M, specified by 
-their column numbers in the motif data input file. Each module is represented 
-by a number indicated between the `\{\}' brackets after the name of each data 
-field.
+in the expression data input file. Finally, the field `tidset1' contains the
+motifs of $M$ shared by its genes, specified by their column numbers in the
+motif data input file.  
+%
+Each module is represented by a unique number indicated between the `\{\}'
+brackets after the name of each corresponding data field.
 
-Besides the main output file, two supplementary files required to use the 
-visualization software ViTraM are also provided. They are bundled in a 
-compressed file that can be downloaded from the DISTILLER website. The file 
-whose name starts with `expdata\_' contains the DISTILLER preprocessed input 
-expression data, and the file whose name starts with `binary\_' contains the 
-DISTILLER preprocessed input motif data. The file formats of these expression 
-data and motif data files are the same as the corresponding input files 
+Besides the main output file, two supplementary files required to use the
+visualization software ViTraM are also provided. They are bundled in a
+compressed file that can be downloaded from the website. The file whose name
+starts with `expdata\_' contains the preprocessed input expression data, and the
+other starting with `binary\_' contains the preprocessed input motif data. The
+file formats of these two files are the same as the corresponding input files
 described in previous Section.
 
-\paragraph{Output notification email}\label{sec:distiller-email}
 
-Since each step of DISTILLER may take hours or even days to finish, the result 
-of each step is sent to the user by email. This notification email is of a 
-standard format, with subject `DISTILLER process result notification email'. On 
-the first line, the information about the finished process and the 
-corresponding user project is presented, followed by the link to the DISTILLER 
-result file. It is followed by the link to the supplementary file bundle 
-required for ViTraM visualization.
+\paragraph{Output notification email}\label{sec:distiller-email}
+Since each step of DISTILLER may take hours or even days to finish, the result
+is sent to the user by email. This notification email is of a standard format,
+with subject `DISTILLER process result notification email'. On the first line,
+the information about the finished process and the corresponding user project is
+presented, followed by the link to the result file, then the link to the
+supplementary file bundle required for visualization.
 
 
 \subsection{ViTraM}\label{sec:dist-vitram}
-For DISTILLER output analysis, we use the module visualization software ViTraM 
-(\textit{VIsualization of TRAnscriptional Modules}) to visualize overlapping 
-transcriptional coexpression modules together with the motif information in an 
-interactive way. In this chapter, we will only briefly discuss this tool. For 
-more details we refer to \cite{Sun2009}. 
+To analyze DISTILLER output, we use ViTraM (\textit{VIsualization of
+  TRAnscriptional Modules}) to visualize overlapping transcriptional
+coexpression modules together with the motif information in an interactive
+way. Here, we will only briefly discuss this tool. For more details we refer to
+\cite{Sun2009}.
 
-Note that for this case study, we used ViTraM 2.0 (download at \cite{ViTraM}). 
-ViTraM (v2.0) is written in JAVA; hence it can run under any platforms with 
-JAVA support. 
-On Windows ViTraM comes in two versions: vitram\_Windows\_512M.bat or 
-vitram\_Windows\_2G.bat. The former has a minimum memory requirement of 1Gb 
-RAM, and we advise to use a computer with at least 3Gb RAM to run 
-vitram\_Windows\_2G.bat. % Please refer to \textbf{Note 1} 
-%for compatibility issues and memory requirements of the tool.
+ViTraM 2.0 is used for this case study (download at \cite{ViTraM}).  Written in
+JAVA, it can run under any platforms with JAVA support.  On Windows ViTraM comes
+with two options: vitram\_Windows\_512M.bat or vitram\_Windows\_2G.bat. The
+former has a minimum memory requirement of 1Gb RAM.  And we advise to use a
+computer with at least 3Gb RAM to run vitram\_Windows\_2G.bat. 
+% Please refer to \textbf{Note 1}
+% for compatibility issues and memory requirements of the tool.
 
 
 \subsubsection{ViTraM input file format}
-The visualization software ViTraM requires an XML file and an expression file 
-as input. The XML file contains the information of the transcriptional modules 
-that will be visualized: the genes and conditions composing the modules and 
-additional information such as motifs that are assigned to modules by 
-DISTILLER. Due to the complexity of the XML format, an extra tool called 
-XMLCreator is available at the ViTraM website to automatically generate the XML 
-file from the `.m' output file and the supplementary expression data file of 
-DISTILLER (see Section \ref{sec:distiller-outfile-format}). 
-For the purpose of this study, we will not discuss the XML file format directly 
-used by ViTraM. 
-Interested users can find more detailed information in \cite{Sun2009}. 
-Conveniently, the tool also generates a smaller expression data file containing 
-only the relevant expression values from those genes and condition contrasts 
-existing in the result modules contained in the `.m' file. Moreover, the tool 
-can also incorporate extra information into XML file, for example, the motif 
-data contained in the binary supplementary file mentioned in Section 
-\ref{sec:distiller-infile-format}. 
-
+ViTraM requires an XML file and an expression file as input. The XML file
+contains the information of the transcriptional modules that will be visualized:
+the genes and conditions composing the modules and additional information such
+as motifs that are assigned to modules by DISTILLER. Due to the complexity of
+the XML format, an extra tool called XMLCreator is available at the ViTraM
+website to automatically generate the XML file from the DISTILLER output file
+% and the supplementary expression data file of DISTILLER 
+(see Section \ref{sec:distiller-outfile-format}).  Conveniently, the tool also
+generates a smaller expression data file containing only the relevant expression
+values from those genes and condition contrasts existing in the result modules
+obtained by DISTILLER.  Moreover, the tool can also incorporate extra
+information into XML file, for example, the motif data contained in the binary
+supplementary file mentioned in Section \ref{sec:distiller-infile-format}.
+%
+For the purpose of this study, we will not discuss this XML file format in
+detail.  Interested users can find more information in \cite{Sun2009}.
 
 %\subsection{Input file formats}\label{sec:dist-format-input}
 %
@@ -536,121 +574,124 @@ second references).
 
 \section{Methods}
 
-We will describe the steps required to use two web services, COLOMBOS and 
-DISTILLER, to identify coexpression modules around a (set of) gene(s) of 
-interest (query genes). This will be illustrated by applying them to the query 
-gene \textit{sodA} as a case study.
+We will describe the steps required to use two web services, COLOMBOS and
+DISTILLER, to identify coexpression modules around a (set of) gene(s) of
+interest (query genes). This will be illustrated by applying them to the query
+gene \textit{sodA} as a case study.  
+%
+The analysis flow based on COLOMBOS shows how it can be used to search for
+genes that are coexpressed with a (set of) query gene(s) under the human
+guidance.  Alternatively, the DISTILLER approach, combining expression and
+motif data, detects coexpressed and coregulated gene sets across the whole
+data set in a single run in an unsupervised way.
+%% It searches for gene sets that are coexpressed and contain the same
+%% motif(s) in their promoter region by combining expression and motif data.
 
-The first analysis flow is based on the web service COLOMBOS. We will show how 
-COLOMBOS can be used to search for genes that are coexpressed with a (set of) 
-query gene(s). In contrast to COLOMBOS, the second approach using DISTILLER 
-detects coexpressed gene sets and their regulatory program across the whole 
-data set in a single run in an unsupervised way. It searches for gene sets that 
-are coexpressed and contain the same motif(s) in their promoter region by 
-combining expression and motif data.
 
+\subsection{Identifying coexpression modules using COLOMBOS}\label{sec:dist-module-colombos}
 
-\subsection{Identifying coexpression modules containing \textit{sodA} using 
-COLOMBOS}\label{sec:dist-module-colombos}
-
-To search for coexpressed genes using COLOMBOS, we will first create an initial 
-expression module by specifying a set of genes of interest (query genes), and 
-use COLOMBOS to extract the most relevant condition contrasts, where the chosen 
-genes are differentially expressed.  
-Next, the module is extended with genes that are coexpressed with 
-the initial gene set under the preselected set of condition contrasts. Here, we 
-explain the workflow based on our case study with a single query gene, 
-\textit{sodA}.
+To search for coexpressed genes using COLOMBOS, we will first create an initial
+expression module by specifying a set of genes of interest (query genes), and
+use COLOMBOS to extract the most relevant contrasts, where the chosen genes are
+differentially expressed.  Next, the module is extended with genes that are
+coexpressed with the initial gene set under the selected of contrasts. Here, we
+explain this workflow starting with a single query gene, \textit{sodA}.
 
 \subsubsection{Create the initial module}
 
-\paragraph{Step 1}	Go to COLOMBOS website \cite{COLOMBOS}.
+\begin{small} % Step 1
 
-\paragraph{Step 2}	Create the initial module based on the known gene set of 
-interest (query genes) and the biological conditions that are known to affect 
-these genes when changed.
+\paragraph{Step 1} 
+Go to COLOMBOS website \cite{COLOMBOS}, and create the initial module based on
+the known gene set of interest and the biological conditions that are known to
+affect these genes when changed.
 
-\begin{adjustwidth}{5mm}{0cm}
-\distsubparagraph{Step 2.1}	To start the analysis, click on `data 
-analysis' in the title bar (Fig. \ref{fig:colombos}) to bring up the data 
-operation interface in the center part of the website. 
-It is separated horizontally into two parts. At the left hand side, 
-there is a `workspace' information panel that lists all the modules created in 
-a tree structure. The workspace panel is always visible when residing on the 
-data analysis page. (Note that you can always move away from the data analysis 
-page to any of the other COLOMBOS pages, such as the help sections, at any 
-time; the state of the data analysis page will be preserved for whenever you 
-switch back.)  Since no module has been created, the workspace panel is 
-currently empty. The other part of the page, referred as the operating space in 
-this text, is where the visualization and analysis of the expression data takes 
-place and is currently occupied by the `Data analysis overview' panel 
-(hereafter referred to as `overview panel'). This panel serves as an intuitive 
-guide showing the user the available data analysis options depending on the 
-current state of the workspace along with some brief explanations. The `Main' 
-button at the top right of the workspace will always bring up the overview 
-panel again in the operating space.
-\end{adjustwidth}
+\subparagraph{Step 1.1}	To start the analysis, click on `data 
+analysis' in the title bar (Fig. \ref{fig:colombos}) to bring up the data
+operation interface in the center part of the website.  It is separated
+horizontally into two parts. At the left hand side, there is a `workspace'
+information panel that lists all the modules created in a tree structure. This
+panel is always visible when residing on the data analysis page.
+%% (Note that you can always move away from the data analysis 
+%% page to any of the other COLOMBOS pages, such as the help sections, at any 
+%% time; the state of the data analysis page will be preserved for whenever you 
+%% switch back.)
+Since no module has been created, it is currently empty.
+%
+The other part of the page, referred as the operating space in this text, is
+where the visualization and analysis of the expression data takes place and is
+currently occupied by the `Data analysis overview' panel (hereafter referred to
+as `overview panel'). This panel serves as a intuitive guide showing the
+available analysis options depending on the current workspace state along with
+some brief explanations.
+%% The `Main' button at the top right of the workspace will always bring up the
+%% overview panel again in the operating space.
 
-\begin{adjustwidth}{5mm}{0cm}
-Since we just started a new session, there is only one button `select organism' 
-available. Click it, and select the organism `\textit{Escherichia coli}', the 
-one that this case study focuses on, from the dropdown box that appears. Notice 
-now this species appears in the workspace panel at left as the root of the 
-tree.
-\end{adjustwidth}
 
-\begin{adjustwidth}{5mm}{0cm}
-\distsubparagraph{Step 2.2}	After the species is picked, the content of the 
-overview panel is also chanced accordingly. The button `select 
-organism' is replaced by two other buttons `organism info' and `add module'. 
-The workspace panel now also shows that \textit{E. coli} data is loaded. 
-Clicking on the \textit{E. coli} entry in the workspace panel has the same 
-function as clicking the `organism info' button in the operating space: it will 
-bring up detailed information about the organism, its compendium, and 
-associated additional data sources. 
-\end{adjustwidth}
+Since we just started a new session, there is only one button `select organism'
+available. Click it, and select the organism `\textit{Escherichia coli}', which
+this case study focuses on. Notice now this species appears in the workspace
+panel as the root of the tree.
 
-\begin{adjustwidth}{5mm}{0cm}
-We will proceed to create our initial module of the gene \textit{sodA}. The 
-`Add module overview' panel appears in the operating space after clicking the 
-`add module' button. In this panel, there are three buttons `select gene only', 
-`select contrasts only', and `select gene and contrast'. As explained on the 
-page, each corresponds to a different method for creating a module.
-\end{adjustwidth}
 
-\begin{adjustwidth}{5mm}{0cm}
-For this case study, we will only manually specify the gene \textit{sodA} 
-without specifying any relevant conditions ourselves.  Instead, we will have 
-COLOMBOS automatically identify the most relevant condition contrasts for sodA 
-based on its expression values. This function is provided by the leftmost 
-button `select gene only'. Clicking it brings up the gene selection option 
-panel in the operating space. Four available options are listed here: `By gene 
-name/locus tag', `By transcriptional regulation', `By pathway', and `By 
-transcription unit'. We want to select a specific gene (\textit{sodA}), so the 
-first option is our choice. Click the yellow box surrounding the text `By gene 
-name/locus tag', fill in `\textit{sodA}' in the appeared text box (one gene per 
-row), and then click the `Done' button located at the bottom to save your 
-input. If one or more of the query genes is not recognized or included in the 
-compendium, an error message will appear listing the unresolved entries.
-\end{adjustwidth}
+\subparagraph{Step 1.2}	After the species is picked, the content of the 
+overview panel is changed accordingly. The button `select organism' is replaced
+by two other buttons `organism info' and `add module'.
+%% The workspace panel now also shows that \textit{E. coli} data is loaded. 
+%% Clicking on the \textit{E. coli} entry in the workspace panel has the same 
+%% function as clicking the `organism info' button in the operating space: it will 
+%% bring up detailed information about the organism, its compendium, and 
+%% associated additional data sources. 
+%
+To create our initial module for \textit{sodA}, we click the `add module' button
+to bring up the `Add module overview' panel.
+%% We will proceed to create our initial module of the gene \textit{sodA}. The
+%% `Add module overview' panel appears in the operating space after clicking the
+%% `add module' button.
+%
+In this panel, there are three buttons `select gene only', `select contrasts
+only', and `select gene and contrast'.  Each corresponds to a different method
+for creating a module.
+%
+Here, we utilize the first option to manually specify the query gene
+\textit{sodA} and let the system automatically identify the most relevant
+contrasts for it based on expression data.
+%% For this case study, we will only manually specify the gene \textit{sodA}
+%% without specifying any relevant conditions ourselves.  Instead, we will have
+%% COLOMBOS automatically identify the most relevant condition contrasts for
+%% sodA based on its expression values.  This function is provided by the
+%% leftmost button `select gene only'.
+%
+Clicking `select gene only' brings up the gene selection panel at center.  Four
+available options are available: `By gene name/locus tag', `By transcriptional
+regulation', `By pathway', and `By transcription unit'.
+%
+The first option allows us specify gene manually.
+%% We want to select a specific gene (\textit{sodA}), so the first option is our
+%% choice.
+Click the yellow box surrounding the text `By gene name/locus tag', fill in
+`\textit{sodA}' in the text box appeared (one gene per row), and then click the
+`Done' button to proceed. %save your input.
+%% If one or more of the query genes is not recognized or included in the
+%% compendium, an error message will appear listing the unresolved entries.
 
-\begin{adjustwidth}{5mm}{0cm}
-\distsubparagraph{Step 2.3}	As mentioned in previous step, we chose the option 
-`select genes only' to create the module. After specifying the genes, a `ranked 
-contrast selection' panel (Fig. \ref{fig:colombos-ranking}) will appear in the 
-operating space, 
-which allows the user to select contrasts ranked by a score that prioritizing 
-those show the highest magnitude of change and most coherent coexpression for 
-the selected set of genes (see Appendix \ref{apd:contrast-score}). The panel is 
-separated into two parts horizontally. 
-At the left, the condition contrasts are ranked according to the 
-score from highest till the lowest. A cutoff value can be specified in the box 
-above the list to select only those contrasts with higher scores. The 
-figures to the right are meant to provide additional helpful information and 
-show, from left to right, a density plot showing the distribution of the 
-contrast scores across the whole compendium and a plot showing the number of 
-contrasts that will be added if a given cutoff is selected.
-\end{adjustwidth}
+\subparagraph{Step 1.3}	
+%% As mentioned in previous step, we chose the option `select genes only' to
+%% create the module.
+After specifying the genes, a `ranked contrast selection' panel
+(Fig. \ref{fig:colombos-ranking}) appears in the operating space, which allows
+the user to select contrasts ranked by a score that prioritizing those show
+the highest magnitude of change and most coherent coexpression for the
+selected set of genes (see Appendix \ref{apd:contrast-score}). The panel is
+separated into two parts horizontally.  At the left, the contrasts are ranked
+according to the score from highest till the lowest. A cutoff value can be
+specified in the box above the list to select only those with higher
+scores. The figures to the right show, from left to right, a density plot
+showing the distribution of the scores across the whole compendium and a plot
+showing the number of contrasts that will be added if a given cutoff is
+selected.  There is no absolute guideline to choose the cutoff. Several
+try-outs may be needed to identify the optimal one.
+
 
 \begin{figure}[tb]
 	\centering
@@ -661,27 +702,29 @@ contrasts that will be added if a given cutoff is selected.
 	\label{fig:colombos-ranking}
 \end{figure}
 
-\begin{adjustwidth}{5mm}{0cm}
-For our initial module, we chose cutoff value 3. There is no absolute guideline 
-to choose the cutoff. Several try-outs may be needed to identify the optimal 
-one. Input 3 in the box above the list at the left, and click `Ok' button at 
-the side. The contrast list is then filtered, and all contrasts left in the 
-list are automatically selected to be added to the module. Click `Done' button 
-at the bottom, and fill in `sodA\_c3' as the module name to create our initial 
-module.
-\end{adjustwidth}
+For our initial module, we chose cutoff value 3. Specify it, and click `Ok'
+button at the side. The contrast list is then filtered, and all that left in
+the list are automatically selected to be added to the module. Click `Done'
+button at the bottom, and fill in `sodA\_c3' as the module name to create our
+initial module.  The newly created module appears in the module tree in the
+workspace as a node directly under the root (presenting the selected organism
+\textit{Escherichia coli}).
 
-The module `sodA\_c3' is now created and will appear in the module tree in the 
-workspace at the left side as a node directly under the root node (presenting 
-the selected organism \textit{Escherichia coli}).
+%% The module `sodA\_c3' is now created and will appear in the module tree in the 
+%% workspace at the left side as a node directly under the root node (presenting 
+%% the selected organism \textit{Escherichia coli}).
+
+\end{small} % Step 1
 
 
 
 \subsubsection{Inspect the existing modules}
 
-\paragraph{Step 3}
-After a module is created, one can review its information through various 
-available options.
+\begin{small} % Step 2
+\paragraph{Step 2} One can review the information of a module through various 
+options.
+%% After a module is created, one can review its information through various 
+%% available options.
 
 \begin{figure}[b]
 	\centering
@@ -691,54 +734,49 @@ available options.
 	\label{fig:colombos-init-module}
 \end{figure}
 
-\begin{adjustwidth}{5mm}{0cm}
-\distsubparagraph{Step 3.1}	Click the module you want to check in the workspace 
-at the left to show its module overview tab (Fig. 
-\ref{fig:colombos-init-module}) in the operating 
-space at right. 
-It provides a brief summery of the current module, and serves as a 
-helping guide to analyze and visualize the module's composition. For each 
-module, the summary section shows its name followed by its description at the 
-top. Below the number of included genes and contrasts are indicated, as well a 
-list of Gene Ontology (GO) enrichment scores (see Appendix 
-\ref{apd:enrichment}) for the 
-genes in the module. Only the GO terms of the class biological process are 
-calculated for their enrichment scores, and only those with $p$-values $< 0.1$ 
-are shown. 
-\end{adjustwidth}
+\subparagraph{Step 2.1}	Click the module you want to check in the workspace 
+to show its overview tab (Fig.  \ref{fig:colombos-init-module}) in the center.
+The tab shows on top a brief summary of the module, including, name,
+description, number of genes and contrasts it contains, as well a list of
+significantly enriched Gene Ontology (GO) terms of class biological process
+($p$-values $< 0.1$, details see Appendix \ref{apd:enrichment}) for the module
+genes.
+%% It provides a brief summery of the current module, and serves as a helping
+%% guide to analyze and visualize the module's composition.  For each module,
+%% a summary section shows its name followed by its description at the
+%% top. Below the number of included genes and contrasts are indicated, as
+%% well a list of Gene Ontology (GO) enrichment scores (see Appendix
+%% \ref{apd:enrichment}) for the genes in the module. Only the GO terms of the
+%% class biological process are calculated for their enrichment scores, and
+%% only those with $p$-values $< 0.1$ are shown.
+%
+At the bottom, there are four buttons to \textit{visualize}, \textit{edit},
+\textit{split}, or \textit{delete} the module. The function of
+\textit{visualization} and \textit{delete} is straightforward. The
+\textit{edit} function allows user to modify either the genes or the contrasts
+of the module. Instead, the \textit{split} function breaks the current module
+into several new ones by separating either its genes or its contrasts into
+distinctive groups and creating a module for each selected group.
 
-\begin{adjustwidth}{5mm}{0cm}
-At the bottom of this panel, there are four buttons to \textit{visualize}, 
-\textit{edit}, \textit{split}, or \textit{delete} the module. The function of 
-\textit{visualization} and \textit{delete} is straightforward. The 
-\textit{edit} function allows user to modify either the genes or 
-the contrasts of the module. Instead, the \textit{split} function breaks the 
-current module into several new ones by separating either its genes or its 
-contrasts into distinctive groups and creating a module for each selected group.
-\end{adjustwidth}
 
-\begin{adjustwidth}{5mm}{0cm}
-\distsubparagraph{Step 3.2}	Each module can be visually presented as a 2D 
-heatmap. 
-In the heatmap, each square represents one gene's expression log ratio for a 
-certain condition contrast. A red color indicates over-expression while a green 
-one shows under-expression. The intensity of the color corresponds to the 
-magnitude of the change. The brighter the color, the higher the absolute ratio 
-value.
-\end{adjustwidth}
+\subparagraph{Step 2.2}	Each module can be visually presented as a heatmap. 
+In it, each square represents one gene's expression log ratio for a certain
+condition contrast. A red color indicates over-expression while a green one
+shows under-expression. The intensity of the color corresponds to the
+magnitude of the expression change. The brighter the color, the higher the
+absolute ratio value.
 
-\begin{adjustwidth}{5mm}{0cm}
-To view the heatmap, click `Visualization' button in a module's overview tab to 
-switch to heatmap tab. In the tab, the heatmap is shown at the center with an 
-information panel at the right hand side. Hovering over the heatmap, the 
-information of the gene and the condition contrast under the cursor will be 
-shown in that information panel. Various options exist to group the condition 
-contrasts in the heatmap according to their experiments, condition properties, 
-and the condition ontology terms that their associated condition properties 
-belong to. It can be selected from the dropdown box located at the left corner 
-of the bar below the heatmap. The heatmap of our module sorted on condition 
-ontology (default option) is shown in Figure \ref{fig:colombos-heatmap-m1}.
-\end{adjustwidth}
+To view the heatmap, click `Visualization' button in overview tab to switch to
+heatmap tab.  The heatmap is shown at the center with an information panel at
+the right. Hovering over the heatmap, the information of the gene and the
+contrast under the cursor will be shown in the information panel. Various
+options exist to group the contrasts in the heatmap according to their
+experiments, condition properties, and the associated condition ontology
+terms. They can be selected from the dropdown box located at the lower left
+corner of the tab. The heatmap of our module sorted on condition ontology is
+shown in Figure \ref{fig:colombos-heatmap-m1}.
+
+\end{small} % Step 2
 
 \begin{figure}[tb]
 	\centering
@@ -751,48 +789,50 @@ ontology (default option) is shown in Figure \ref{fig:colombos-heatmap-m1}.
 	\label{fig:colombos-heatmap-m1}
 \end{figure}
 
-Checking our module `sodA\_c3', it shows that the top 53 condition contrasts, 
-where \textit{sodA} is most differentially expressed, have been selected. Among 
-those, 34 contrasts belong to the condition ontology term `response to oxygen 
-levels'.  This ontology term includes condition properties that are linked to 
-cellular processes that are dependent on oxygen availability, such as fnr 
-mutations (a global oxygen responsive transcriptional regulator), NO$_2$ 
-(electron transport decoupler), agitation of the growth medium, actual oxygen 
-levels, etc. Since the function of \textit{sodA} itself is linked to processes 
-related to oxygen availability, one can expect its expression level to change 
-prominently under these 34 contrasts, and indeed COLOMBOS successfully 
-identifies them as the most relevant contrasts of \textit{sodA}. There are also 
-17 contrasts belong to ontology term `growth', with three in common with the 34 
-contrasts mentioned before. The ontology term `growth' is very general, 
-grouping experimental conditions that trigger various biological processes 
-simultaneously at a global cellular scale. Based on this, it is not unexpected 
-to find \textit{sodA} differentially expressed under contrasts belonging to 
-this ontology term.
+Checking module `sodA\_c3', it shows that the top 53 contrasts, where
+\textit{sodA} is most differentially expressed, have been selected. Among
+those, 34 contrasts belong to the condition ontology term `response to oxygen
+levels'.  It includes condition properties that are linked to cellular
+processes dependent on oxygen availability, such as \textit{fnr} mutations (a
+global oxygen responsive transcriptional regulator), NO$_2$ (electron
+transport decoupler), agitation of the growth medium, actual oxygen levels,
+etc. This is expected as the function of \textit{sodA} itself is linked to processes related
+to oxygen availability.
+%% , one can expect its expression level to change prominently under these 34
+%% contrasts,
+COLOMBOS indeed successfully identifies them as the most relevant contrasts of
+\textit{sodA}. 
+%
+There are also 17 contrasts belong to ontology term `growth', with three in
+common with the aforementioned 34 contrasts. The term `growth' is very
+general, grouping conditions that trigger various biological processes
+simultaneously at a global cellular scale. Hence it is not unexpected to find
+\textit{sodA} differentially expressed under these contrasts.
+%belonging to this ontology term.
+
+
 
 
 \subsubsection{Extend the genes of a module}
 
-\paragraph{Step 4} To extend the module with additional genes, we will use the 
-edit function. 
+\begin{small} % Step 3
 
-\begin{adjustwidth}{5mm}{0cm}
-Click `edit module' button to bring the `Edit' tab in front, 
-where three options are available: edit the name/description, the genes, or the 
-contrasts. Click the `edit genes' to modify the genes of this module. A gene 
-modification panel appears in the `Edit' tab with all options to edit genes. 
-The options in green boxes indicate ways to add genes to the module, whereas 
-those in red boxes indicate ways to remove genes. We will not explain all the 
-options here. Interested users please refer the tutorial and/or the help 
-sections of the website for detailed explanations.
-\end{adjustwidth}
-
-\begin{adjustwidth}{5mm}{0cm}
-For this case study, we will use the last option `Add new genes based on 
-expression'. This will allow the user to add additional genes, whose expression 
-patterns are most (anti-)correlated to the expression pattern of the module. 
-Click the green box surrounding the text of this option; a `ranked gene 
-selection' panel will appear in the `Edit' tab. 
-\end{adjustwidth}
+\paragraph{Step 3} Next, we will extend the module with additional genes.
+%To extend the module with additional genes, we will use the edit function. 
+Click `edit module' button to go to the `Edit' tab, where three options are
+available: edit the name/description, the genes, or the contrasts. Click `edit
+genes' to modify the module genes. A gene modification panel appears with all
+options to edit genes.  The options in green boxes indicate ways to add genes
+to the module, whereas those in red boxes indicate ways to remove genes. 
+%% We will not explain all the options here. Interested users please refer the
+%% tutorial and/or the help sections of the website for detailed explanations.
+%
+For this case study, we will use the last option `Add new genes based on
+expression' to add additional genes, whose expression patterns are most
+(anti-)correlated to the expression pattern of the module.  Click it to bring
+up a `ranked gene selection' panel for gene selection.
+%% Click the green box surrounding the text of this option; a `ranked gene
+%% selection' panel will appear in the `Edit' tab.
 
 \begin{figure}[b]
 	\centering
@@ -806,63 +846,77 @@ selection' panel will appear in the `Edit' tab.
 	\label{fig:colombos-gene-extend}
 \end{figure}
 
-\begin{adjustwidth}{5mm}{0cm}
 This panel (Fig. \ref{fig:colombos-gene-extend}) functions in a similar way to 
-the `ranked contrast selection' panel explained in Step 2.3. 
-On the left side, a gene list ranked by the degree of the correlation of each 
-gene's expression profile with the mean profile of the current module's gene 
-set under the selected condition contrasts of this module. 
-The higher the score, the more similar the profiles are. 
-A cutoff value can be specified in the box above the list to select only those 
-genes with higher scores. 
-Based on the \textit{(uncentered) correlation}, there are three different 
-types of correlation scores available to rank the genes. 
-Here we will use the default `correlation', which calculates the 
-\textit{Uncentered Pearson Correlation} as the score. 
-Other options can be chosen from the dropdown box that will appear by clicking 
-the text `correlation' in the bar on top of the ranked gene list. 
-Please refer Appendix \ref{apd:gene-score} for more information 
-about these options and how to calculate them. 
-Also in the panel, the figures to the right are meant to provide additional 
-helpful information and show, from left to right, 
-a density plot showing the distribution of the 
-correlation scores across all genes in the compendium and a plot showing the 
-number of genes that will be added if a given cutoff is selected. The circles 
-connected by a red vertical line in the density plot indicate the gene(s) that 
-already exists in the current module and its correlation score. 
-\end{adjustwidth}
+the `ranked contrast selection' panel explained in Step 1.3. 
+%
+On the left side, a gene list ranked by the degree of the correlation of each
+gene's expression profile with the mean profile of the module genes under the
+selected contrasts belonging to this module.  
+%
+Different types of correlation scores are available to rank the
+genes. Interested user can refer Appendix \ref{apd:gene-score} for the
+detailed explanation of the different options.  Here, the default one, which
+calculates the \textit{Uncentered Pearson Correlation}, is utilized.  The
+higher the score, the more similar the profiles are.  Similarly, a cutoff
+value can be specified to select only those genes with higher scores.
+%% %
+%% Based on the \textit{(uncentered) correlation}, there are three different 
+%% types of correlation scores available to rank the genes. 
+%% Here we will use the default `correlation', which calculates the 
+%% \textit{Uncentered Pearson Correlation} as the score. 
+%% Other options can be chosen from the dropdown box that will appear by clicking 
+%% the text `correlation' in the bar on top of the ranked gene list. 
+%% Please refer Appendix \ref{apd:gene-score} for more information 
+%% about these options and how to calculate them. 
+%
+Also in the panel, the figures to the right
+% are meant to provide additional helpful information and
+show, from left to right, a density plot displaying the distribution of the
+correlation scores across all genes in the compendium and a plot showing the
+number of genes that will be added if a given cutoff is selected. The circles
+connected by a red vertical line in the density plot indicate the gene(s) that
+already exists in the current module and its correlation score.
 
-\begin{adjustwidth}{5mm}{0cm}
-To extend our module, we will use a cutoff value of 0.75. Input 0.75 in the box 
-above the gene list at the left, and click `Ok' button at the side. The list is 
-then filtered, and all genes to be added are automatically selected (checked) 
-in the list to the left. With the option `Create new module upon edit' (located 
-below the gene list), the original module is kept unchanged, and the extended 
-module is saved as a new module. Chose this option, then click the `Add' button 
-at left, and specify `sodA\_c3\_g.75' (in the popup window that appears) as the 
-name of the new module to create it. It will now appear as a node below the 
-original module `sodA\_c3' in the workspace. 
-\end{adjustwidth}
+To extend our module, we will use a cutoff value of 0.75.
+%% Input 0.75 in the box above the gene list at the left, and click `Ok' button
+%% at the side. The list is then filtered, and all genes to be added are
+%% automatically selected (checked) in the list to the left.
+%
+The option `Create new module upon edit' (located below the gene list) is
+checked, so that a new module is created with the extended gene set and the
+original one is kept unchanged.
+%% With the option `Create new module upon edit' (located below the gene
+%% list), the original module is kept unchanged, and the extended module is
+%% saved as a new module. Chose this option, then
+%
+When ready, click the `Add' button at left, and specify `sodA\_c3\_g.75' (in
+the popup window that appears) to name the new module.  A new node
+representing newly created module is added below the original module
+`sodA\_c3' in the workspace.
+%% as the name of the new module to create it. It will now appear as a node
+%% below the original module `sodA\_c3' in the workspace.
 
-The resulting module now contains 35 genes with an expression profile similar 
-to that of \textit{sodA} under the selected contrasts (see heatmap, Fig. 
-\ref{fig:colombos-heatmap-final}). 
-Amongst the genes in the module are \textit{cyoA}, \textit{cyoB}, 
-\textit{cyoC}, \textit{cyoE}, subunits of the cytochrome b terminal oxidase 
-complex involved in aerobic respiration \cite{Cotter1992}, \textit{sdhA}, 
-\textit{sdhC}, \textit{sdhD}, encoding the succinate dehydrogenase (SdhCDAB) 
-active during Krebs cycle catalyzing the oxidation of succinate to fumarate 
-under aerobic conditions \cite{Wilde1986}, and \textit{sucA}, \textit{sucB}, 
-\textit{sucC}, \textit{sucD} involved in generating succinyl-CoA, one of the 
-reactants in the Krebs cycle \cite{Buck1989}. 
-Considering the functions of these gene products (see also enriched GO terms in 
-Table \ref{tab:GOenrich}), it is not at all unexpected that their expression 
-levels are influenced by oxygen availability. 
-Moreover, many genes in module `sodA\_c3\_g.75' also share common regulators 
-with \textit{sodA}, such as ArcA, Fur, FNR, CRP, etc. Hence, \textit{sodA} 
-(encoding a superoxide dismutase activity) being coexpressed with the genes 
-involved in aerobic respiration might be essential to protect the cell against 
-oxidative stress.
+\end{small} % Step 3
+
+The resulting module now contains 35 genes with an expression profile similar
+to that of \textit{sodA} under the selected contrasts (see heatmap, Fig.
+\ref{fig:colombos-heatmap-final}).  Amongst the genes in the module are
+\textit{cyoA}, \textit{cyoB}, \textit{cyoC}, \textit{cyoE}, subunits of the
+cytochrome b terminal oxidase complex involved in aerobic respiration
+\cite{Cotter1992}, \textit{sdhA}, \textit{sdhC}, \textit{sdhD}, encoding the
+succinate dehydrogenase (SdhCDAB) active during Krebs cycle catalyzing the
+oxidation of succinate to fumarate under aerobic conditions \cite{Wilde1986},
+and \textit{sucA}, \textit{sucB}, \textit{sucC}, \textit{sucD} involved in
+generating succinyl-CoA, one of the reactants in the Krebs cycle
+\cite{Buck1989}.  
+%
+Considering the functions of these gene products (enriched GO terms in Table
+\ref{tab:GOenrich}), it is not at all unexpected that their expression levels
+are influenced by oxygen availability.  Moreover, many genes in module
+`sodA\_c3\_g.75' also share common regulators with \textit{sodA}, such as
+ArcA, Fur, FNR, CRP, etc. Hence, \textit{sodA} (encoding a superoxide
+dismutase activity) being coexpressed with the genes involved in aerobic
+respiration might be essential to protect the cell against oxidative stress.
 
 \begin{figure}[tb]
 	\centering
@@ -879,267 +933,305 @@ oxidative stress.
 
 \subsubsection{Summary}
 
-The fact that we obtained module `sodA\_c3\_g.75' clearly show the strength of 
-the simple and straightforward method implemented in COLOMBOS. Although this 
-COLOMBOS coexpression module does not necessarily imply coregulation of its 
-genes, this could be investigated further (see Fig. 
-\ref{fig:workflow-distiller-colombos}). 
-The promoter regions of the genes in this module could now be used as input for 
-motif detection methods. This task could be achieved either by screening the 
-promoter regions with Position Specific Scoring Matrices (PSSMs) of previously 
-characterized motifs, or by using \textit{de novo} motif detection methods 
-\cite{Tompa2005, Storms2010}. 
-Note that some of the genes in it are unannotated, the COLOMBOS web service can 
-also serve as a tool to help biologists identify interesting future research 
-candidates.
+The biological relevance between genes and contrasts of module
+`sodA\_c3\_g.75' clearly shows the strength of the simple methods implemented
+in COLOMBOS.
+%
+Although the coexpression of module genes does not necessarily imply
+coregulation of its genes, 
+%
+the promoter regions of these genes could be investigated further using motif
+detection methods to discover common regulators (see
+Fig. \ref{fig:workflow-distiller-colombos}).
+%% this could be investigated further (see
+%% Fig. \ref{fig:workflow-distiller-colombos}).  The promoter regions of the
+%% genes in this module could be used as input for motif detection to discover
+%% common regulators.
+%
+This task could be achieved either by screening these regions with Position
+Specific Scoring Matrices (PSSMs) of previously characterized motifs, or by
+using \textit{de novo} motif detection methods \cite{Tompa2005, Storms2010}.
+%
+Moreover that some genes in the module are unannotated, this shows that
+COLOMBOS web service can also serve as a tool to help biologists identify
+interesting research candidates.
 
 
 
 
-\subsection{Identifying transcriptional modules containing \textit{sodA} with 
-DISTILLER}
+\subsection{Identifying transcriptional modules with DISTILLER}
 
-As described above, DISTILLER \cite{Lemmens2009} is a data integration 
-framework that can 
-automatically identify condition dependent transcriptional modules by combining 
-expression data with information on the interaction between a regulator and its 
-corresponding target genes (here through motif data). Here, we will show how to 
-setup the related parameters and run each of the three steps of DISTILLER 
-through our web service \cite{DISTILLER}. 
-After transcriptional modules are obtained using DISTILLER, 
-the software ViTraM \cite{Sun2009} is used to visualize overlapping 
-transcriptional coexpression modules together with the motif information in an 
-interactive way. At the end, we briefly discuss those modules containing 
-\textit{sodA} in DISTILLER results.
+DISTILLER \cite{Lemmens2009} is a data integration framework that
+automatically identifies condition dependent transcriptional modules by
+combining expression data with information on the interaction between a
+regulator and its corresponding target genes (here through motif data). Here,
+we will first show how to setup the related parameters and run each of the
+three steps of DISTILLER through our web service \cite{DISTILLER}.
+%
+Then after transcriptional modules are obtained,
+%
+they are visualized together with the motif information in an interactive way
+using software ViTraM \cite{Sun2009}.
+%
+%% the software ViTraM \cite{Sun2009} is used to visualize overlapping modules
+%% together with the motif information in an interactive way.
+At last, we briefly discuss those resulting modules containing \textit{sodA}.
 
 \subsubsection{Part.1 Running DISTILLER algorithm}\label{sec:dist-distmodule}
-Every search for regulatory modules targeting one specific gene or a set of 
-genes starts from the expression and motif data of all genes of the species. 
-DISTILLER will then identify all possible modules. From the resulting modules, 
-the user can filter out those involving his or her query genes. As a case 
-study, we will use DISTILLER to identify the regulatory modules containing 
-\textit{sodA}.
 
-To reduce the running time of DISTILLER, the motif data can be reduced by 
-removing all the motifs that are irrelevant to the specific query gene set.  
-Here, we omitted motifs that were not present in the \textit{sodA} promoter 
-region from our motif dataset. Only 7 motifs (ArcA, Rob, SoxS, Fur, IHF, 
-FNR, MarA, and CRP) remain.
+DISTILLER automatically identifies all regulatory modules met certain
+criterion from the expression and motif data of all genes of the species.
+%
+The target specific ones can then be filtered out from the resulting modules.
+%
+In this case study, we will use DISTILLER to identify those modules containing
+\textit{sodA}.
+%
+Consequently, we can simplify the motif data by removing motifs irrelevant to
+the query genes.  This greatly reduces the running time of DISTILLER.  After
+this simplification, only 7 motifs (ArcA, Rob, SoxS, Fur, IHF, FNR, MarA, and
+CRP) remain.
+
+
+%% Every search for regulatory modules targeting one specific gene or a set of 
+%% genes starts from the expression and motif data of all genes of the species. 
+%% DISTILLER will then identify all possible modules. From the resulting modules, 
+%% the user can filter out those involving his or her query genes. As a case 
+%% study, we will use DISTILLER to identify the regulatory modules containing 
+%% \textit{sodA}.
+
+%% To reduce the running time of DISTILLER, we simply the motif data by removing
+%% motifs that are irrelevant to the query genes.  Here, we omitted those that
+%% were not present in the \textit{sodA} promoter region. Only 7 motifs (ArcA,
+%% Rob, SoxS, Fur, IHF, FNR, MarA, and CRP) remain.
 
 
 \paragraph{Create a user profile and a project}
-DISTILLER algorithm is computationally expensive, as it explores the complete 
-search space. Depending on the specified parameters and the dataset size, Each 
-step could take hours or days to finish.  Hence, a user account is required 
-with minimally user's email information, and a project should be defined for 
-each dataset.  In this manner, user can simply setup the system to run each 
-step of the algorithm and leave the site.  
-When process finished, user is notified by an email (see Section 
-\ref{sec:distiller-email} for its format and content).
-He can then log in and select the specific project to check the results or 
-continue with next step.
+DISTILLER algorithm is computationally expensive, as it explores the complete
+search space. Depending on the specified parameters and the dataset size, each
+step could take hours or days to finish.  
+%
+Consequently, a registration is required, which creates an account with
+minimally user's email information.  This provide great flexibility, as user
+can simply setup the system to run a step of the algorithm and leave the site.
+When process finished, user is notified by an email (details in Section
+\ref{sec:distiller-email}).  He can then log in and select the corresponding
+project to continue.
 
+
+%% DISTILLER algorithm is computationally expensive, as it explores the complete
+%% search space. Depending on the specified parameters and the dataset size, each
+%% step could take hours or days to finish.  
+%% %
+%% Hence, a user account is required
+%% with minimally user's email information, and a project should be defined for
+%% each dataset.  In this manner, user can simply setup the system to run each
+%% step of the algorithm and leave the site.  When process finished, user is
+%% notified by an email (see Section \ref{sec:distiller-email} for its format and
+%% content).  He can then log in and select the specific project to check the
+%% results or continue with next step.
+
+\begin{small} % Step 1,2,3 
 %Since DISTILLER can be time consuming, a user account needs to be created and 
 %a project should be de?ned for each dataset.
 
-\vspace{-5mm}\begin{adjustwidth}{3mm}{0cm}
-\nointerlineskip\leavevmode
+% \vspace{-5mm}\begin{adjustwidth}{3mm}{0cm}
+% \nointerlineskip\leavevmode
 % command required to use \subparagraph inside adjustwidth env.
 % ref: 
 %http://tex.stackexchange.com/questions/60992/strange-compilation-problem-using-adjustwidth-environment-from-changepage-packag
-\subparagraph{Step 1}	Go to the DISTILLER web service \cite{DISTILLER}. An 
-existing user can login through the front page. 
-New users can create a user profile by clicking the `New User' 
-button and completing the required information. Subsequently, click the `Create 
-User' button. Note that the user's email address is required for sending an 
-email notification of the results (see Section \ref{sec:distiller-email}).
+\subparagraph{Step 1}	Go to the DISTILLER web service \cite{DISTILLER}. 
+% An existing user can login through the front page. 
+A new user can be created in three steps, click the `New User' button,
+complete the required information, and click the `Create User' button.  The
+user's email address is required for sending notification emails (see Section
+\ref{sec:distiller-email}).
 
 \subparagraph{Step 2}	After log in, the project selection interface will 
-appear, where one can directly select an existing project from the combo box to 
-continue, or create a new one by clicking `Create New Project' and giving a 
-name and a brief description of the project. Here, we create a new project 
-named `Ecoli\_sodA'.
+appear, where one can either select an existing project to continue, or create
+a new one by clicking `Create New Project' and giving a name and a brief
+description for it. Here, we create a new project named `Ecoli\_sodA'.
 
 \subparagraph{Step 3}	After choosing or creating a project, the DISTILLER 
-panel will appear where the user can run the three main steps of DISTILLER, 
-each of which has its own separate tab. As our project is a new one, the user 
-will see the `Module Detection' tab (Fig. \ref{fig:distiller}), while the 
-`Module Filtering' and `Module Extension' tabs are disabled.
-\end{adjustwidth}
+panel will appear where the user can run the three main steps of DISTILLER,
+each of which has its own separate tab. For a new project, only the `Module
+Detection' tab is accessible (Fig. \ref{fig:distiller}), while the `Module
+Filtering' and `Module Extension' tabs are disabled.
+%\end{adjustwidth}
+
+\end{small} % Step 1,2,3 
 
 
-\paragraph{Identifying seed modules} This step allows the user to identify 
-seed modules from the source data.
 
+\paragraph{Identifying seed modules}
 
-\vspace{-5mm}\begin{adjustwidth}{3mm}{0cm}
-\nointerlineskip\leavevmode
+\begin{small} % Step 4,5,6
+%\vspace{-5mm}\begin{adjustwidth}{3mm}{0cm}
+%\nointerlineskip\leavevmode
 \subparagraph{Step 4} For a new project, user need to first upload the required 
-expression data file and motif data file (see Section 
-\ref{sec:distiller-infile-format}) to be analyzed by DISTILLER program, and 
-preprocess them to check the format 
-and integrate of the files.
-As the system support different expression data file formats and various 
-compression types, it is user's responsibility to specify the correct 
-information by selecting the right options for the `Compression' and `Data file 
-format' items of the `Expression Data Parameters' respectively.
+expression data file and motif data file (see Section
+\ref{sec:distiller-infile-format}) to be analyzed by DISTILLER program, and
+preprocess them to check their format and integrity.  As the system supports
+expression data file in different formats and compression types, it is user's
+responsibility to specify the correct options for the `Compression' and `Data
+file format' items in the `Expression Data Parameters' section.
+%% information by selecting the right options for the `Compression' and `Data
+%% file format' items of the `Expression Data Parameters' respectively.
+%
+Here, the sample files, expdata\_DISTILLER\_Expression.txt and
+binary\_DISTILLER\_Motif.txt, are used.  Upload them using data file specific
+upload buttons, specify `Flat file format' as `Data file format' and `No' for
+`Compression', then click the `Preprocessing' button to start the process on
+the server.
+%
+As it is time consuming, the user will be notified by email when the process
+is done.
 
-Click the `Upload Expression Data File' button to upload the expression data 
-file, and the `Upload Binary Data File' button for the motif data file. Here we 
-will use sample files expdata\_DISTILLER\_Expression.txt and 
-binary\_DISTILLER\_Motif.txt respectively, and specify `Flat file format' as 
-`Data file format' and `No' for `Compression'. 
-Click `Preprocessing' button to do the integrate check and the required file 
-conversion. As this step can take time to finish, user can now leave the site, 
-and wait for the notification email to continue.
+%For a new project, no source data files have been uploaded, hence only the
+%`Load file' button at the lower right corner is enabled, and the `run
+%Distiller' button is disabled (Fig.  \ref{fig:distiller}).  Users must first
+%upload the expression data file (use sample file
+%expdata\_DISTILLER\_Expression.txt) and the motif data file
+%(binary\_DISTILLER\_Motif.txt).  Upload the required data files by clicking
+%the `Load File' button. Note that the web service automatically recognizes
+%the data type of a file according to the prefix of its name.  Please refer
+%Note 10 for the mandatory file name prefix of each input file type.
 
-%For a new project, no source data files have 
-%been uploaded, hence only the `Load file' button at the lower right corner is 
-%enabled, and the `run Distiller' button is disabled (Fig. 
-%\ref{fig:distiller}). 
-%Users must first upload the expression data file (use sample file 
-%expdata\_DISTILLER\_Expression.txt) and the motif data file 
-%(binary\_DISTILLER\_Motif.txt). 
-%Upload the required data files by clicking the `Load File' button. Note that 
-%the web service automatically recognizes the data type of a file according to 
-%the prefix of its name. 
-%Please refer Note 10 for the mandatory file name prefix of each input file 
-%type.
+\subparagraph{Step 5} After receiving the notification email, user can go back to 
+their project at DISTILELR site.  The interface is the same as seen in Step 4.
+Only now the button `Run Distiller' is unlocked.  Three groups of parameters
+need to be specified before starting the process: the binary data parameters
+for the motif data (see Step 5.1), the expression data parameters (see Step
+5.2), and the general ones (see Step 5.3).
 
-\subparagraph{Step 5} When receiving the notification email of the 
-preprocessing step, the user can go back to the website to proceed with the 
-main steps.  
-Open the DISTILLER website, log in with your user account, and select the 
-previously created project. The same interface as seen in Step 4 appears.
-There are three groups of parameters need to be specified for this step: the 
-binary data parameters related to the 
-motif data (see Step 5.1), the expression data parameters (see Step 5.2), and 
-the general parameters (see Step 5.3).
+%% When receiving the notification email of the preprocessing step, the user can
+%% go back to the website to proceed with the main steps.  Open the DISTILLER
+%% website, log in with your user account, and select the previously created
+%% project. The same interface as seen in Step 4 appears.  There are three groups
+%% of parameters need to be specified for this step: the binary data parameters
+%% related to the motif data (see Step 5.1), the expression data parameters (see
+%% Step 5.2), and the general parameters (see Step 5.3).
 
-\vspace{-5mm}\begin{adjustwidth}{3mm}{0cm}
-\nointerlineskip\leavevmode
-\subparagraph{Step 5.1} Binary data parameters: 1) Binary Support specifies 
-the minimal number of motifs that the genes in a module should have in common; 
-2) Binary Thresholds is the minimal score a motif instance in the promoter 
-region of a gene should have to be considered as present in that promoter 
-region. 
-It is applied on the motif data to convert its \textit{continuous values} into 
-the \textit{binary ones}. 
-Any value which is equal or higher than the threshold will be converted into 
-value 1, and 0 otherwise, resulting in a binary matrix. 
-This binary matrix is then used by the algorithm to identify modules.
-
+\subparagraph{Step 5.1} Binary data parameters: 1) `Binary Support' specifies 
+the minimal number of motifs that the genes in a module should have in common;
+2) `Binary Thresholds' is the minimal score a motif instance in the promoter
+region of a gene should have to be considered as present.  
+%
+As DISTILELR only accepts binary motif data as input, whereas most motif
+detection algorithms generate probabilities scoring the certainty of motif
+gene relations, the specified threshold is applied on the motif data to
+convert the \textit{continuous values} into the \textit{binary ones}.
+%% Any value which is equal or higher than the threshold will be converted
+%% into value 1, and 0 otherwise, resulting in a binary matrix.  This binary
+%% matrix is then used by the algorithm to identify modules.
+%
 For this case study, we choose 1 for the Binary Support and 
 0.999 as the Binary Threshold. Hence the genes belonging to a module must share 
 at least 1 motif and a gene is considered to have a specific motif if the 
 corresponding value in the motif data is equal or higher than 0.999.
 
-\subparagraph{Step 5.2}	Expression data parameters: 1) Box Support specifies 
-the minimal number of condition contrasts under which the genes in a module 
-should be coexpressed; 2) Box P-value is used to generate the threshold 
-bandwidth sequence that is needed to test whether a module passes the 
-constraints on the expression data, i.e. whether the genes in the module 
-are sufficiently coexpressed within the selected contrasts \cite{Lemmens2009}. 
-Here, 100 is chosen for the Box Support and 0.0001 for the Box P-values.
+\subparagraph{Step 5.2}	Expression data parameters: 1) `Box Support' specifies 
+the minimal number of condition contrasts under which the genes in a module
+should be coexpressed; 2) `Box P-value' is used to generate the threshold
+bandwidth sequence that is needed to test whether a module passes the
+constraints on the expression data, i.e. whether the genes in the module are
+sufficiently coexpressed within the selected contrasts \cite{Lemmens2009}.
+Here, 100 is chosen for the `Box Support' and 0.0001 for the `Box P-values'.
 
-\subparagraph{Step 5.3} General parameters: 1) Minimal Module Size specifies 
-the minimal number of genes that should be in a module; 2) Number of 
-Randomizations specifies the number of random modules that will be generated 
-for computing a threshold bandwidth sequence for the condition contrast 
-selection. 
-Here, we specify the Minimal Module Size as 4, and the Number of Randomizations 
-as 10000. The algorithm uses these parameters to generate 10000 random modules 
-consisting of 4 genes to compute the threshold bandwidth sequence.
-\end{adjustwidth}
+\subparagraph{Step 5.3} General parameters: 1) `Minimal Module Size' specifies 
+the minimal number of genes that should be in a module; 2) `Number of
+Randomizations' specifies the number of random modules that will be generated
+for computing a threshold bandwidth sequence for the condition contrast
+selection.  Here, we specify 4 and 10000 for these two parameters
+respectively.
+%% the `Minimal Module Size' as 4, and the `Number of Randomizations' as
+%% 10000.
+These requires that the algorithm generates 10000 random modules consisting of
+4 genes to compute the threshold bandwidth sequence.
 
 \subparagraph{Step 6} When all parameters are specified, click `Run 
-Distiller'. DISTILLER will now enumerate all initial modules, each of which 
-contain at least 4 genes coexpressed in at least 100 condition contrasts and 
-sharing at least one motif. Note these contrasts are selected based on 
-comparing the ordered contrasts bandwidth sequences of given genes with the 
-threshold bandwidth sequence (see \cite{Lemmens2009} for details). 
-\end{adjustwidth}
-
+Distiller'. DISTILLER will now enumerate all initial modules, each of which
+contains at least 4 genes coexpressed in more then 100 contrasts and sharing
+at least one motif. Note these contrasts are selected based on comparing the
+ordered contrasts bandwidth sequences of given genes with the threshold
+bandwidth sequence (see \cite{Lemmens2009} for details).
+%
 When finished, user will receive a notification email (see Section 
 \ref{sec:distiller-email}) containing the link to the output file with the
 identified modules, and the link to the supplementary file bundle that is 
 required to visualize modules using ViTraM.
 
+\end{small} % Step 4,5,6
 
-\paragraph{Filter the raw DISTILLER output} After receiving the notification 
-email for the module detection step, the user can go back to the saved project 
-in DISTILLER website to proceed with the other steps. 
-Now, the tabs `Module Filtering' and the tab `Module Extending' are enabled. 
-Note that the user can directly proceed to the module extending step, but due 
-to our discussion in Section \ref{sec:dist-distiller}, performing a filtering 
-step before extending the obtained modules is highly recommended.
 
-\vspace{-5mm}\begin{adjustwidth}{3mm}{0cm}
-\nointerlineskip\leavevmode
-\subparagraph{Step 7} Click the `Filtering' tab. Specify the number of 
-modules to be filtered out in this step. Click on `Filter Result' to proceed.
-In our case study, we will choose 20 modules to obtain the top 20 modules 
-ranked by their scores computed by DISTILLER (see Section 
-\ref{sec:dist-distiller}). Similarly, the result of the process will be 
+\paragraph{Filter the raw DISTILLER output} After obtaining the initial modules, 
+the user can go back to the saved project at DISTILELR site.  Now, the tabs
+`Module Filtering' and the tab `Module Extending' are enabled.  Note that the
+user can directly proceed to the module extending step, but due to the
+discussion in Section \ref{sec:dist-distiller}, performing a filtering step
+before extending the obtained modules is highly recommended.
+
+\begin{small} % Step 7
+\subparagraph{Step 7} Click the `Filtering' tab, specify the number of 
+modules to be filtered out in this step, then click on `Filter Result' to
+proceed.  In our case study, the top 20 modules ranked by their scores
+computed by DISTILLER are selected (see Section
+\ref{sec:dist-distiller}). Similarly, the result of the process will be
 notified by email.
-\end{adjustwidth}
+\end{small}
 
+\paragraph{Extend DISTILLER seed modules} After obtaining the filtered results, 
+the user can now proceed with the `Module Extension' step.
+%% When receiving the notification email for the filtering step, the user can now
+%% go back to the DISTILLER website to proceed with the `Module Extension' step.
+%
+In this step, extra genes are incorporated into a module if they comply with
+the relaxed criteria.
 
-\paragraph{Extend DISTILLER seed modules} When receiving the notification email 
-for the filtering step, the user can now go back to the DISTILLER 
-website to proceed with the `Module Extension' step. 
-In this step, extra genes are incorporated into the modules obtained if they 
-comply with the relaxed criteria.
+\begin{small} % Step 8,9,10
 
-\vspace{-5mm}\begin{adjustwidth}{3mm}{0cm}
-\nointerlineskip\leavevmode
 \subparagraph{Step 8} Two parameters need to be specified to run this 
-step. Candidate genes have to comply with both parameters in order to be 
-included in the extended module. The only exception is made for the genes 
-belong to an \textit{operon}, which will be explained in Step 9. 
+step. Candidate genes have to comply with both parameters in order to be
+included in the extended module. The only exception is made for the genes
+belong to an \textit{operon} (see Step 9).
 
-\vspace{-5mm}\begin{adjustwidth}{3mm}{0cm}
-\nointerlineskip\leavevmode
-\subparagraph{Step 8.1} Extended Motif Threshold: this is the same type of 
-parameter as the Binary Thresholds specified in Step 5.1. 
-By choosing a less stringent (lower) value for the Extended Motif Threshold 
-than was chosen for the Binary Thresholds, a gene will have more motif 
-candidates. As a result, more genes can satisfy the Binary Support parameter. 
-In the case study, we use 0.95 for the Extended Motif Threshold (as compared to 
-0.999 for the Binary Thresholds in Step 5.1).
+\subparagraph{Step 8.1} `Extended Motif Threshold': this is the same type of 
+parameter as the `Binary Thresholds' specified in Step 5.1, but less stringent
+to allow a gene having more present motifs.
+%% By choosing a less stringent (lower) value for the Extended Motif Threshold
+%% than was chosen for the Binary Thresholds, a gene will have more motif
+%% candidates.
+%
+As a result, more genes can satisfy the `Binary Support' parameter.  Here, we
+use 0.95 for this parameter (as compared to 0.999 for the `Binary
+Thresholds').
 
-\subparagraph{Step 8.2}	Correlation Percentage: a correlation threshold applied 
-to select candidate genes for module extension. 
-Given a Correlation Percentage of $p$, only those genes whose expression 
-profile correlation, calculated based on the mean expression profile of a 
-module, is higher than $p$, will be considered as the candidates to extend that 
-module. Here we choose $p$ as 0.95.
-\end{adjustwidth}
+\subparagraph{Step 8.2}	`Correlation Percentage': a correlation threshold to 
+select candidate genes for module extension.  Given a `Correlation Percentage'
+of $p$, only those genes whose expression profile correlations, calculated
+based on the mean expression profile of a module, higher than $p$, are
+considered as the candidates. Here we choose $p$ as 0.95.
+
 
 \subparagraph{Step 9} Optionally, the genes of a module can be further 
-extended with \textit{operon information} if available. 
-Candidate extension genes belonging to an operon whose first gene is present in 
-a seed module, only need to satisfy the criterion for the expression profile 
-(Correlation Percentage parameter) to be included into the module. 
-The operon information (i.e. which genes belong to which operon) is included in 
-the analysis by uploading an operon information file (see Section 
-\ref{sec:distiller-infile-format}) with the prefix `operon\_' in its file name.
+extended with \textit{operon information} if available.  Candidate genes
+belonging to an operon, whose first gene is present in a seed module, only
+need to satisfy the criterion for the expression profile (`Correlation
+Percentage') to be included into the module.  
+%
+The operon information (i.e. which genes belong to which operon) is included
+in the analysis by uploading a file containing the corresponding data (see
+Section \ref{sec:distiller-infile-format}).
 
 \subparagraph{Step 10} After specifying the parameters and optionally 
-uploading an operon data file, the user can click `Extend Modules' to run the 
-module extending step. 
-A notification email is sent when the process is finished.
-\end{adjustwidth}
+uploading an operon data file, the user can click `Extend Modules' to run the
+process.  A notification email is sent when the process is finished.
 
-%Note that the DISTILLER algorithm is a global data exploration method that 
-%identifies all modules that meet user specified criteria.
+\end{small} % Step 8,9,10
 
-As a global data exploration method, the DISTILLER result modules obtained 
-contains those irrelevant to our target gene \textit{sodA}. 
-We simply sift out the modules that contain gene \textit{sodA} to continue.
-
-
-
+After receiving the final output file of DISTILLER, the user can then
+specifically select the modules that contain his or her query genes, in our
+case the gene \textit{sodA}, to continue.
 
 %After receiving the final output file of DISTILLER, the user can then 
 %specifically select the modules that contain his or her query genes, in our 
@@ -1149,61 +1241,76 @@ We simply sift out the modules that contain gene \textit{sodA} to continue.
 
 
 \subsubsection{Part.2 Visualization of DISTILLER modules with ViTraM}
-Here we show how to use ViTraM to analyse modules discovered by DISTILLER. 
-First, as mentioned in Section \ref{sec:dist-vitram}, the DISTILLER output files
-need to be converted into ViTraM compatible format. 
-Then, the generated files are used in ViTraM to visualize the obtained modules. 
-We will discuss both steps separately.
+The software ViTraM is used to analyse modules discovered by DISTILLER.
+However, the DISTILLER output files need to be converted into ViTraM
+compatible format first.  Then, ViTraM can be utilized to visualize the
+modules.
 
-Note that due to the randomization, DISTILLER is non-deterministic. Thus, it is 
-possible that when running DISTILLER in exactly the same way as outlined here, 
-the recovered modules are different from the ones obtained in this example (as 
-provided in `DISTILLER\_outputExtended.m' sample file, see Section 
-\ref{sec:dist-sample}). 
-Use the corresponding sample file to proceed with exactly the same 
-results.
+DISTILLER is non-deterministic due to the randomization process utilized by
+the algorithm to select contrasts.
+%
+Thus, it is possible that when following exactly the same way as outlined here
+to run DISTILLER, the recovered modules are different from those obtained in
+this example (as provided in `DISTILLER\_outputExtended.m' sample file, see
+Section \ref{sec:dist-sample}).  Use the corresponding sample file to proceed
+with exactly the same results.
 
 
 \paragraph{Prepare ViTraM readable files}
 
-\begin{adjustwidth}{3mm}{0cm}
-\nointerlineskip\leavevmode
-\vspace{-5mm}\subparagraph{Step 1} Download the XMLCreator from the ViTraM 
-website\cite{ViTraM} and unzip the file. Run the XMLCreator by typing the 
-command `java -jar -Xms256m -Xmx512m XMLCreator.jar' in a terminal. Windows 
-users can click file `XMLCreator\_Windows\_512M.bat' to run the XMLCreator. 
+\begin{small} % Step 1,2 ViTraM
+\subparagraph{Step 1} Download the XMLCreator from the ViTraM 
+website\cite{ViTraM} and unzip the file. Under linux, run the
+XMLCreator by typing the command `java -jar -Xms256m -Xmx512m
+XMLCreator.jar' in a terminal.  Windows users can click file
+`XMLCreator\_Windows\_512M.bat' to run it.
 
 \subparagraph{Step 2} In the popup window, choose `DISTILLER' as module 
-detection tool and click on `OK'. 
-A new window appears where user can specify the input and output files. 
-The required input files are the DISTILLER output data file of `.m' format and 
-the `Expression Data' file (see Section \ref{sec:dist-vitram}). 
-In addition, other files can provide extra information for each module that can 
-be visualized along with the modules by ViTraM. 
-Some examples of such extra information are the motif information of each gene, 
-the functional annotations of the genes, or the information on what was 
-measured in each experimental conditions, etc.
-Finally, the names of the output files need to be specified. Two output files 
-will be generated: the module XML file and the corresponding expression data 
-file consisting of the expression values for those genes and condition 
-contrasts present in any of the modules. 
-When ready, click the `Make XML File' button to generate these output files. If 
-files are generated successfully, a window will appear to notify user.
-\end{adjustwidth}
+detection tool and click on `OK'.  
+%
+The main interface appears where user can specify the input and output
+files.
+%
+Two required input files are the DISTILLER `.m' output data file and
+the `Expression Data' file (see Section \ref{sec:dist-vitram}).  In
+addition, other files providing extra information can be visualized
+along with the modules. This includes but not limited to, the motif
+information of each gene, the genes' functional annotations, or the
+experimental factors and/or sample characters of each , etc.
+%
+Finally, the names of the output files need to be specified. Two
+output files will be generated: the module XML file and the
+corresponding expression data file containing the expression values
+for those genes and contrasts presented in any of the modules.
+%% When ready, click the `Make XML File' button to generate these
+%% output files. If files are generated successfully, a window will
+%% appear to notify user.
 
-As an example, we will use sample files provided with this chapter to show how 
-to run XMLCreator. First, specify the file `DISTILLER\_outputExtended.m' as the 
-`DISTILLER output data', and the file `expdata\_DISTILLER\_supple.txt' as the 
-`Expression Data'. This is the minimal input that is required to run 
-XMLCreator.
-In addition, we also provide the file `binary\_DISTILLER\_Motif\_supple.txt' as 
-the `Motif Data' providing extra motif information to be visualized together 
-with the modules.
-Specify `ViTraM\_Modules.XML' and `ViTraM\_Expression.txt' as the output file 
-names in data field `XML Data' and `Expression Data'. Click `Make XML File' 
-should generate the output file successfully.
-To run XMLCreator on the DISTILLER output, pleases always use the supplement 
-files specified in the same notification email of an `.m' output file (see 
+
+\end{small} % Step 1,2 ViTraM
+
+Here, we demonstrate this step using the correspoding sample files, the
+`DISTILLER\_outputExtended.m' and the `expdata\_DISTILLER\_supple.txt'.
+%
+Additionally, the file `binary\_DISTILLER\_Motif\_supple.txt' providing extra
+motif information for each module is specified as the `Motif Data'.
+%
+We then run XMLCreator to generate the two output files, `ViTraM\_Modules.XML'
+and `ViTraM\_Expression.txt'.
+%% As an example, we will use sample files provided with this chapter to show how 
+%% to run XMLCreator. First, specify the file `DISTILLER\_outputExtended.m' as the 
+%% `DISTILLER output data', and the file `expdata\_DISTILLER\_supple.txt' as the 
+%% `Expression Data'. This is the minimal input that is required to run 
+%% XMLCreator.
+%% In addition, we also provide the file `binary\_DISTILLER\_Motif\_supple.txt' as 
+%% the `Motif Data' providing extra motif information to be visualized together 
+%% with the modules.
+%% Specify `ViTraM\_Modules.XML' and `ViTraM\_Expression.txt' as the output file 
+%% names in data field `XML Data' and `Expression Data'. Click `Make XML File' 
+%% should generate the output file successfully.
+%
+To run XMLCreator on the DISTILLER output, pleases always use the supplement
+files specified in the notification email that accompanies the `.m' file (see
 Section \ref{sec:distiller-email}).
 
 
@@ -1214,87 +1321,88 @@ download ViTraM v2.0 and unzip the file. Note, a registration is required by
 providing us some basic information, and the user must accept our software 
 license.
 
-\begin{adjustwidth}{3mm}{0cm}
-\nointerlineskip\leavevmode
-\subparagraph{Step 3} To run ViTraM under windows, click on 
-`ViTraM\_Windows\_512M.bat' or `ViTraM\_Windows\_2G.bat' provided.
-The latter can handle larger datasets, but does require more than 2Gb physical 
-memory in the computer. To run ViTraM under linux or mac, call 
-`ViTraM\_Linux\&Mac.sh' file.
+\begin{small} % Step 3-10 ViTraM
 
-\subparagraph{Step 4} Load `ViTraM\_Modules.XML' and 
-`ViTraM\_Expression.txt' generated in Step 2 by clicking on `Open Module XML 
-File' and `Open Expression File', respectively. 
-After the data are loaded, they can be visualized by clicking on `Load All 
-Modules' in the `Module Selection' panel. 
-This extra loading step enables visualizing a subset of modules in the large 
-dataset, where directly visualizing all the modules in it after data is loaded 
-generally causes memory issues. 
-In such a case, user can use `Filter' panel first to select only the relevant 
-modules, then to visualize them. This will significantly reduce the loading 
-time to visualize modules.
+\subparagraph{Step 3} To run ViTraM under windows, click on 
+`ViTraM\_Windows\_512M.bat' or `ViTraM\_Windows\_2G.bat' provided.  The latter
+can handle larger datasets, but does require more than 2Gb physical memory in
+the computer. To run ViTraM under linux or mac, call `ViTraM\_Linux\&Mac.sh'
+file.
+
+\subparagraph{Step 4} Load `ViTraM\_Modules.XML' and `ViTraM\_Expression.txt' 
+generated in Step 2 by operations `Open Module XML File' and `Open Expression
+File' in the 'Input' panel respectively.  After the data are loaded, they can
+be visualized by `Load All Modules' in the `Module Selection' panel.  This
+extra loading step enables visualizing a subset of modules, where directly
+visualizing all the modules in a large dataset generally causes memory issues.
+In such a case, user can use `Filter' panel first to select only the relevant
+modules, then visualize them. This significantly reduces the loading time to
+visualize modules.
 
 \subparagraph{Step 5} Subsequently clicking on `View Modules' in the 
-`Module Display' panel to show the modules in the main window `Module Display'. 
-In this window, the genes are listed at the left, and the conditions are listed 
-at the top. Each module is represented as one or a group of boxes with 
-its id shown at the top left corner of each box. Note, each module uses a 
-distinctive color for its boxes.
+`Module Display' panel to show the modules in the main window.  In this window,
+the genes are listed at the left and the conditions at the top, and each module
+is represented as one or a group of boxes with its id shown at the top left
+corner of each box and a distinctive color for each module
+% Note, each module uses a distinctive color for its boxes.
 
 \subparagraph{Step 6} Click `View Gene Properties' in `Gene Properties 
-Display' panel, the 
-genes' extra properties can be visualized together with the modules in an extra 
-window located at the left side of the `Module Display' window. Since we 
-provided motif data while generating XML file in Step 2 of this section, they 
-will now appear in this window. The color of each cubic represents the value of 
-the motif score explained in Section \ref{sec:dist-vitram}. 
-The red color corresponds to the high value and the green the low one. If a 
-score is higher than a threshold, a cross will appear in the corresponding 
-cubic. For more information about this panel, we refer user to the manual of 
-ViTraM.
+Display' panel, the extra properties of the gene can be visualized together
+with the modules in an extra window located at the left side of the `Module
+Display' window. 
+%
+The motif information provided in Step 2 will now appear here.
+%% Since we provided motif data while generating XML file in Step 2 of this
+%% section, they will now appear in this window.
+%
+The color of each cubic represents the value of the motif score explained in
+Section \ref{sec:dist-vitram}.  The red color corresponds to the high value and
+the green the low one. If a score is higher than a threshold, a cross will
+appear in the corresponding cubic.
+%% For more information about this panel, we refer user to the manual of
+%% ViTraM.
 
-\subparagraph{Step 7} The `View Experiment Properties' in the `Experiment 
-Properties Display' 
-panel can open up one extra window that shows the relevant condition data if 
-loaded. In this case study, no such data is available.
+%% \subparagraph{Step 7} The `View Experiment Properties' in the `Experiment 
+%% Properties Display' panel can open up one extra window that shows the relevant
+%% condition data if loaded. In this case study, no such data is available.
 
-\subparagraph{Step 8} By clicking on `Favorite Genes' in the `Filter' panel 
-at the right hand side, it is possible to display only those modules containing 
-a particular gene. 
-The pop-up window shows on the left a list of all genes. Select the gene 
-`b3908', corresponding to \textit{sodA}, and click the arrow button 
-`\textrightarrow' to 
-add it to the favorite gene list at the right. When clicking `OK', only modules 
-containing the \textit{sodA} gene will be displayed.
+\subparagraph{Step 7} By clicking on `Favorite Genes' in the `Filter' panel 
+at the right hand side, it is possible to display only those modules containing
+a particular gene.
+%
+The pop-up window shows on the left a list of all genes. Select the gene
+`b3908' (\textit{sodA}), and click the arrow button `\textrightarrow' to add it
+to the favorite gene list at the right.  Then click `OK'.  Only modules
+containing \textit{sodA} will still be in display.
 
-\subparagraph{Step 9} To optimize the visualization of modules that 
-overlap, click on `Automatic ordering' in the `Module ordering' panel and 
-subsequently `Run Overlap Index' to layout the currently displayed modules in 
-the most optimal way (for details on the algorithms that identify the optimal 
- display of overlapping modules, we refer to \cite{Sun2009}).
+\subparagraph{Step 8} To optimize the visualization of modules that overlap, 
+click on `Automatic ordering' in the `Module ordering' panel and subsequently
+`Run Overlap Index' to layout the currently displayed modules in the most
+optimal way (for details on the algorithms that identify the optimal display of
+overlapping modules, we refer to \cite{Sun2009}).
 
-\subparagraph{Step 10} Click on `View Modules' and subsequently `Refresh 
+\subparagraph{Step 9} Click on `View Modules' and subsequently `Refresh 
 Modules' in the `Overview \& Heatmap Display'. Then click on `Adding Heatmap'. 
 The expression values of the genes for the condition contrasts in the currently 
 displayed modules will be shown by means of a heatmap.
-\end{adjustwidth}
+
+\end{small} % Step 3-10 ViTraM
 
 
 \subsubsection{Analyzing resulting DISTILLER modules containing \textit{sodA}}
 
-In the case study we used DISTILLER to search for modules of coexpressed
-genes sharing at least one motif instances for the same regulator.
-Resulting modules including the motif instances shared among genes
-within each module are listed in Table \ref{tab:distModules}. 
-Since we are interested in \textit{sodA}, transcriptional modules containing 
-this gene were selected and visualized using ViTraM. 
-They are modules 2, 3, 8, and 12 (Fig. \ref{fig:vitram}). 
+In this case study, we used DISTILLER to search for modules of coexpressed
+genes sharing at least one motif instances for the same regulator.  Resulting
+modules including the motif instances shared among genes within each module are
+listed in Table \ref{tab:distModules}.  Since we are interested in
+\textit{sodA}, transcriptional modules 2, 3, 8, and 12 containing this gene
+were selected and visualized using ViTraM (Fig. \ref{fig:vitram}).  
+%
 The numbering of the modules corresponds to their ranks in the filtered
-results. Note that DISTILLER works as a global method and thus
-identifies all possible regulatory modules in the dataset (so not only
-those with \textit{sodA}). This explains why the numbering of the modules
-containing \textit{sodA} is not consecutive. The lower the number, the more
-significant a module is.
+results. Note that as a global method, DISTILLER identifies all possible
+regulatory modules in the dataset (not only those with \textit{sodA}). So the
+numbering of the modules containing \textit{sodA} is not consecutive. The lower
+the number, the more significant a module is.
 
 \begin{figure}[b]
 	\centering
@@ -1345,26 +1453,6 @@ significant a module is.
 	\end{tabular}
 	\end{small}
 \end{table}
-
-Module 2 contains the genes regulated by both SoxS and MarA. The
-identified condition contrasts in this module belong to the ontology
-terms `carbohydrate metabolic process', `growth', and `response to
-oxidative stress'. SoxS and MarA are known to participate in the removal
-of superoxide and nitric oxide and protection from organic solvents
-\cite{Touati2000}. 
-One can expect that the condition contrasts belonging to `response
-to oxidative stress' to be suitable for inducing their expression and
-therefore the expression of genes regulated by them. We already
-highlighted the link between the removal of superoxide species and
-metabolic pathways. It explains why the condition contrasts under
-`carbohydrate metabolic process' are found in this module. As discussed
-after Step 3 of Section \ref{sec:dist-module-colombos}, to observe condition 
-contrasts belonging to `growth' is not unreasonable in this case. 
-In addition to \textit{sodA}, the other genes found in this module are 
-\textit{fpr} (Ferredoxin-NADP reductase), \textit{poxB} (Pyruvate 
-dehydrogenase), and \textit{zwf} (Glucose-6-phosphate 1-dehydrogenase). The 
-enriched GO terms of this gene set (Table \ref{tab:GOenrich}) are highly 
-consistent with the observed condition ontology terms.
 
 \begin{table}[tb]
 \begin{threeparttable}
@@ -1417,46 +1505,82 @@ consistent with the observed condition ontology terms.
 \end{threeparttable}
 \end{table}
 
+
+Module 2 contains the genes regulated by both SoxS and MarA. The identified
+contrasts in this module belong to the ontology terms `carbohydrate metabolic
+process', `growth', and `response to oxidative stress'.
+%
+SoxS and MarA are known to participate in the removal of superoxide and nitric
+oxide and protection from organic solvents \cite{Touati2000}.  One can expect
+that the contrasts belonging to `response to oxidative stress' to be suitable
+for inducing their expression and therefore the expression of genes regulated
+by them. 
+%
+We already highlighted the link between the removal of superoxide species and
+metabolic pathways.  It explains why the condition contrasts under
+`carbohydrate metabolic process' are found in this module.  
+%
+As discussed after Step 3 of Section \ref{sec:dist-module-colombos}, to observe
+condition contrasts belonging to `growth' is not unreasonable in this case.  
+%
+In addition to \textit{sodA}, the other genes found in this module are
+\textit{fpr} (Ferredoxin-NADP reductase), \textit{poxB} (Pyruvate
+dehydrogenase), and \textit{zwf} (Glucose-6-phosphate 1-dehydrogenase). The
+enriched GO terms of this gene set (Table \ref{tab:GOenrich}) are highly
+consistent with the observed condition ontology terms.
+
+
 In module 3, genes are regulated by both ArcA and CRP. Its condition
 contrasts are highly related to the ontology terms `growth' and
-`response to oxygen levels'. CRP is a global regulator involves in the
-degradation of any non-glucose carbon sources and also an antagonist of
-catabolite repression. On the other hand, ArcA participates specifically
-in a signal transduction system sensing particular aerobic and anaerobic
-growth conditions \cite{Compan1994}. 
-The functions of the genes found in this module
-(\textit{acnA}, \textit{acnB}, \textit{aldA}, \textit{gltA}, \textit{osmY}, 
-\textit{sdhC}, and \textit{sodA}) are an intersection
-between global metabolic pathways and specific processes responding to
-oxygen level changes (see Table \ref{tab:GOenrich}).
+`response to oxygen levels'. 
+%
+CRP is a global regulator involves in the degradation of any non-glucose carbon
+sources and also an antagonist of catabolite repression. 
+%
+On the other hand, ArcA participates specifically in a signal transduction
+system sensing particular aerobic and anaerobic growth conditions
+\cite{Compan1994}.  
+%
+The functions of the genes found in this module (\textit{acnA}, \textit{acnB},
+\textit{aldA}, \textit{gltA}, \textit{osmY}, \textit{sdhC}, and \textit{sodA})
+are an intersection between global metabolic pathways and specific processes
+responding to oxygen level changes (see Table \ref{tab:GOenrich}).
+
 
 Genes in module 8 are both regulated by CRP and Fur. As previously
 mentioned, CRP is a global regulator that facilitates bacterial fitness
-in function of the availability of different carbon sources. Fur is a
-sensor of intercellular iron concentration, and also participates in the
-response to reactive nitrogen species \cite{Mukhopadhyay2004}. 
-The condition contrasts of
-this module mainly involves `carbohydrate metabolic process', `growth',
-`detoxification of nitrogen compound', `lactose catabolic
-process'. Except for \textit{sodA}, the genes found in this module are 
-\textit{cyoA} (Ubiquinol oxidase subunit 2), \textit{nupC} (Nucleoside permease 
-nupC), and \textit{sdhC} (Succinate dehydrogenase cytochrome b$_{556}$ subunit).
-Altogether the condition contrasts and the genes selected in this module 
-reflect the linkage between basic metabolism changes induced by external 
+in function of the availability of different carbon sources. 
+%
+Fur is a sensor of intercellular iron concentration, and also participates in
+the response to reactive nitrogen species \cite{Mukhopadhyay2004}.  
+%
+The contrasts of this module mainly involves `carbohydrate metabolic process',
+`growth', `detoxification of nitrogen compound', `lactose catabolic
+process'. 
+%
+Except for \textit{sodA}, the genes found in this module are \textit{cyoA}
+(Ubiquinol oxidase subunit 2), \textit{nupC} (Nucleoside permease nupC), and
+\textit{sdhC} (Succinate dehydrogenase cytochrome b$_{556}$ subunit).
+%
+Altogether the condition contrasts and the genes selected in this module
+reflect the linkage between basic metabolism changes induced by external
 C-source availability (e.g. glucose concentration) and intra-cellular energy
-production through the electron transfer chain (see also enriched GO
-terms in Table \ref{tab:GOenrich}).  
+production through the electron transfer chain (see also enriched GO terms in
+Table \ref{tab:GOenrich}).
 
-In module 12, genes are regulated by CRP and FNR,
-both master-regulators. FNR activates genes involved in anaerobic
-metabolism and represses genes involved in aerobic metabolism. The
-enriched GO term (only `oxygen and reactive oxygen species metabolic
-process') for this module's gene set reflect this. The selected
-condition contrasts of this module constitute a very broad set of
-ontology terms, including `carbohydrate metabolic process', `growth',
-`dna repair', `sos response', `lactose catabolic process', and
-`detoxification of nitrogen compound'. This is in line with the global
-regulation exerted by CRP and FNR.
+
+In module 12, genes are regulated by CRP and FNR, both master-regulators. 
+%
+FNR activates genes involved in anaerobic metabolism and represses genes
+involved in aerobic metabolism.  The enriched GO term (only `oxygen and
+reactive oxygen species metabolic process') for this module's gene set reflect
+this.
+%
+The selected contrasts of this module constitute a very broad set of ontology
+terms, including `carbohydrate metabolic process', `growth', `dna repair', `sos
+response', `lactose catabolic process', and `detoxification of nitrogen
+compound'.  This is in line with the global regulation exerted by CRP and FNR.
+
 
 
 \section{Discussion and Conclusion}
@@ -1466,85 +1590,81 @@ ways for analyzing and exploring large-scale expression compendia. It is
 intended for specific queries based on users pre-knowledge on genes or
 conditions of interest. In each step, this knowledge and user
 involvement is crucial to explore various functionalities in order to
-generate good quality results. It is a deterministic approach, which
-means that when executing exactly the same operations, COLOMBOS will
-generate exactly the same result. Furthermore, the analysis methods
-implemented in COLOMBOS are fast, generally taking only seconds or less
-to generate results for each step.
+generate good quality results. 
+%
+It is a deterministic approach, which means that when executing exactly the
+same operations, COLOMBOS will generate exactly the same result. Furthermore,
+the analysis methods implemented in COLOMBOS are fast, generally taking only
+seconds or less to generate results for each step.
 
-DISTILLER, on the other hand, is a semi-automatic method. Except for a
-limited set of parameters, it requires very little user 
-involvement. Guided by both motif information and expression data, the
-method tries to compose a global regulatory network that covers the
-whole input dataset (see Table \ref{tab:distModules}). 
-It is non-deterministic due to the
-randomization involved in generating a threshold bandwidth sequence for
-the condition selection (see Step 8 in Section \ref{sec:dist-distmodule}).
+DISTILLER, on the other hand, is a semi-automatic method. Except for a limited
+set of parameters, it requires very little user involvement. Guided by both
+motif information and expression data, the method tries to compose a global
+regulatory network that covers the whole input dataset (see Table
+\ref{tab:distModules}).
+%
+It is non-deterministic due to the randomization involved in generating a
+threshold bandwidth sequence for the condition selection (see Step 8 in Section
+\ref{sec:dist-distmodule}).
 
-In our case study we used COLOMBOS and DISTILLER to gain insights in the
+In this case study, we have used COLOMBOS and DISTILLER to gain insights in the
 functional processes, in which \textit{sodA} is involved, and the regulatory
-programs that coordinate them. This resulted in one module indentified
-by COLOMBOS and four modules identified by DISTILLER. As discussed in
-previous sections, each module does reflect relevant biological
-processes, in which genes including \textit{sodA} participate. This does not
-necessarily require the modules to overlap, as each might represent
-different processes involving different genes. When these two approaches
-are used to address the same biological question as was done here, the
-distinct features of each approach leads to different but meaningful and
-thus complementary results.  
+programs that coordinate them. This resulted in one module indentified by
+COLOMBOS and four modules identified by DISTILLER.  As discussed in previous
+sections, each module does reflect relevant biological processes, in which
+genes including \textit{sodA} participate.  This does not necessarily require
+the modules to overlap, as each might represent different processes involving
+different genes.  When these two approaches are used to address the same
+biological question as was done here, the distinct features of each approach
+leads to different but meaningful and thus complementary results.
 
-The module `sodA\_c3\_g.75' identified by COLOMBOS contains several genes 
-involved in various biological processes
-(see Fig. \ref{fig:colombos-heatmap-m1} and the discussion at the end of 
-Section \ref{sec:dist-module-colombos}) with very high
-and coherent expression values for most condition contrasts (in both
-cases where up-regulation or down-regulation occurred). In contrast,
-each of the DISTILLER modules contains in general much less genes than
-module `sodA\_c3\_g.75'. Genes in these modules show less extreme
+The module `sodA\_c3\_g.75' identified by COLOMBOS contains several genes
+involved in various biological processes (see
+Fig. \ref{fig:colombos-heatmap-m1} and the discussion at the end of Section
+\ref{sec:dist-module-colombos}) with very high and coherent expression values
+under most contrasts (in both cases where up-regulation or down-regulation
+occurred). In contrast, when compared to module `sodA\_c3\_g.75', each of the
+DISTILLER modules contains in general much less genes, which show less extreme
 expression levels indicating a weaker coexpression signal compared to
-`sodA\_c3\_g.75'.  
+`sodA\_c3\_g.75'.
 
-When evaluating the overlap between modules found by
-these two methods, module 3 and `sodA\_c3\_g.75' share four genes 
-(\textit{aldA}, \textit{acnB}, \textit{sdhC}, \textit{sodA}) and 19 condition 
-contrasts (`response to oxygen level', `growth').  
-These contrasts represent approximately 25\% and 35\%
-of all condition contrasts of each module respectively. Module 8 and
-`sodA\_c3\_g.75' have three genes (\textit{cyoA}, \textit{sdhC}, \textit{sodA}) 
-and eight condition contrasts (`response to oxygen level') in common, which 
-represent approximately 6\% and 15\% of all condition contrasts in each module. 
-This kind of similarity can be expected, since we applied both methods to
-answer same biological question based on the same expression data.
+When evaluating the overlap between modules found by these two methods, module
+3 and `sodA\_c3\_g.75' share four genes (\textit{aldA}, \textit{acnB},
+\textit{sdhC}, \textit{sodA}) and 19 contrasts (`response to oxygen level',
+`growth').  These contrasts represent approximately 25\% and 35\% of all
+condition contrasts of each module respectively. Module 8 and `sodA\_c3\_g.75'
+have three genes (\textit{cyoA}, \textit{sdhC}, \textit{sodA}) and eight
+condition contrasts (`response to oxygen level') in common, which represent
+approximately 6\% and 15\% of all condition contrasts in each module.  This
+kind of similarity can be expected, since we applied both methods to answer
+same biological question based on the same expression data.
 
-On the other hand, no significant overlap is observed between module 2
-and `sodA\_c3\_g.75'. Module 12 shares three genes (\textit{aldA}, 
-\textit{cyoA}, \textit{sodA}) with `sodA\_c3\_g.75' though, but the two modules 
-have no condition contrasts in common. 
-Upon closer inspection of the expression data, genes in
-DISTILLER module 2 are coexpressed, but the expression value of \textit{sodA} is
-not very high for these condition contrasts, when compared with those of
-`sodA\_c3\_g.75'. Hence those condition contrasts will not be easily
-picked up by COLOMBOS in Step 2.3 of Section \ref{sec:dist-module-colombos} 
-(unless a much lower selection threshold is used). 
-Furthermore, genes appearing only in the DISTILLER modules show a different 
-expression behavior from that of \textit{sodA} under those condition contrasts 
-selected by COLOMBOS. 
-As a result, when extending genes of a module based on expression profiles (see 
-Step 4 of Section \ref{sec:dist-module-colombos}), those genes will be ranked 
-less relevant. Consequently, they will hardly be considered as prime candidates 
-for module extension.
+On the other hand, no overlap is observed between module 2 and
+`sodA\_c3\_g.75'.  Module 12 shares three genes (\textit{aldA}, \textit{cyoA},
+\textit{sodA}) with `sodA\_c3\_g.75' though, but the two modules have no
+contrasts in common.  Upon closer inspection of the expression data, genes in
+DISTILLER module 2 are coexpressed, but the expression value of \textit{sodA}
+is not very high for these contrasts, when compared with those of
+`sodA\_c3\_g.75'. Hence those contrasts will not be easily picked up by
+COLOMBOS in Step 2.3 of Section \ref{sec:dist-module-colombos} (unless a much
+lower selection threshold is used).  Furthermore, genes appearing only in the
+DISTILLER modules show a different expression behavior from that of
+\textit{sodA} under those contrasts selected by COLOMBOS.  As a result, when
+extending genes of a module based on expression profiles (see Step 4 of Section
+\ref{sec:dist-module-colombos}), those genes will be ranked less
+relevant. Consequently, they will hardly be considered as prime candidates for
+module extension.
 
-In summary, COLOMBOS focuses on using expression values as its main
-criterion for building modules, resulting in clear expression changes in
-tight coexpression. It can easily extract prominent coexpression
-behaviour in the expression data, but might miss modules with less
-significant coexpression patterns. The coexpression patterns retrieved
-by COLOMBOS can be broadly interpreted as genes being functionally
-related as their abundance are altered in similar ways in response to
-various stimuli. This functional relationship could imply coregulation
-(which might be identified using motif detection algorithms, see also
-Fig. \ref{fig:workflow-distiller-colombos}), but it is not a necessary 
-prerequisite. 
+In summary, COLOMBOS focuses on using expression values as its main criterion
+for building modules, resulting in clear expression changes in tight
+coexpression. It can easily extract prominent coexpression behaviour in the
+expression data, but might miss modules with less significant coexpression
+patterns. The coexpression patterns retrieved by COLOMBOS can be broadly
+interpreted as genes being functionally related as their abundance are altered
+in similar ways in response to various stimuli. This functional relationship
+could imply coregulation (which might be identified using motif detection
+algorithms, see also Fig. \ref{fig:workflow-distiller-colombos}), but it is not
+a necessary prerequisite.
 Instead, it cannot be excluded that several regulatory programs might be 
 responsible for the observed coexpression patterns.
 On the other hand, DISTILLER, as a global method, tries to recover
@@ -1559,16 +1679,15 @@ regions. The case study of \textit{sodA} presented in this chapter illustrates
 this complementarity of these two approaches for retrieving biologically 
 relevant results. 
 
-
-Note, in this chapter, we focus on the specific application of the COLOMBOS 
-and DISTILLER.  However, the versatile tools as them have many other 
-functionalities and application domains.  
+In this chapter, we focus on the specific application of the COLOMBOS and
+DISTILLER.  However, versatile tools as them have many other functionalities
+and application domains.
 %
-In COLOMBOS, various options exist to build the module based on the information 
-different from a given set of genes.  Furthermore, if desirable, the module 
-data can be downloaded for further analysis.  As an example, the data of the 
-module `sodA\_c3\_g.75' is exported into file 
-`expdata\_COLOMBOS\_module\_information.txt' (available as a sample file, see 
+In COLOMBOS, various options exist to build the module based on the information
+other than a given set of genes.  Furthermore, if desirable, the module data
+can be downloaded for further analysis.  As an example, the data of the module
+`sodA\_c3\_g.75' is exported into file
+`expdata\_COLOMBOS\_module\_information.txt' (available as a sample file, see
 Section \ref{sec:dist-sample}).
 %
 DISTILLER can use other data sources as input, for instance, the information 
@@ -1577,8 +1696,8 @@ on the binding of regulators as obtained from ChIP-chip experiments
 Furthermore, it can be used together with data source other than motif data to 
 discover other type of networks, as long as connections exist between the data 
 source and the gene expression profile. 
-For instance, protein-protein interaction data or synthetic lethality data can 
-be included. \todo{[distiller]Still need to review this part.}
+Two such examples data set are protein-protein interaction data or synthetic
+lethality data.
 
 
 
