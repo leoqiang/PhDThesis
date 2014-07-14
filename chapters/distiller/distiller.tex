@@ -1,51 +1,13 @@
 \chapter{Directed module detection in a large-scale expression compendium}\label{ch:distiller}
 \chaptermark{Gene coexpression module discovery}
 
-% \ldots
 
-% \instructionsintroduction
+\instructionsintroduction
 
 % specially indented text in bold 
 \newcommand{\distsubparagraph}[1]{\hspace{-2mm}\textsf{\textbf{#1}}}
 
-\todo{[distiller]Check all the links and update them}
-
-\todo{[distiller]Check and add all abbreviations and symbols}
-\glossary{name=DISTILLER, description=Data Integration System to Identify Links 
-in Expression Regulation}
-\glossary{name=ViTraM, description=VIsualization of TRAnscriptional Modules}
-
-\glossary{name=EcoCyc, description=Encyclopedia of Escherichia coli K-12 Genes 
-and Metabolism}
-\glossary{name=BioCyc, description=Pathway/Genome Databases and Pathway Tools 
-Software}
-\glossary{name=RegulonDB, description=The reference database of the regulatory 
-network of \textit{Escherichia coli} K-12}
-\glossary{name=UniPort, description=Universal Protein Resource}
-
-\glossary{name=PSSM, description=Position Specific Scoring Matrices}
-
-\glossary{name=ChIP, description=Chromatin Immunoprecipitation}
-
-
-\nomenclature{Compendium}{Essentially an expression (log-ratio) value matrix, 
-whose rows correspond to the known genes and columns correspond to sample 
-contrasts}
-\nomenclature{Sub-compendium}{A subset of compendium containing contrasts 
-sharing certain properties of interests, e.g., contrasts in which the gene 
-expression profiles of different tissues are compared}
-\nomenclature{Sample contrast}{Where the expression values of genes from two 
-biological samples, one set at the test and the other reference, are compared 
-and the expression variations between samples are represented as log ratio}
-\nomenclature{Coexpression}{Genes' coherent expression responses to 
-certain alterations in the organism's intra- or extracellular environment}
-\nomenclature{Coexpression Module}{A combined set of genes and condition 
-contrasts, where the coexpression pattern appears}
-\nomenclature{Homogenization}{Our methodology to convert raw 
-intensity expression values from individual biological sample into expression 
-log-ratios between two different biological samples paired as a contrast so 
-that they are comparable across different microarray platforms and experiments}
-
+%\todo{[distiller]Check all the links and update them}
 
 %\textbf{Abstract}
 %Public online microarray databases contain tremendous amounts of expression 
@@ -153,8 +115,8 @@ which aspect(s) (experimental conditions) has/have been changed between the test
 and reference samples.
 %
 The methodology utilized to create such a compendium is explained in details in
-Chapter \ref{ch:command},
-\todo{REWRITTEN}
+Chapter \ref{ch:command}.
+
 
 %% The cross platform expression compendium consists of a large amount of publicly 
 %% available microarrays derived from different platforms (e.g. cDNA microarrays, 
@@ -253,7 +215,7 @@ added that genes in the module should have (known) motif(s) in common.
 
 COLOMBOS, an acronym for \textit{COLections Of Micrcroarrays for Bacterial
   OrganismS}, is a web service \cite{COLOMBOS, Meysman2014}
-(Fig. \ref{fig:colombos}) for interactively exploring, querying, analyzing and
+(Figure \ref{fig:colombos}) for interactively exploring, querying, analyzing and
 visualizing data from cross platform expression compendia through an intuitive
 interface.
 %
@@ -311,7 +273,7 @@ in the first row; the gene information (gene locus tag, gene name, and internal
 gene identifier) in the first three columns; and the expression log-ratios of
 the compendium.
 %
-Starting from the 4$^{th}$ column, each column in the file corresponds to one
+Starting from the $4^{th}$ column, each column in the file corresponds to one
 condition contrast. Each of the rows represents one gene and its expression
 values for different condition contrasts.
 
@@ -353,7 +315,7 @@ minimal coexpression level and motif score.
 Note that it is not required to execute all three steps.  The result of each
 step can be analyzed and visualized independently.
 
-The DISTILLER web service \cite{DISTILLER} (Fig. \ref{fig:distiller}) is 
+The DISTILLER web service \cite{DISTILLER} (Figure \ref{fig:distiller}) is 
 designed to leverage the difficulty of applying the algorithm by providing an 
 easy-of-use and consistent interface that links all three steps together. 
 %
@@ -607,7 +569,7 @@ the known gene set of interest and the biological conditions that are known to
 affect these genes when changed.
 
 \subparagraph{Step 1.1}	To start the analysis, click on `data 
-analysis' in the title bar (Fig. \ref{fig:colombos}) to bring up the data
+analysis' in the title bar (Figure \ref{fig:colombos}) to bring up the data
 operation interface in the center part of the website.  It is separated
 horizontally into two parts. At the left hand side, there is a `workspace'
 information panel that lists all the modules created in a tree structure. This
@@ -623,11 +585,10 @@ where the visualization and analysis of the expression data takes place and is
 currently occupied by the `Data analysis overview' panel (hereafter referred to
 as `overview panel'). This panel serves as a intuitive guide showing the
 available analysis options depending on the current workspace state along with
-some brief explanations.
+some brief explanations.\vspace{1.5mm}
 %% The `Main' button at the top right of the workspace will always bring up the
 %% overview panel again in the operating space.
-
-
+%
 Since we just started a new session, there is only one button `select organism'
 available. Click it, and select the organism `\textit{Escherichia coli}', which
 this case study focuses on. Notice now this species appears in the workspace
@@ -678,8 +639,18 @@ Click the yellow box surrounding the text `By gene name/locus tag', fill in
 \subparagraph{Step 1.3}	
 %% As mentioned in previous step, we chose the option `select genes only' to
 %% create the module.
+%
+\begin{figure}[b]
+	\centering
+  	\includegraphics[width=1\textwidth]{Fig4-Condition-contrasts-ranking-panel.png}
+	\caption[COLOMBOS contrast ranking interface]{\textbf{The `ranked contrast 
+	selection' interface to choose contrasts based on the specified module 
+	genes (\textit{sodA} in this particular case).}}
+	\label{fig:colombos-ranking}
+\end{figure}
+%
 After specifying the genes, a `ranked contrast selection' panel
-(Fig. \ref{fig:colombos-ranking}) appears in the operating space, which allows
+(Figure \ref{fig:colombos-ranking}) appears in the operating space, which allows
 the user to select contrasts ranked by a score that prioritizing those show
 the highest magnitude of change and most coherent coexpression for the
 selected set of genes (see Appendix \ref{apd:contrast-score}). The panel is
@@ -691,17 +662,7 @@ showing the distribution of the scores across the whole compendium and a plot
 showing the number of contrasts that will be added if a given cutoff is
 selected.  There is no absolute guideline to choose the cutoff. Several
 try-outs may be needed to identify the optimal one.
-
-
-\begin{figure}[tb]
-	\centering
-  	\includegraphics[width=1\textwidth]{Fig4-Condition-contrasts-ranking-panel.png}
-	\caption[COLOMBOS contrast ranking interface]{\textbf{The `ranked contrast 
-	selection' interface to choose contrasts based on the specified module 
-	genes (\textit{sodA} in this particular case).}}
-	\label{fig:colombos-ranking}
-\end{figure}
-
+\\
 For our initial module, we chose cutoff value 3. Specify it, and click `Ok'
 button at the side. The contrast list is then filtered, and all that left in
 the list are automatically selected to be added to the module. Click `Done'
@@ -726,16 +687,8 @@ options.
 %% After a module is created, one can review its information through various 
 %% available options.
 
-\begin{figure}[b]
-	\centering
-  	\includegraphics[width=1\textwidth]{Fig5-Module-overview.png}
-	\caption[`sodA\_c3' module overview]{\textbf{The overview tab of 
-	the module `sodA\_c3'.}}
-	\label{fig:colombos-init-module}
-\end{figure}
-
 \subparagraph{Step 2.1}	Click the module you want to check in the workspace 
-to show its overview tab (Fig.  \ref{fig:colombos-init-module}) in the center.
+to show its overview tab (Figure  \ref{fig:colombos-init-module}) in the center.
 The tab shows on top a brief summary of the module, including, name,
 description, number of genes and contrasts it contains, as well a list of
 significantly enriched Gene Ontology (GO) terms of class biological process
@@ -749,6 +702,14 @@ genes.
 %% \ref{apd:enrichment}) for the genes in the module. Only the GO terms of the
 %% class biological process are calculated for their enrichment scores, and
 %% only those with $p$-values $< 0.1$ are shown.
+%
+\begin{figure}[tb]
+	\centering
+  	\includegraphics[width=1\textwidth]{Fig5-Module-overview.png}
+	\caption[`sodA\_c3' module overview]{\textbf{The overview tab of 
+	the module `sodA\_c3'.}}
+	\label{fig:colombos-init-module}
+\end{figure}
 %
 At the bottom, there are four buttons to \textit{visualize}, \textit{edit},
 \textit{split}, or \textit{delete} the module. The function of
@@ -765,7 +726,7 @@ condition contrast. A red color indicates over-expression while a green one
 shows under-expression. The intensity of the color corresponds to the
 magnitude of the expression change. The brighter the color, the higher the
 absolute ratio value.
-
+%
 To view the heatmap, click `Visualization' button in overview tab to switch to
 heatmap tab.  The heatmap is shown at the center with an information panel at
 the right. Hovering over the heatmap, the information of the gene and the
@@ -775,19 +736,19 @@ experiments, condition properties, and the associated condition ontology
 terms. They can be selected from the dropdown box located at the lower left
 corner of the tab. The heatmap of our module sorted on condition ontology is
 shown in Figure \ref{fig:colombos-heatmap-m1}.
-
-\end{small} % Step 2
-
+%
 \begin{figure}[tb]
 	\centering
   	\includegraphics[width=1\textwidth]{Fig6-Heatmap-module-1.png}
 	\caption[Heatmap of module `sodA\_c3']{\textbf{The visualization tab of 
 	module `sodA\_c3' showing the heatmap.}
 	In this heatmap, the contrasts are grouped by their ontology annotations. 
-	The contrast groups belonging to the ontology term `response to oxygen 
-	level' are marked in the figure.}
+	The groups belonging to the ontology term `response to oxygen 
+	level' are marked out.}
 	\label{fig:colombos-heatmap-m1}
 \end{figure}
+
+\end{small} % Step 2
 
 Checking module `sodA\_c3', it shows that the top 53 contrasts, where
 \textit{sodA} is most differentially expressed, have been selected. Among
@@ -796,8 +757,8 @@ levels'.  It includes condition properties that are linked to cellular
 processes dependent on oxygen availability, such as \textit{fnr} mutations (a
 global oxygen responsive transcriptional regulator), NO$_2$ (electron
 transport decoupler), agitation of the growth medium, actual oxygen levels,
-etc. This is expected as the function of \textit{sodA} itself is linked to processes related
-to oxygen availability.
+etc. This is expected as the function of \textit{sodA} itself is linked to 
+processes related to oxygen availability.
 %% , one can expect its expression level to change prominently under these 34
 %% contrasts,
 COLOMBOS indeed successfully identifies them as the most relevant contrasts of
@@ -818,6 +779,19 @@ simultaneously at a global cellular scale. Hence it is not unexpected to find
 \begin{small} % Step 3
 
 \paragraph{Step 3} Next, we will extend the module with additional genes.
+%
+\begin{figure}[b]
+	\centering
+  	\includegraphics[width=1\textwidth]{Fig7-Gene-extending-panel.png}
+	\caption[COLOMBOS `ranked gene selection' interface]{
+	\textbf{The `ranked gene selection' interface to extend module `sodA\_c3' 
+	with the most relevant genes.} 
+	The red circle indicates \textit{sodA} in the module. As it's expression 
+	profile is perfectly correlated with itself (the correlation score of 1), 
+	the circle is located at point (1, 0).}
+	\label{fig:colombos-gene-extend}
+\end{figure}
+%
 %To extend the module with additional genes, we will use the edit function. 
 Click `edit module' button to go to the `Edit' tab, where three options are
 available: edit the name/description, the genes, or the contrasts. Click `edit
@@ -833,21 +807,9 @@ expression' to add additional genes, whose expression patterns are most
 up a `ranked gene selection' panel for gene selection.
 %% Click the green box surrounding the text of this option; a `ranked gene
 %% selection' panel will appear in the `Edit' tab.
-
-\begin{figure}[b]
-	\centering
-  	\includegraphics[width=1\textwidth]{Fig7-Gene-extending-panel.png}
-	\caption[COLOMBOS `ranked gene selection' interface]{
-	\textbf{The `ranked gene selection' interface to extend module `sodA\_c3' 
-	with the most relevant genes.} 
-	The red circle indicates \textit{sodA} in the module. As it's expression 
-	profile is perfectly correlated with itself (the correlation score of 1), 
-	the circle is located at point (1, 0).}
-	\label{fig:colombos-gene-extend}
-\end{figure}
-
-This panel (Fig. \ref{fig:colombos-gene-extend}) functions in a similar way to 
-the `ranked contrast selection' panel explained in Step 1.3. 
+\\
+This panel (Figure \ref{fig:colombos-gene-extend}) functions in a similar way 
+to the `ranked contrast selection' panel explained in Step 1.3. 
 %
 On the left side, a gene list ranked by the degree of the correlation of each
 gene's expression profile with the mean profile of the module genes under the
@@ -890,16 +852,16 @@ original one is kept unchanged.
 %% saved as a new module. Chose this option, then
 %
 When ready, click the `Add' button at left, and specify `sodA\_c3\_g.75' (in
-the popup window that appears) to name the new module.  A new node
+the pop-up window that appears) to name the new module.  A new node
 representing newly created module is added below the original module
 `sodA\_c3' in the workspace.
 %% as the name of the new module to create it. It will now appear as a node
 %% below the original module `sodA\_c3' in the workspace.
-
+%
 \end{small} % Step 3
 
 The resulting module now contains 35 genes with an expression profile similar
-to that of \textit{sodA} under the selected contrasts (see heatmap, Fig.
+to that of \textit{sodA} under the selected contrasts (see heatmap, Figure
 \ref{fig:colombos-heatmap-final}).  Amongst the genes in the module are
 \textit{cyoA}, \textit{cyoB}, \textit{cyoC}, \textit{cyoE}, subunits of the
 cytochrome b terminal oxidase complex involved in aerobic respiration
@@ -917,7 +879,7 @@ are influenced by oxygen availability.  Moreover, many genes in module
 ArcA, Fur, FNR, CRP, etc. Hence, \textit{sodA} (encoding a superoxide
 dismutase activity) being coexpressed with the genes involved in aerobic
 respiration might be essential to protect the cell against oxidative stress.
-
+%
 \begin{figure}[tb]
 	\centering
   	\includegraphics[width=1\textwidth]{Fig8-Heatmap-final-module.png}
@@ -942,9 +904,9 @@ coregulation of its genes,
 %
 the promoter regions of these genes could be investigated further using motif
 detection methods to discover common regulators (see
-Fig. \ref{fig:workflow-distiller-colombos}).
+Figure \ref{fig:workflow-distiller-colombos}).
 %% this could be investigated further (see
-%% Fig. \ref{fig:workflow-distiller-colombos}).  The promoter regions of the
+%% Figure \ref{fig:workflow-distiller-colombos}).  The promoter regions of the
 %% genes in this module could be used as input for motif detection to discover
 %% common regulators.
 %
@@ -1055,7 +1017,7 @@ description for it. Here, we create a new project named `Ecoli\_sodA'.
 \subparagraph{Step 3}	After choosing or creating a project, the DISTILLER 
 panel will appear where the user can run the three main steps of DISTILLER,
 each of which has its own separate tab. For a new project, only the `Module
-Detection' tab is accessible (Fig. \ref{fig:distiller}), while the `Module
+Detection' tab is accessible (Figure \ref{fig:distiller}), while the `Module
 Filtering' and `Module Extension' tabs are disabled.
 %\end{adjustwidth}
 
@@ -1089,7 +1051,7 @@ is done.
 
 %For a new project, no source data files have been uploaded, hence only the
 %`Load file' button at the lower right corner is enabled, and the `run
-%Distiller' button is disabled (Fig.  \ref{fig:distiller}).  Users must first
+%Distiller' button is disabled (Figure  \ref{fig:distiller}).  Users must first
 %upload the expression data file (use sample file
 %expdata\_DISTILLER\_Expression.txt) and the motif data file
 %(binary\_DISTILLER\_Motif.txt).  Upload the required data files by clicking
@@ -1098,7 +1060,7 @@ is done.
 %Note 10 for the mandatory file name prefix of each input file type.
 
 \subparagraph{Step 5} After receiving the notification email, user can go back to 
-their project at DISTILELR site.  The interface is the same as seen in Step 4.
+their project at DISTILLER site.  The interface is the same as seen in Step 4.
 Only now the button `Run Distiller' is unlocked.  Three groups of parameters
 need to be specified before starting the process: the binary data parameters
 for the motif data (see Step 5.1), the expression data parameters (see Step
@@ -1117,7 +1079,7 @@ the minimal number of motifs that the genes in a module should have in common;
 2) `Binary Thresholds' is the minimal score a motif instance in the promoter
 region of a gene should have to be considered as present.  
 %
-As DISTILELR only accepts binary motif data as input, whereas most motif
+As DISTILLER only accepts binary motif data as input, whereas most motif
 detection algorithms generate probabilities scoring the certainty of motif
 gene relations, the specified threshold is applied on the motif data to
 convert the \textit{continuous values} into the \textit{binary ones}.
@@ -1165,7 +1127,7 @@ required to visualize modules using ViTraM.
 
 
 \paragraph{Filter the raw DISTILLER output} After obtaining the initial modules, 
-the user can go back to the saved project at DISTILELR site.  Now, the tabs
+the user can go back to the saved project at DISTILLER site.  Now, the tabs
 `Module Filtering' and the tab `Module Extending' are enabled.  Note that the
 user can directly proceed to the module extending step, but due to the
 discussion in Section \ref{sec:dist-distiller}, performing a filtering step
@@ -1265,7 +1227,7 @@ XMLCreator by typing the command `java -jar -Xms256m -Xmx512m
 XMLCreator.jar' in a terminal.  Windows users can click file
 `XMLCreator\_Windows\_512M.bat' to run it.
 
-\subparagraph{Step 2} In the popup window, choose `DISTILLER' as module 
+\subparagraph{Step 2} In the pop-up window, choose `DISTILLER' as module 
 detection tool and click on `OK'.  
 %
 The main interface appears where user can specify the input and output
@@ -1289,7 +1251,7 @@ for those genes and contrasts presented in any of the modules.
 
 \end{small} % Step 1,2 ViTraM
 
-Here, we demonstrate this step using the correspoding sample files, the
+Here, we demonstrate this step using the corresponding sample files, the
 `DISTILLER\_outputExtended.m' and the `expdata\_DISTILLER\_supple.txt'.
 %
 Additionally, the file `binary\_DISTILLER\_Motif\_supple.txt' providing extra
@@ -1396,7 +1358,7 @@ genes sharing at least one motif instances for the same regulator.  Resulting
 modules including the motif instances shared among genes within each module are
 listed in Table \ref{tab:distModules}.  Since we are interested in
 \textit{sodA}, transcriptional modules 2, 3, 8, and 12 containing this gene
-were selected and visualized using ViTraM (Fig. \ref{fig:vitram}).  
+were selected and visualized using ViTraM (Figure \ref{fig:vitram}).  
 %
 The numbering of the modules corresponds to their ranks in the filtered
 results. Note that as a global method, DISTILLER identifies all possible
@@ -1609,8 +1571,8 @@ threshold bandwidth sequence for the condition selection (see Step 8 in Section
 
 In this case study, we have used COLOMBOS and DISTILLER to gain insights in the
 functional processes, in which \textit{sodA} is involved, and the regulatory
-programs that coordinate them. This resulted in one module indentified by
-COLOMBOS and four modules identified by DISTILLER.  As discussed in previous
+programs that coordinate them. This resulted in one module identified by
+COLOMBOS and four modules by DISTILLER.  As discussed in previous
 sections, each module does reflect relevant biological processes, in which
 genes including \textit{sodA} participate.  This does not necessarily require
 the modules to overlap, as each might represent different processes involving
@@ -1620,7 +1582,7 @@ leads to different but meaningful and thus complementary results.
 
 The module `sodA\_c3\_g.75' identified by COLOMBOS contains several genes
 involved in various biological processes (see
-Fig. \ref{fig:colombos-heatmap-m1} and the discussion at the end of Section
+Figure \ref{fig:colombos-heatmap-m1} and the discussion at the end of Section
 \ref{sec:dist-module-colombos}) with very high and coherent expression values
 under most contrasts (in both cases where up-regulation or down-regulation
 occurred). In contrast, when compared to module `sodA\_c3\_g.75', each of the
@@ -1663,7 +1625,7 @@ patterns. The coexpression patterns retrieved by COLOMBOS can be broadly
 interpreted as genes being functionally related as their abundance are altered
 in similar ways in response to various stimuli. This functional relationship
 could imply coregulation (which might be identified using motif detection
-algorithms, see also Fig. \ref{fig:workflow-distiller-colombos}), but it is not
+algorithms, see also Figure \ref{fig:workflow-distiller-colombos}), but it is not
 a necessary prerequisite.
 Instead, it cannot be excluded that several regulatory programs might be 
 responsible for the observed coexpression patterns.

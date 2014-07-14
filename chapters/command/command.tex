@@ -2,31 +2,16 @@
 system}\label{ch:command}
 \chaptermark{Command}
 
-\ldots
 
 \instructionsintroduction
 
-
-\todo(COMMAND: glossary ...)
-GEO
-ArrayExpress
-SOFT
-CEL
-CDF
-NCBI
-EBI
-MAGE-TAB
-IDF
-SDRF
-ADF
-MGED
 
 \section{Introduction}
 
 Microarrays are one of the main technologies for large-scale transcriptional
 gene expression profiling.
 %
-To promot data sharing, scientific journals generally require the deposit of
+To promote data sharing, scientific journals generally require the deposit of
 these high-throughput experiments in public databases, such as Gene Expression
 Omnibus (GEO) \cite{Barrett2011} or ArrayExpress \cite{Parkinson2009}, upon
 publication.
@@ -36,25 +21,26 @@ accessible data for thousands of experiments and a multitude of different
 organisms, and in theory provide an opportunity to analyse gene expression of a
 particular species at a global level.
 %
-They hold the potential to expand the scope of any smaller scale study: mining
-the information contained in such databases offers molecular biologists the
-possibility to view their own dedicated experiments and analysis in light of
-what is already available.
+Furthermore, they hold the potential to expand the scope of any smaller scale
+study: mining the information contained in such databases offers molecular
+biologists the possibility to view their own dedicated experiments and analysis
+in light of what is already available.
 %
 So far however, this wealth of public information remains largely untapped
 because these databases do not allow for a direct and integrated exploration of
 their data.
 %
 The opportunity of combining all public experiments for a single organism has
-not been explored due to practical issues that can ultimately be attributed to
-the large heterogeneity inherent to microarray data.
+not been fully explored due to practical issues that can ultimately be
+attributed to the large heterogeneity inherent to microarray data.
 %
 Data sets originate from different experimenters or labs and microarrays do not
 constitute a uniform technology.
 %
-Multiple microarray platforms exist and are manufactured in different ways.
-Even for similar platforms, protocols for sample preparation, labelling,
-hybridization and scanning can vary greatly.
+Multiple microarray platforms exist and are manufactured in different
+ways.  Even for similar platforms, protocols for sample preparation,
+labelling, hybridization and scanning can vary greatly
+\cite{Kerr2001,Zakharkin2005}.
 %
 Although community standards specifying the mandatory minimal experimental
 information accompanying each dataset (e.g., MIAME \cite{Brazma2001}) have been
@@ -71,6 +57,8 @@ expression compendia from public resources.
 Most existing compendia can roughly be divided in two groups \cite{Fierro2008}:
 those that directly integrate single-platform experiments, and those that
 indirectly integrate cross-platform experiments.
+\todo{COMMAND [pending]: update with the latest ... ? PortEco, PATRIC,
+  MicrobesOnline ... (ke) }
 %
 Combining data from a single platform makes the in-between experiment
 normalization and probe mapping relatively straightforward, so that the
@@ -112,24 +100,48 @@ the Affymetrix U133A platform with over 5000 samples \cite{Lukk2010}.  However,
 for most species (e.g., \textit{Zea mays}), no single platform has such a
 dominant role.
 %
-The worst is prokaryotes.  Even for model organisms such as {\it E. coli}, much
-less data is available on individual platform and a significant portion of the
-data is missed out when considering only one platform.
+% It is The worst is prokaryotes.  
+%
+Even for well studied model organisms, such as {\it E. coli}, much
+less data is available on individual platform and a significant
+portion of the data is missed out when considering only one platform.
 
 
-To have the advantage of the direct integration, while not being limited to a
-single platform, we have devised methodology that directly combines expression
-data across platforms and experiments.
+To have the advantage of direct integration, while not being limited to a
+single platform, and to facilitate compendium creation from public data, we
+have devised methodology that directly combines expression data across
+platforms and experiments.
 %
 The methodology has enabled us to create comprehensive compendia incorporating
 most high quality public data covering a broad range of experimental conditions
-as well as extensive types of biological samples.
+as well as extensive types of biological samples across the boundary of
+experiment and platform.
 %
-To facilitate the creation of new compendium and the curation of the existing
-ones, a software system COMMAND (Cross-platform cOMpendium MANagement Desktop)
-is also developed, utilizing web browser as the front-end and our methodology
-at the back-end.
-
+Althoug powerful the methodology is, to create a compendium is still a complex
+and time-consuming task.
+%
+To facilitate compendium creation and the continuous curation and expension of
+the existing ones, a software system COMMAND (COMpendium MANagement Desktop)
+has been developed.
+%
+The system guides user through every step of the compendium creation process
+with intuitive web interfaces.
+%
+Although the complete options for each step are provided for advanced users,
+the merit of the system is that it enables quick sizable compendium creation by
+general user through simple automated `one-click' executions of various
+compendium creation steps, alleviating the complexity of this process.
+%
+This has allowed us to create multiple compendia that can be utilized not only
+to study a single organism but also to compare across species to study
+evolution and conservation.
+%
+%% To facilitate the creation of new compendia and the curation of the existing
+%% ones, a software system COMMAND (COMpendium MANagement Desktop) is also
+%% developed, utilizing web browser as the front-end and our methodology at the
+%% back-end.
+%
+%\todo{COMMAND: Simplify this section and stress it also in the Web system section}
 
 
 
@@ -169,20 +181,25 @@ at the back-end.
 
 
 
-
-
 \subsection{Cross-platform expression compendium}
 
-Our expression compendium is essentially an organism-specific matrix of
-expression values derived from publicly available microarray experiments which
-are homogenized to make them comparable.
+%% An expression compendium is essentially an organism-specific matrix of
+%% expression values derived from publicly available microarray experiments which
+%% are homogenized to make them comparable.
+The final goal of creating a cross-platform compendia is to generate a single
+data matrix that combines experimental results coming from multiple microarray
+platforms performed under variant technical protocols.  All genes measured by
+those microarrays should be represented, as well as all the experimental
+conditions that are under consideration.  Differences due to technical features
+(platform, protocol, etc) should be removed to make the data comparable across
+experiments and platforms.
 %
-The rows of a compendium correspond to the known genes of the organism in
+The rows of the compendium correspond to the known genes of the organism in
 question constructed based on the corresponding RefSeq file at NCBI
 \cite{Pruitt2007}.
 %
 Uniquely, each column of it is a `\textit{contrast}', which does not represent
-single biological sample but the differences between a pair of samples, one as
+a single biological sample but the differences between a pair of samples, one as
 test and the other reference.
 %
 Consequently, the expression values themselves are calculated as expression
@@ -214,9 +231,15 @@ experiments \cite{Shi2006}.
   \label{fig:comp-db-schema}
 \end{figure}
 
-The compendium is stored in MySQL database. An abstract schematic
+As the database representation directly reflects the different types of
+information and their relations that need to be extracted from public data to
+construct compendium, we give a brief explanation about it here.
+
+The compendium is stored in a MySQL database. An abstract schematic
 representation of various data content and their relation is shown in Figure
 \ref{fig:comp-db-schema}.
+%\todo{COMMAND: should we add a `probe' entity here? Maybe it is not a bad idea 
+%... (ke). No need to complicate things up.}
 %
 The schema is separated into two parts. The entities in the upper part form
 the data of a compendium, and are publicly accessible.
@@ -224,15 +247,15 @@ the data of a compendium, and are publicly accessible.
 Those in the lower part are the data collected to build compendium, hence are
 only accessible internally.
 
-Here we briefly explain each entity in the schema.
+Here we briefly explain each entity in the schema, which are relates to how
+conceptually the experimental data is organized.
 %
-A gene expression \textit{experiment} is composed of a set of related arrays
-that are designed to obtain expression data in order to answer a biological
+A gene expression \textit{experiment} refers to a set of arrays that are
+designed to obtain expression data in order to answer a specific biological
 question.
 %
 An \textit{array} corresponds to one microarray in an experiment on which the
-biological sample(s) are hybridized and the gene expression measurements are
-generated.
+biological sample(s) are hybridized to obtain gene expression measurements.
 %
 A \textit{hybridization} refers to individual sample that is labeled and
 hybridized on an array.
@@ -245,9 +268,19 @@ A \textit{platform} denotes a specific microarray chip design and the
 corresponding probe annotation information, such as, the probe sequence, the
 physical layout, the target gene, etc.
 %
-The \textit{raw data} are original measurements of each probe grouped by
-hybridization.  Three types of data are accepted, the raw expression value,
-the background intensity, and the background corrected expression value.
+The \textit{raw data} are the original measurements that come from each probe
+in a microarray chip.  They are also linked to the corresponding hybridization
+that reflects their sample origin.
+%
+Three types of data are accepted, the raw expression value, the background
+intensity, and the background corrected expression value.
+%
+%% Carolina: I would be more specific to describe the links between the
+%% differnt entities:
+% 
+%% Note that the raw data format is determined by the platform type. Instead of
+%% gene-centric level, each platform reports probe-centric expression
+%% values. Similarly, expression data is reported for each hybridization....
 %
 A \textit{sample} refers to each individual biological sample that is used in
 an experiment.  Biological duplicates are treated as different samples.
@@ -270,7 +303,7 @@ gene expression log-ratios.
 %
 We use a relaxed definition for \textit{gene}, which includes not only the
 protein coding sequences, but also other sequences that are expressed and
-functioning, given their expression level can be quantified.
+functioning, given that their expression level can be quantified.
 %
 There are also three supplementary entities, the article, the contrast
 annotation, and the gene annotation.
@@ -282,8 +315,11 @@ characteristics and the experimental factors that differ between the pair of
 samples.
 %
 The \textit{gene annotation} stores the functional annotation of each gene
-collected from external sources, including the metabolic pathway, Gene Ontology
-annotation, transcriptional regulation, and the transcription unit.
+collected from external sources, including metabolic pathways, Gene Ontology
+annotation, transcriptional regulation, and transcription units.
+%
+The contrast and gene annotations are stored to facilitate the query and the
+biological interpretation of the expression data in compendium.
 
 
 
@@ -311,17 +347,17 @@ The cross-platform compendium creation methodology is composed of three major
 steps (Figure \ref{fig:command-workflow}), namely, data collection, experiment
 annotation, and data homogenization.
 %
-First, in data collection step, the expression data and the accompany
+First, in the data collection step, the expression data and the accompanying
 (experiment and platform) information are retrieved from the online
 repositories, overcoming the issue of the prevalent data representation
 discrepancies.
 %
-Next in annotation step, the contrasts are constructed by assigning a pair of
+Next in the annotation step, the contrasts are constructed by assigning a pair of
 samples, one as reference and the other as test.  The experimental factor and
 the characteristic differences between two samples are curated manually for
 each contrast and specified using a set of controlled in-house vocabularies.
 %
-At last, in data homogenization step, the raw expression data are normalized
+At last, in the homogenization step, the raw expression data are normalized
 and log-ratios are calculated based on the sample contrast designation to
 create the compendium data matrix.
 %
@@ -332,7 +368,7 @@ In the following sections, we will explain the individual step in detail.
 
 
 
-\subsubsection{Data collection}
+\subsubsection{Step 1: Data collection}
 
 %% [Colomobos (v1) paper]
 %%
@@ -362,7 +398,7 @@ In the following sections, we will explain the individual step in detail.
 
 
 %% Summary
-To create compendium, the gene expression data need to be collected from
+To create a compendium, the gene expression data need to be collected from
 online public repositories, GEO and ArrayExpress.
 %
 Although community guidelines such as MIAME \cite{Brazma2001} exists, the
@@ -370,8 +406,8 @@ failure to provide a standard format to represent information of an expression
 experiment causes widespread representation discrepancies among the data
 deposited in those online repositories.
 %
-The prevailed discrepancies coupled with the colossal amount of the available
-data makes the systematical expression data retrieval a daunting task.
+The prevailing discrepancies coupled with the colossal amount of the available
+data makes systematical expression data retrieval a daunting task.
 %
 To make this task viable, we develop a semi-automatic workflow designed to
 tackle various data discrepancies and automate various processing procedures
@@ -381,139 +417,145 @@ to handle the huge volume of the data.
 %to be retrieved, at last, for each set of data, discuss the data issues related
 %to its retrieval and our strategy to tackle them.  
 
-Here, we first explain what data are available, then the different sets of data
-to be retrieved, and at last, discuss the data retrieval issues and 
-corresponding handling strategies for GEO and ArrayExpress separately, as each 
-of them utilizes its own data reporting format and has its own specific data 
+Here, we first explain the different sets of data to be retrieved, and
+then, discuss the data retrieval issues and the corresponding handling
+strategies for GEO and ArrayExpress separately, as each of them
+utilizes its own data reporting format and has its own specific data
 problems.
 
 
 
-\paragraph{Data available at online repositories}\label{sec:command-data-content-online}
+%% \paragraph{Data available at online repositories} 
+%% \label{sec:command-data-content-online}
+%
+%% GEO and ArrayExpress, though both are MIAME-compilant, use different files and
+%% formats to store information. % for an gene expression experiment.
 
-GEO and ArrayExpress, though both are MIAME-compilant, use different files and
-formats to store information. % for an gene expression experiment.
+%% moved to GEO section
+%
+%% %% http://www.ncbi.nlm.nih.gov/geo/info/overview.html
+%% %% http://www.ncbi.nlm.nih.gov/geo/info/soft2.html
+%% %
+%% In GEO, there are two sets of data for an experiment, the \textit{GEO Series}
+%% (GSE) containing the original submitted data and the \textit{GEO DataSet}
+%% (GDS) containing curated normalized data.
+%% %
+%% To create compendium, we collect original data in GSE.
+%% %
+%% GSE data of an experiment is stored in a standard simple line-based plain text
+%% format, called SOFT (Simple Omnibus Format in Text).  One SOFT file per GSE in
+%% compressed (gzip) form.
+%% %
+%% The file contains one or multiple instances of three types of records: Series,
+%% Sample, and Platform.
+%% %
+%% The \textit{Series} record contains general information about various
+%% aspect of an experiment described in free text.  The references to the
+%% corresponding Sample and Platform records are also provided.
+%% %
+%% The \textit{Sample} records corresponds to one microarray chip used in an
+%% experiment.
+%% %
+%% It is composed of two sections.  The first one provides free text descriptions
+%% about biological samples hybridized to the microarray, including information
+%% about sample attributes and experimental factors crucial for compendium data
+%% exploration and interpretation.
+%% %
+%% The referral to the related Platform record is also provided here.
+%% %
+%% In the second section, the expression measurements are reported for each probe
+%% (or probeset) of the microarray in a tabular form. Often the values reported
+%% here are processed data instead of the desirable original probe measurements.
+%% %
+%% The \textit{Platform} record describes the microarray chip used to measure
+%% gene expression, including a free text description and its probe annotations
+%% in a tab-delimited table.
+%% %
+%% Specific about the required content in various records and their sections, the
+%% SOFT format does not impose strict requirements about the representation of the
+%% data.
+%% %
+%% Consequently, the format used to report the expression values and the probe
+%% annotations various among experiments and platforms.
+%% %
+%% Additionally, for many experiments, raw data files are available as
+%% supplementaries providing an alternative source to obtain desirable gene
+%% expression measurements.
+%% %
+%% However, as the submission of the raw data files is not mandatory, many
+%% experiments do not have supplementaries.
+%% %
+%% In GEO, a unique access id is assigned to every record.
+%% %
+%% And the `Series', `Sample, and `Platform' record corresponds to the
+%% experiment, array, and platform object respective in our compendium
+%% (Figure \ref{fig:comp-db-schema}).
 
-%% http://www.ncbi.nlm.nih.gov/geo/info/overview.html
-%% http://www.ncbi.nlm.nih.gov/geo/info/soft2.html
-%
-In GEO, there are two sets of data for an experiment, the \textit{GEO Series}
-(GSE) containing the original submitted data and the \textit{GEO DataSet}
-(GDS) containing curated normalized data.
-%
-To create compendium, we collect original data in GSE.
-%
-GSE data of an experiment is stored in a standard simple line-based plain text
-format, called SOFT (Simple Omnibus Format in Text).  One SOFT file per GSE in
-compressed (gzip) form.
-%
-The file contains one or multiple instances of three types of records: Series,
-Sample, and Platform.
-%
-The \textit{Series} record contains general information about various
-aspect of an experiment described in free text.  The references to the
-corresponding Sample and Platform records are also provided.
-%
-The \textit{Sample} records corresponds to one microarray chip used in an
-experiment.
-%
-It is composed of two sections.  The first one provides free text descriptions
-about biological samples hybridized to the microarray, including information
-about sample attributes and experimental factors crucial for compendium data
-exploration and interpretation.
-%
-The reference to the related Platform record is also provided here.
-%
-In the second section, the gene expression measurements are reported for each
-probe of the microarray in a tabular form. Often the values reported here are
-processed data instead of the desirable original probe measurements.
-%
-The \textit{Platform} record describes the microarray chip used to measure
-gene expression, including a free text description and its probe annotations
-in a tab-delimited table.
-%
-Specific about the required content in various records and their sections, the
-SOFT format does not impose strict requirements about the representation of the
-data.
-%
-Consequently, the format used to report the expression values and the probe
-annotations various among experiments and platforms.
-%
-Additionally, for many experiments, raw data files are available as
-supplementaries providing an alternative source to obtain desirable gene
-expression measurements.
-%
-However, as the submission of the raw data files is not mandatory, many
-experiments do not have supplementaries.
-%
-In GEO, a unique access id is assigned to every record.
-%
-And the `Series', `Sample, and `Platform' record corresponds to the
-experiment, array, and platform object respective in our compendium
-(Fig. \ref{fig:comp-db-schema}).
 
-
-%% www.ebi.ac.uk/miamexpress/help/index.html
-%% www.ebi.ac.uk/miamexpress/help/datafile_help.html
-%% 
-%% www.ebi.ac.uk/fgpt/magetab/help/
-%% 
-%% www.ebi.ac.uk/training/online/course/arrayexpress-submitting-data-using-mage-tab
-%% tab2mage.sourceforge.net/docs/magetab_docs.html
-%%
-%% www.ebi.ac.uk/arrayexpress/help/accession_codes.html
+%% moved to ArrayExpress section
 %
-In ArrayExpress, the experiment data is stored in the MicroArray Gene
-Expression Tabular (MAGE-TAB) format.
-%
-In this format, 4 types of file capturing different set of information are
-used, namely, the Investigation Description Format (IDF) file, the Sample and
-Data Relationship Format (SDRF) file, the Array Design Format (ADF) file, and
-the raw and processed data files (normally packed into one zip file).
-%
-Similar to the `Series' record in GEO SOFT format, the \textit{IDF} file
-provide an overview for an experiment.
-%
-Although the MGED ontology terms are used, they specify only the type of the
-information.  The content, however, is still described in free text.
-%
-The \textit{SDRF} file describes the sample characteristics and the
-relationship between samples, arrays, and data files.
-%
-The content is presented in a tabular form, in which each record (row)
-describes information about one biological sample hybridized to a specific
-channel of a specific microarray chip, hence corresponds to a hybridization in
-our compendium (Fig. \ref{fig:comp-db-schema}).
-%
-The reference to the corresponding platform are provided for each record.
-%
-One caveat about the SDRF file is that its format is not strictly defined, and
-can vary among experiments.
-%
-Next, the \textit{ADF} file provides information for a microarray platform,
-including both the descriptive information and the probe annotations.
-%
-At last, the expression values are reported in the raw and/or normalized
-data files.
-%
-In ArrayExpress, the unique access id is given only to experiment and
-platform, which directly corresponds to the experiment and platform object
-in our compendium (Fig. \ref{fig:comp-db-schema}).
-%
-However, there is no explicit record in ArrayExpress that corresponds to the
-array object.  Additionally, although each record in SDRF file corresponds to
-the hybridization object, without a unique reference, this information is only
-indirectly accessible though the corresponding ArrayExpress experiment.
-%
+%% %% www.ebi.ac.uk/miamexpress/help/index.html
+%% %% www.ebi.ac.uk/miamexpress/help/datafile_help.html
+%% %% 
+%% %% www.ebi.ac.uk/fgpt/magetab/help/
+%% %% 
+%% %% www.ebi.ac.uk/training/online/course/arrayexpress-submitting-data-using-mage-tab
+%% %% tab2mage.sourceforge.net/docs/magetab_docs.html
+%% %%
+%% %% www.ebi.ac.uk/arrayexpress/help/accession_codes.html
+%% %
+%% In ArrayExpress, the experiment data is stored in the MicroArray Gene
+%% Expression Tabular (MAGE-TAB) format.
+%% %
+%% In this format, 4 types of file capturing different set of information are
+%% used, namely, the Investigation Description Format (IDF) file, the Sample and
+%% Data Relationship Format (SDRF) file, the Array Design Format (ADF) file, and
+%% the raw and processed data files (normally packed into one zip file).
+%% %
+%% Similar to the `Series' record in GEO SOFT format, the \textit{IDF} file
+%% provide an overview for an experiment.
+%% %
+%% Although the MGED ontology terms are used, they specify only the type of the
+%% information.  The content, however, is still described in free text.
+%% %
+%% The \textit{SDRF} file describes the sample characteristics and the
+%% relationship between samples, arrays, and data files.
+%% %
+%% The content is presented in a tabular form, in which each record (row)
+%% describes information about one biological sample hybridized to a specific
+%% channel of a specific microarray chip, hence corresponds to a hybridization in
+%% our compendium (Figure \ref{fig:comp-db-schema}).
+%% %
+%% The reference to the corresponding platform are provided for each record.
+%% %
+%% One caveat about the SDRF file is that its format is not strictly defined, and
+%% can vary among experiments.
+%% %
+%% Next, the \textit{ADF} file provides information for a microarray platform,
+%% including both the descriptive information and the probe annotations.
+%% %
+%% At last, the expression values are reported in the raw and/or normalized
+%% data files.
+%% %
 %% In ArrayExpress, the unique access id is given only to experiment and
-%% platform. The sample or the hybridization information are only
-%% indirectly accessible though the correponding experiment.
+%% platform, which directly corresponds to the experiment and platform object
+%% in our compendium (Figure \ref{fig:comp-db-schema}).
+%% %
+%% However, there is no explicit record in ArrayExpress that corresponds to the
+%% array object.  Additionally, although each record in SDRF file corresponds to
+%% the hybridization object, without a unique reference, this information is only
+%% indirectly accessible though the corresponding ArrayExpress experiment.
+%% %
+%% %% In ArrayExpress, the unique access id is given only to experiment and
+%% %% platform. The sample or the hybridization information are only
+%% %% indirectly accessible though the correponding experiment.
 
-It should be noted that the raw data files reported in GEO and ArrayExpress
-are in original vender specific formats, which differ among softwares.
-%
-Often allow to be used alone, in addition to the expression value(s), the
-annotation are also provided for each probe in those files.
+%% It should be noted that the raw data files reported in GEO and ArrayExpress are
+%% in original vender specific formats, which differ among software and/or
+%% equipment.
+%% %
+%% Often allowing the file to be used alone, in addition to the expression
+%% value(s), the probe specification is also provided for each of its record.
 
 
 
@@ -526,7 +568,7 @@ annotation are also provided for each probe in those files.
 There are three sets of information to be extracted, the experiment
 metadata, the platform specification, and the raw expression values.
 %
-\todo{COMMAND: need to be explained in the introduction}
+% \todo{COMMAND: need to be explained in the introduction}
 %
 The experiment metadata describing the sample attributes and experimental
 factors, which, as the drive of the observed gene expression changes, are
@@ -577,9 +619,9 @@ achieve better consistency.
 %% the public databases (especially for older experiments), and only already
 %% processed data are reported.
 %
-Except for extracting desirable data, equality important is to retain proper
+Except for extracting desirable data, equaly important is to retain proper
 value-to-probe mapping and value-to-hybridization association (see
-Fig. \ref{fig:comp-db-schema}).
+Figure \ref{fig:comp-db-schema}).
 %
 The former is required to convert the raw probe intensity into the gene
 expression value.
@@ -590,11 +632,11 @@ hence the associated sample attributes and experimental factors.
 
 
 
-\paragraph{Experiments retrieve, filtering, and data downloading}
+\paragraph{Step 1.1: Experiments retrieval, filtering, and data downloading}
 
-Although start with gene expression data, GEO and ArrayExpress are extended
-through the years to include other functional genomics data, such as,
-ChIP-chip experiments.
+Although started with gene expression data, GEO and ArrayExpress are
+extended through the years to include other functional genomics data,
+such as, ChIP-chip experiments.
 %
 Furthermore, certain types of expression data, e.g., those of the
 cross-species gene expression comparison studies, are not interesting
@@ -647,18 +689,129 @@ repositories for data collection.
 
 
 
-\paragraph{GEO data extraction}
-
-For an GEO experiment, the default data file downloaded is the per experiment
-SOFT file.  Only when the desirable expression data cannot be obtained from
-it, the corresponding supplementary files are downloaded and processed.  The
-content of the downloaded SOFT file is firstly analyzed to separate into the
-different records to be handled by specific parsers.
+\paragraph{Step 1.2: GEO data extraction}
+Here we first explain how the expression data are organized in GEO and then the
+strategy to extract data desirable for compendium creation.
 
 
+\subparagraph{Expression data in GEO}
 
 
-\subparagraph{GEO experiment metadata extraction}
+%% http://www.ncbi.nlm.nih.gov/geo/info/overview.html
+%% http://www.ncbi.nlm.nih.gov/geo/info/soft2.html
+%
+There are two sets of data for an experiment in GEO, the \textit{GEO Series}
+(GSE) containing the original submitted data and the \textit{GEO DataSet} (GDS)
+containing curated normalized data.
+%
+To create compendium, we collect original data in GSE.
+%
+GSE data of an experiment is stored in a standard simple line-based plain text
+format, called SOFT (Simple Omnibus Format in Text).  One SOFT file per GSE in
+compressed (gzip) form.
+%
+The file contains one or multiple instances of three types of records: Series,
+Sample, and Platform (see Table \ref{tab:GEO-records}).
+%
+The \textit{Series} record contains general information about various
+aspect of an experiment described in free text.  The references to the
+corresponding Sample and Platform records are also provided.
+%
+The \textit{Sample} records corresponds to one microarray chip used in an
+experiment.
+%
+It is composed of two sections.  The first one provides free text descriptions
+about biological samples hybridized to the microarray, including information
+about sample attributes and experimental factors crucial for compendium data
+exploration and interpretation.
+%
+The referral to the related Platform record is also provided here.
+%
+In the second section, the expression measurements are reported for each probe
+(or probeset) of the microarray in a tabular form. Often the values reported
+here are processed data instead of the desirable original probe measurements.
+%
+The \textit{Platform} record describes the microarray chip used to measure
+gene expression, including a free text description and its probe annotations
+in a tab-delimited table.
+%
+Specific about the required content in various records and their sections, the
+SOFT format does not impose strict requirements about the representation of the
+data.
+%
+Consequently, the expression data reporting format and the probe annotations
+varies among experiments and platforms.
+%
+For many experiments, raw data files are also available as supplementaries
+providing an alternative source to obtain desirable gene expression
+measurements.
+%
+In original vender specific formats, the raw data files differ among software
+and/or equipment.  Often allowing to be used alone, the file includes probe
+specification for each record in addition to the expression value(s).
+%
+Note that as the submission of the raw data files is optional, many experiments
+do not have supplementary.
+%
+Every record in GEO has a unique access id.
+%
+Its `Series', `Sample', and `Platform' records correspond to the experiment,
+array, and platform object in our compendium respectively (see Table
+\ref{tab:GEO-records} and Figure \ref{fig:comp-db-schema}).
+
+
+\begin{table}
+\begin{centering}
+\begin{small}
+  \caption{GEO Records en Files and their corresponding content}
+  \label{tab:GEO-records}
+  \begin{tabular}{@{\hspace{1mm}}>{\raggedright}p{1.8cm} >{\raggedright}p{2cm} 
+      >{\raggedright}p{7.2cm}@{}}
+
+    \toprule
+
+      & \textbf{Compendium} &  \tabularnewline
+     \textbf{Record} & \textbf{entity} & \textbf{Information contained} 
+     \tabularnewline
+
+    \midrule 
+
+    Series & Experiment & experiment metadata 
+    \tabularnewline\hline
+
+    Sample & Array & sample characteristics, hybridization(S) 
+    (channel)
+    information, and data table (expression measurements) \tabularnewline\hline
+
+    Platform & Platform & platform metadata and probe 
+    annotations \tabularnewline\hline
+
+    Supplementary files & Array or Hybridization & raw expression values 
+    accompanied with probe annotations in vendor specific format \tabularnewline
+
+    \bottomrule
+  \end{tabular} 
+\end{small}
+\end{centering}
+\end{table}
+
+By default, to obtain expression data from an GEO experiment, the corresponding
+SOFT file is analyzed.  The contents of different records contained in the SOFT
+file are separated first, and then handled by the specific parsers to extract
+data.
+%
+Only when the desirable data cannot be obtained, the corresponding
+supplementary files are processed.
+
+%% the raw data files reported in GEO and ArrayExpress are in original vender
+%% specific formats, which differ among software and/or equipment.
+%% %
+%% Often allowing the file to be used alone, in addition to the expression
+%% value(s), the probe specification is also provided for each of its record.
+
+
+
+\subparagraph{Step 1.2.1: GEO experiment metadata extraction}
 %
 The experiment metadata includes the basic experiment information in a GEO 
 `Series' record (e.g., name, description, publication, etc) and the sample 
@@ -709,7 +862,7 @@ objects makes the extraction straightforward.
 
 
 
-\subparagraph{GEO platform data extraction}
+\subparagraph{Step 1.2.2:  GEO platform data extraction}
 %
 The GEO `Platform' record contains both the basic platform description and the
 probe annotations.
@@ -761,7 +914,7 @@ data extraction is developed.
 First, the probe annotation table is checked manually to identify data columns
 containing desirable information and specify the method to extract data.
 %
-Whiling collecting platform data for paring, an in-house dictionary based
+Whiling collecting platform data for parsing, an in-house dictionary based
 content identification method is applied to analyze the column names of the
 annotation table and automatically mark out the candidate columns.
 %
@@ -844,7 +997,7 @@ tag, and then common gene names, based on its reliability.
 
 
 
-\subparagraph{GEO raw value data extraction}
+\subparagraph{Step 1.2.3: GEO raw value data extraction}
 %% % 3 hybrids per array is skipped as it is rather rare, and as the Genomic DNA
 %% % is used in the third channel, the data are removed from subsequence
 %% % processing.
@@ -879,7 +1032,7 @@ strategy leaving out the value-to-hybrization associations extraction part.
 
 
 
-\subparagraph{\textit{Parse GEO Sample record}}
+\subparagraph{\textit{Step 1.2.3.1: Parse GEO Sample record}}
 Each GEO `Sample' record has a data section that reports expression value in a
 tabular form.
 %
@@ -933,7 +1086,7 @@ hybridization information specified in the `Sample' record.
 %
 Although `ch1' and `ch2' are used in the `Sample' record, various types of
 informations are specified in the data column names.
-
+\todo{COMMAND: showing some exmaples? (ke)}
 
 Given the above issues, we developed a semi-automatic raw expression value
 extraction system.
@@ -997,7 +1150,7 @@ manual inspection.
 
 
 
-\subparagraph{\textit{Parse GEO supplementary file}}
+\subparagraph{\textit{Step 1.2.3.2: Parse GEO supplementary file}}
 
 When the `Sample' record does not provide deirable raw values, it is still
 possible to extract them from the raw data file that supplements the `Sample'
@@ -1046,7 +1199,7 @@ Currently, following formats are supported, GenePix Results format (GPR),
 and Perkin-Elmer ScanArray format.  
 %% NimbleGen Pair format removed below with Imagene, as similar to Imagene,
 %% data are split into two files, one per channel
-However the NimbleGene Pair format and Imagene format is not supported, as
+However the NimbleGen Pair format and Imagene format is not supported, as
 manual intervention is required to handle them\footnote{The results of a
   dual-channel platform reported in these formats are split into two data
   files, one per channel.  It is often impossible to programmatically derive
@@ -1059,8 +1212,7 @@ corresponding value-to-hybridization associations are identified from column
 names.
 %
 The focus of a parser is to provide format specific method to obtain accurate
-value-to-probe mapping, which should also be flexible to handle different
-platforms.
+value-to-probe mapping, which should be flexible to handle different platforms.
 %
 A greater accuracy is achieved by utilizing the well structured and accurate
 parsed probe data of the corresponding platforms to search against the
@@ -1118,7 +1270,8 @@ ASCII file and the excel binary file (csv or xls).
 
 
 
-\paragraph{ArrayExpress data collection}
+\paragraph{Step 1.3: ArrayExpress data collection}
+
 
 % ----------------------------------------------------
 %
@@ -1130,13 +1283,104 @@ ASCII file and the excel binary file (csv or xls).
 %
 % ----------------------------------------------------
 
-For an ArrayExpress experiment, the corresponding IDF and SDRF files
-together with the raw data file are downloaded. The first two contain
-experiment metadata, and the last one the expression values.
-Additionally, for each new platform used in the experiment, the
-corresponding ADF file is downloaded and handled separately.
+\subparagraph{Expression data in ArrayExpress}
 
-\subparagraph{ArrayExpress experiment metadata extraction}
+%% www.ebi.ac.uk/miamexpress/help/index.html
+%% www.ebi.ac.uk/miamexpress/help/datafile_help.html
+%% 
+%% www.ebi.ac.uk/fgpt/magetab/help/
+%% 
+%% www.ebi.ac.uk/training/online/course/arrayexpress-submitting-data-using-mage-tab
+%% tab2mage.sourceforge.net/docs/magetab_docs.html
+%%
+%% www.ebi.ac.uk/arrayexpress/help/accession_codes.html
+%
+In ArrayExpress, the experiment data is stored in the MicroArray Gene
+Expression Tabular (MAGE-TAB) format.
+%
+In this format, 4 types of file capturing different set of information are
+used, namely, the Investigation Description Format (IDF) file, the Sample and
+Data Relationship Format (SDRF) file, the Array Design Format (ADF) file, and
+the raw and processed data files (normally packed into one zip file) (see Table
+\ref{tab:AP-files}).
+%
+Similar to the `Series' record in GEO SOFT format, the \textit{IDF} file
+provide an overview for an experiment.
+%
+Although the MGED ontology terms are used, they specify only the type of the
+information.  The content, however, is still described in free text.
+%
+The \textit{SDRF} file describes the sample characteristics and the
+relationship between samples, arrays, and data files.
+%
+The content is presented in a tabular form, in which each record (row)
+describes information about one biological sample hybridized to a specific
+channel of a specific microarray chip, hence corresponds to a hybridization in
+our compendium (Figure \ref{fig:comp-db-schema}).
+%
+The reference to the corresponding platform are provided for each record.
+%
+One caveat about the SDRF file is that its format is not strictly defined, and
+can vary among experiments.
+%
+Next, the \textit{ADF} file provides information for a microarray platform,
+including both the descriptive information and the probe annotations.
+%
+At last, the expression values are reported in the raw and/or normalized
+data files.
+%
+In ArrayExpress, the unique access id is given only to experiment and
+platform, which directly corresponds to the experiment and platform object
+in our compendium (Figure \ref{fig:comp-db-schema}).
+%
+However, there is no explicit record in ArrayExpress that corresponds to the
+array object.  Additionally, although each record in SDRF file corresponds to
+the hybridization object, without a unique reference, this information is only
+indirectly accessible though the corresponding ArrayExpress experiment.
+%
+%% In ArrayExpress, the unique access id is given only to experiment and
+%% platform. The sample or the hybridization information are only
+%% indirectly accessible though the correponding experiment.
+
+\begin{table}
+\begin{centering}
+\begin{small}
+%  \begin{tabular}{@{}|>{\raggedright}p{0.25\linewidth} 
+%      >{\raggedright}p{0.15\linewidth} >{\raggedright}p{0.5\linewidth}|@{}}
+  \caption{ArrayExpress data file format and corresponding content}
+  \label{tab:AP-files}
+  \begin{tabular}{@{\hspace{1mm}}>{\raggedright}p{3cm} l >{\raggedright}p{5.8cm}@{}}
+
+    \toprule 
+                  & \textbf{Compendium} &  \tabularnewline
+    \textbf{File} & \textbf{entity} & \textbf{Information contained} \tabularnewline
+
+    \midrule 
+
+    Investigation Description Format (IDF) file & Experiment & experiment
+    metadata \tabularnewline\hline
+
+    Sample and Data Relationship Format (SDRF) file & Hybridization & sample
+    metadata; links between sample, array (indirect), and data file
+    \tabularnewline\hline
+
+    raw data file & Raw data & expression values \tabularnewline\hline
+
+    Array Design Format (ADF) file & Platform & platform metadata and probe
+    annotation \tabularnewline 
+
+    \bottomrule
+  \end{tabular} 
+\end{small}
+\end{centering}
+\end{table}
+
+For an ArrayExpress experiment, the corresponding IDF and SDRF files together
+with the raw data file are downloaded. The first two contain experiment
+metadata, and the last one the expression values.  Additionally, for each new
+platform, the corresponding ADF file is downloaded and handled separately.
+
+\subparagraph{Step 1.3.1: ArrayExpress experiment metadata extraction}
 
 For an ArrayExpress experiment, the experiment infomation are described
 in the IDF file, whereas the sample attributes and experimental factors
@@ -1201,7 +1445,7 @@ object.
 When the system fails to identify this relation, a manual inspection is
 required.
 
-\subparagraph{ArrayExpress platform data extraction}
+\subparagraph{Step 1.3.2: ArrayExpress platform data extraction}
 
 % Part II: platform information handling and data separation
 %
@@ -1280,7 +1524,7 @@ the integrated search strategy developed for GEO platform data parsing.
 
 
 
-\subparagraph{ArrayExpress raw data extraction}
+\subparagraph{Step 1.3.3: ArrayExpress raw data extraction}
 
 % Check apRawDataParser.rb
 % 
@@ -1400,7 +1644,9 @@ Similarly, when it fails, the corresponding error is reported to highlight the
 issues for manual inspection.
 
 
-%% % ----------------------------------------------------------------------------
+
+%% % 
+%%%----------------------------------------------------------------------------
 %% %  The backup of the original text where GEO and AP parsing are
 %% %  intertwined together ...
 
@@ -1532,24 +1778,30 @@ issues for manual inspection.
 %% %% This information is crucial for computerized raw data extraction, as
 %% %% it hints at the amount of data expected to be extracted.
 %% %
-%% The probe annotation is always presented as a table, nevertheless each platform
+%% The probe annotation is always presented as a table, nevertheless each 
+%%platform
 %% has its own format that varies in the amount of content (number of columns),
 %% the column naming convention, and the content of individual column.
 %% %
 %% Idealy, the probe sequences should be provided so that a homology search
-%% against the lastest gene sequences using BLAST \cite{Altschul1997} can identify
+%% against the lastest gene sequences using BLAST \cite{Altschul1997} can 
+%%identify
 %% the up-to-date target gene for each probe.
 %% %
-%% However, although required by MIAME\cite{Brazma2001} standard, this information
+%% However, although required by MIAME\cite{Brazma2001} standard, this 
+%%information
 %% is missing for the majority of the platforms.
 %% %
-%% Alternatively, the target gene can be identified by other information, namely,
+%% Alternatively, the target gene can be identified by other information, 
+%%namely,
 %% locus tags, alternative gene tags, or common gene names.
 %% %
-%% But the lack of a consistent format makes it hard to identify the corresponding
+%% But the lack of a consistent format makes it hard to identify the 
+%%corresponding
 %% column providing those information.
 %% %
-%% Even worse, sometimes the relevant information is embedded in a column in which
+%% Even worse, sometimes the relevant information is embedded in a column in 
+%%which
 %% multiple contents are specified in a complicated structure.
 %% %
 %% Furthermore, the content inconsistency exists that different types of
@@ -1575,7 +1827,8 @@ issues for manual inspection.
 %% Next, a manual inspection is required.
 %% %
 %% The content and the data extraction functions of the automatically marked
-%% columns are checked, and the adjustment is made when necessary to guarantee the
+%% columns are checked, and the adjustment is made when necessary to guarantee 
+%%the
 %% contents are properly extracted.
 %% %
 %% The other columns are checked only when necessary information could not be
@@ -1593,44 +1846,54 @@ issues for manual inspection.
 %% %
 %% When identifying target gene without sequence information, the aforementioned
 %% content inconsistency is handled by an integrated search over multiple
-%% information sources in strict order of preference, locus tag, alternative gene
+%% information sources in strict order of preference, locus tag, alternative 
+%%gene
 %% tag, and then common gene names, based on its reliability.
 
 
 %% Integrated with these functionalities, the probe annotation parsing subsystem
 %% is flexible and powerful to handle data represented in various formats.
 %% %
-%% For many platforms, the probe annotations can be parsed with the automatically
+%% For many platforms, the probe annotations can be parsed with the 
+%%automatically
 %% detected settings without alteration.
 %% %
 %% % This greatly improves the productivity.
 %% %
-%% However, the manual inspection is still required to guarantee the correctness.
+%% However, the manual inspection is still required to guarantee the 
+%%correctness.
 %% Besides, the inspection can identify extra information in the data.  As often
 %% embedded in a complex content format requiring a specialized data extraction
 %% function to handle, this information cannot be identified automatically.
 
 %% %% % [Colombos (v1) paper]
 %% %% %
-%% %% At this stage probes are also mapped in a platform-specific manner to a unique 
-%% %% list of genes which is constructed based on the organism's RefSeq file at NCBI 
-%% %% \cite{Pruitt2007} and which corresponds to the rows of the final compendium. 
+%% %% At this stage probes are also mapped in a platform-specific manner to a 
+%%%%unique 
+%% %% list of genes which is constructed based on the organism's RefSeq file at 
+%%%%NCBI 
+%% %% \cite{Pruitt2007} and which corresponds to the rows of the final 
+%%%%compendium. 
 %% %% If probe sequences are available or can be obtained from the platform 
 %% %% description, the mapping is driven by sequence homology searches using 
 %% %% BLAST \cite{Altschul1997}. 
 %% %% %
-%% %% If not, a probe's target gene is identified by other probe info, namely -and in 
-%% %% order of preference: locus tags, alternative gene tags, or common gene names.
+%% %% If not, a probe's target gene is identified by other probe info, namely 
+%%%%-and in 
+%% %% order of preference: locus tags, alternative gene tags, or common gene 
+%%%%names.
 
 
-%% %% The platform type indicates the expected amount and the types of expression
+%% %% The platform type indicates the expected amount and the types of 
+%%%%expression
 %% %% values that can be obtained by a platform.  For example, for Affymetrix
 %% %% platform, probe or probeset level intensity values are expected.  Wherease
 %% %% for cDNA platform, the probe level intensity and background values can be
 %% %% obtained.
 %% %% 
 %% %% % We checked the cases where cDNA platform but with one channel data per
-%% %% % chip (db_scripts.sql, QUERY 1).  They are rare and can be handled case by
+%% %% % chip (db_scripts.sql, QUERY 1).  They are rare and can be handled case 
+%%%%%by
 %% %% % case.  Hence the rules above can be seen as generally applicable.
 
 %% \paragraph{Expression value extraction}
@@ -1667,7 +1930,8 @@ issues for manual inspection.
 %%   naming convension), semi-automated system
 %% }
 
-%% %% % 3 hybrids per array is skipped as it is rather rare, and as the Genomic DNA
+%% %% % 3 hybrids per array is skipped as it is rather rare, and as the Genomic 
+%%%%%DNA
 %% %% % is used in the third channel, the data are removed from subsequence
 %% %% % processing.
 %% %% Although maximally, 3 hybridizations, labeled with the dyes of
@@ -1680,7 +1944,8 @@ issues for manual inspection.
 %% mapping and value-to-hybridization association.
 %% %
 %% The expression data can be extracted from three different sources, the GEO
-%% Sample record, the GEO supplementary file, and the ArrayExpress raw data files.
+%% Sample record, the GEO supplementary file, and the ArrayExpress raw data 
+%%files.
 %% %
 %% As each source has its own issues, we will explain the issues associated with
 %% each individual data source and our handling strategy, first the GEO Sample
@@ -1701,31 +1966,38 @@ issues for manual inspection.
 
 %% \todo{COMMAND: a general description of the exp data parsing subsystem, to be
 %%   adapted and removed}
-%% %% {Our data retrieval system aims to extract raw expression intensity values by
-%% %% applying diverse strategies on various types of aforementioned discrepencies.
+%% %% {Our data retrieval system aims to extract raw expression intensity 
+%%%%values by
+%% %% applying diverse strategies on various types of aforementioned 
+%%%%discrepencies.
 %% %% %
 %% %% Additionally, to enable handling the colossal amount of data available, we
 %% %% integrated those strategies into a software system which applies them
 %% %% automatically to improve productivity.
 %% %% %
-%% %% Note that as certain discrepancies are difficult to handle even manually, our
-%% %% system is semi-automative. Manual intervention is possible to handle difficult
+%% %% Note that as certain discrepancies are difficult to handle even manually, 
+%%%%our
+%% %% system is semi-automative. Manual intervention is possible to handle 
+%%%%difficult
 %% %% cases wherein the automated procedure fails.  
 %% %% %
-%% %% Human inspection is not mandatory but recommended to guarantee the correctness
+%% %% Human inspection is not mandatory but recommended to guarantee the 
+%%%%correctness
 %% %% of the programmatically generated results.}
 
 
 %% \subparagraph{\textit{Parse GEO Sample record}}
 
-%% As explained previously, each GEO Sample record has a data section that reports
+%% As explained previously, each GEO Sample record has a data section that 
+%%reports
 %% expression values in a tabular form.
 %% %
 %% Although only processed results are required to be reported here, often they
 %% are accompanied by the corresponding raw expression values.
 %% %
 %% As part of the SOFT format, the proper value-to-probe mapping is guaranteed
-%% through using the same probe id to refer probes across the corresponding Sample
+%% through using the same probe id to refer probes across the corresponding 
+%%Sample
 %% and Platform records.
 %% %
 %% This simplifies the data extraction task. 
@@ -1757,11 +2029,13 @@ issues for manual inspection.
 %%   Bioinformatics, 2007;23:2700-2707}, corrected values are not desirable.
 %% %
 %% When the corresponding background value is available, the uncorrected values
-%% can be reconstructed from the data.  However, this requires that the system is
+%% can be reconstructed from the data.  However, this requires that the system 
+%%is
 %% capable of automatically identifying and applying certain data conversions.
 %% %
 %% Note that since raw expression data are reported as numbers, there exists no
-%% extraction issue caused by the complicated data format as seen in platform data
+%% extraction issue caused by the complicated data format as seen in platform 
+%%data
 %% parsing.
 %% %
 %% For the second task, to obtain value-to-hybridization associations, the data
@@ -1775,9 +2049,11 @@ issues for manual inspection.
 %% Given the above issues, we developed a semi-automatic raw expression value
 %% extraction system.
 %% %
-%% The fully automatic extraction is triggered under a strict condition, in which
+%% The fully automatic extraction is triggered under a strict condition, in 
+%%which
 %% the raw expression value without background correction and the corresponding
-%% background values are extracted, the channel information of each extracted data
+%% background values are extracted, the channel information of each extracted 
+%%data
 %% is properly identified, and the value-to-hybridization associations are
 %% corrected derived.
 %% %
@@ -1785,21 +2061,25 @@ issues for manual inspection.
 %% system.
 %% %
 %% When the condition cannot be satisfied, a manual inspection guided data
-%% extraction is provided as a fallback.  Additionally, the supplementary file, if
+%% extraction is provided as a fallback.  Additionally, the supplementary file, 
+%%if
 %% exists, can also be analyzed to try to extract raw values.
 %% %
 %% The key of the automatic data extraction lies in the ability to
 %% programmatically identify the data content type and the channel information
 %% avoiding manual inspection.
 %% %
-%% Our solution is a rule based column name analysis subsystem that analyzes the name
+%% Our solution is a rule based column name analysis subsystem that analyzes 
+%%the name
 %% of data column using pattern matching to identify required information.
 %% %
-%% Targeting the desirable data, the system focuses on identifying three types of
+%% Targeting the desirable data, the system focuses on identifying three types 
+%%of
 %% them, the raw expression intensity value ($I$), the background value ($BG$),
 %% and the background corrected expression value ($I_{BG}$).
 %% %
-%% For each data type, the related columns are collected from the Sample records.
+%% For each data type, the related columns are collected from the Sample 
+%%records.
 %% The patterns of the column names are then manully analyzed, and the rules to
 %% recognize the data type and the channel related keywords are derived and used
 %% in the system.
@@ -1825,7 +2105,8 @@ issues for manual inspection.
 %% Otherwise, the corresponding error is reported to highlight the issues for
 %% manual inspection.
 %% %
-%% %% % NOTE, the conversion from (M,A) back to channel I data is abolished, as in 
+%% %% % NOTE, the conversion from (M,A) back to channel I data is abolished, as 
+%%%%%in 
 %% %% % most case, the M,A values are processed ones, hence cannot be used to 
 %% %% % calculate the raw intensity values. 
 
@@ -1880,7 +2161,7 @@ issues for manual inspection.
 %% and Perkin-Elmer ScanArray format.  
 %% %% NimbleGen Pair format removed below with Imagene, as similar to Imagene,
 %% %% data are split into two files, one per channel
-%% However the NimbleGene Pair format and Imagene format is not supported, as
+%% However the NimbleGen Pair format and Imagene format is not supported, as
 %% manual intervention is required to handle them\footnote{The results of a
 %%   dual-channel platform reported in these formats are split into two data
 %%   files, one per channel.  It is often impossible to programmatically derive
@@ -1939,10 +2220,12 @@ issues for manual inspection.
 %% excel binary file (csv and xls).
 
 %% %% To avoid the overcomplexity, we limited the case in which an automatic
-%% %% parsing is applicable to one raw data file per array, and the file types to
+%% %% parsing is applicable to one raw data file per array, and the file types 
+%%%%to
 %% %% either ASCII file or excel (binary) file.
 %% %% %%
-%% %% %% NOTE: the supplementary file parsing system only handles known format !!
+%% %% %% NOTE: the supplementary file parsing system only handles known format 
+%%%%%%!!
 %% %% %%       ( suppleRawDataFileParser.rb ) alternatively a manual parsing is
 %% %% %%       possible through information stored in DB tables
 %% %% %%
@@ -1950,17 +2233,21 @@ issues for manual inspection.
 %% %% %%
 %% %% The system combines the dedicated parsers for widely used file format with
 %% %% the column name based automatic system used to parse Sample record.  The
-%% %% former guarantees the quality of the extracted data, and the later provides a
+%% %% former guarantees the quality of the extracted data, and the later 
+%%%%provides a
 %% %% general framework that extends the system beyond the known format when
 %% %% applicable.
 %% %% %
-%% %% For a data file of unknown format, the system only support those containing
+%% %% For a data file of unknown format, the system only support those 
+%%%%containing
 %% %% only data table without meta information, as it is impossible to
 %% %% programmatically separate meta information from data table section for an
 %% %% known format.
 
-%% %% However in vender specific file format, the expression values in these files
-%% %% must be remapped to the corresponding probes specified in SOFT file to maintain
+%% %% However in vender specific file format, the expression values in these 
+%%%%files
+%% %% must be remapped to the corresponding probes specified in SOFT file to 
+%%%%maintain
 %% %% a consistent platform specification across multiple experiments. 
 
 
@@ -2073,9 +2360,11 @@ issues for manual inspection.
 %% %      - use position information to match is the ONLY method to be uniq,
 %% %        if probe mapping needs to be identified !!
 %% %
-%% %      - 'Name' matches better than 'Identifier', but might missing in raw data file
+%% %      - 'Name' matches better than 'Identifier', but might missing in raw 
+%%%data file
 %% %      - 'Identifier' needs to clean up to extract useful information
-%% %      - 'Identifier' & 'Name' is not unique!!!  Especially for control probes.
+%% %      - 'Identifier' & 'Name' is not unique!!!  Especially for control 
+%%%probes.
 %% %
 %% %      - When original gpr file is used, impossible to use position as
 %% %        'BLOCK' is replaced with 'metaRow' 'metaColumn', the mappings
@@ -2092,7 +2381,8 @@ issues for manual inspection.
 %% %       Furthermore, the 'BLOCK' in gpr is replaced with 'Block Column',
 %% %       'Block Row' in gpr.proc.
 %% %
-%% %       gpr.proc: sente E-MEXP-2193 (in ExperimentRawDataAutoParsing_20110408212659.log)
+%% %       gpr.proc: sente E-MEXP-2193 (in 
+%%%ExperimentRawDataAutoParsing_20110408212659.log)
 %% %       gpr: mayz E-MEXP-2862, sente E-MEXP-2888)
 %% %
 %% %       ArrayExpress is not ready to use format specific parsers used to
@@ -2122,21 +2412,26 @@ issues for manual inspection.
 %% 0) Due to the existence of the single-channel and dual-channel
 %% platforms, each of which produce different amount of data,
 %% %
-%% 1) Similar to the platform, there lacks of a standard data reporting format to
+%% 1) Similar to the platform, there lacks of a standard data reporting format 
+%%to
 %% report expression value of each sample.  The existence of the single and dual
 %% channel platforms further complicates the issue.  
 %% %
-%% 2) Although the file extension could provide clues for the possible format of a
+%% 2) Although the file extension could provide clues for the possible format 
+%%of a
 %% data file, it is not always reliable.  The standard extension 'txt' is widely
-%% used by data files of different format.  Additionally, in GEO, often the sample
+%% used by data files of different format.  Additionally, in GEO, often the 
+%%sample
 %% data are directly incroporated into the SOFT file as a table, hence lack of
 %% this information.
 %% %
 %% 3) There is no standard about the types of expression value to be reported.
-%% For single platform, it could be the intensity value per probe, or per probeset
+%% For single platform, it could be the intensity value per probe, or per 
+%%probeset
 %% as in Affymetrix case.  For dual channel, this could be the raw intensity
 %% value, the background corrected intensity values, or the normalized intensity
-%% value, even the log ratio calculated based on intensity data of both channels.
+%% value, even the log ratio calculated based on intensity data of both 
+%%channels.
 %% %
 %% This lack of standard creates wide-spread inconsistency across experiments
 %% about the type of the intensity values they reported. 
@@ -2160,10 +2455,11 @@ issues for manual inspection.
 
 
 
-\paragraph{Affymetrix platform data and expression value extraction}
+\paragraph{Step 1.4: Affymetrix platform data and expression value 
+extraction}\label{sec:command-affy}
 
 
-\todo{COMMMAND: explain Affymetrix platfrom in the introduction ?}
+%\todo{COMMMAND: explain Affymetrix platfrom in the introduction ?}
 %
 The single-channel Affymetrix microarray is, by far, the most widely used
 platform due to the high consistency among the results obtained across labs
@@ -2195,11 +2491,16 @@ normalize Affymetrix data and compute the summarized expression value for each
 probeset.
 %
 To avoid the inconsistency introduced artificially by different algorithms, we
-opt to obtain the raw probe intensities from the CEL file, then processed
-using our in-house homogenization pipeline based on RMA algorithm.
+opt to obtain the raw probe intensities from the CEL file, then processed using
+our in-house homogenization pipeline based on RMA algorithm.
 %
-%% To avoid the inconsistency introduced artificially by different algorithms, we
-%% opt to obtain the raw probe intensities stored in the CEL file, then normalize
+%\todo{COMMAND-to ke: I prefer to keep it, they will never go to check code, but
+%  they probably will ask questions `why not RMA', which I prefer to avoid ...}
+%
+%% To avoid the inconsistency introduced artificially by different algorithms, 
+%%we
+%% opt to obtain the raw probe intensities stored in the CEL file, then 
+%%normalize
 %% and summarize them into the probeset intensities using RMA algorithm.
 %
 The background values measured by MM probes are ignored as it has been shown
@@ -2231,7 +2532,8 @@ Next, by incorporating the proprietary Affymetrix Fusion SDK into our system,
 the probe specifications are extracted from the corresponding CDF file
 downloaded from Affymetrix website and stored with the virtual platform.
 %
-% http://www.affymetrix.com/estore/partners_programs/programs/developer/fusion/index.affx?terms=no
+% 
+%http://www.affymetrix.com/estore/partners_programs/programs/developer/fusion/index.affx?terms=no
 
 
 With platform specification ready, the raw intensities can be easily extracted
@@ -2296,9 +2598,11 @@ If the CEL file is missing, the summarized values are used.
 
 %% \paragraph{FIVE: Miscellaneous issues NOT covered in the text, details}
 
-%% - [AP] The lack of a unique access id for each microarray chip of an exp (Exp metadata extraction) \\
+%% - [AP] The lack of a unique access id for each microarray chip of an exp 
+%%(Exp metadata extraction) \\
 %% - [AP] The lack ch1, ch2, specification (Exp metadata extraction) \\
-%% - [AP] The platform information extracted from raw data files (AP rawdata handling) \\
+%% - [AP] The platform information extracted from raw data files (AP rawdata 
+%%handling) \\
 %% - 
 
 
@@ -2320,19 +2624,22 @@ If the CEL file is missing, the summarized values are used.
 %% 2) how to recognise the type of the data content from column name \\
 %% 3) conversion to obtain the deirable data
 
-%% At the lower level, the per channel expression values are reported separately.
+%% At the lower level, the per channel expression values are reported 
+%%separately.
 %% %
 %% The simplest form is the raw intensity value ($I_i$) and the background value
 %% ($BG_i$) of each probe.
 
-%% Furthermore, there are two raw intensity values, the mean value and the median
+%% Furthermore, there are two raw intensity values, the mean value and the 
+%%median
 %% one.
 %% %
 %% Additionaly, it can also be the background corrected intensity
 %% value($I_{bgci}$) calculated by subtracting the background from the raw
 %% intensity.
 %% %
-%% At the higher level, the log ratio ($M$) and the average intensity value ($A$)
+%% At the higher level, the log ratio ($M$) and the average intensity value 
+%%($A$)
 %% are reported.  They are calculated from the background corrected intensity
 %% values of both channels based on the following formula.
 %% %
@@ -2371,7 +2678,7 @@ If the CEL file is missing, the summarized values are used.
 
 
 
-\subsubsection{Annotation}
+\subsubsection{Step 2: Annotation}
 
 %% \begin{itemize}
 %% \item manual curation
@@ -2386,7 +2693,7 @@ If the CEL file is missing, the summarized values are used.
 After obtaining experiment data from online repositories, the contrasts that
 will be represented in the compendium are defined.  The experimental factors
 and the sample attributes are carefully studied to construct a rigid annotation
-for each contrast and for Eukaryote, also the corresponding samples.
+for each contrast. % and for Eukaryote, also the corresponding samples.
 %
 %% And for each contrast, the experimental factors and the attributes of the
 %% corresponding reference and test samples are carefully studied to construct a
@@ -2395,7 +2702,7 @@ for each contrast and for Eukaryote, also the corresponding samples.
 
 \paragraph{Contrast designation}
 Based on their biological role in an experimental survey, hybridizations are
-labelled as `reference' or `test' on a per experiment-and-platform combination
+labeled as `reference' or `test' on a per experiment-and-platform combination
 basis and matched to produce a set of contrasts.
 
 For dual channel experiments, usually one of two hybridizations of an array
@@ -2425,9 +2732,12 @@ The choice depends on the nature of the experiment and the type of biological
 conditions that are measured.
 %
 Just to give a few examples.  For a time-series experiments, the sample taken
-at the first time point is chosen as reference to the samples taken at the
-other time points.  For a experiment studying the effect of mutants against the
-wild type, the later is chosen as the reference.
+at the first time point is chosen as the reference to those taken at the other
+time points.  For an experiment studying the effect of mutants against the wild
+type, the later is chosen as the reference.
+%
+\todo{COMMAND-to ke: any suggestion? I would prefer to see whether the example
+  can be explained clearly before adding them... }
 %
 It is important to note that for an experiment using several platforms, the
 samples are grouped by the platform and for each group, one sample is
@@ -2439,7 +2749,7 @@ one platform as the reference for the samples measured on the other platforms.
 %% \textbf{Experiment design} Thesis Zhao Hui Section 2.2.2.1
 
 
-\subparagraph{Multi-chip platforms}
+\subparagraph{Multi-chip platforms}\label{sec:command-multichip-anno}
 Because of the limitation of the microarray technology and the complexity of
 the large eukaryotic genome, it often cannot cover the complete gene set of an
 eukaryote in one chip.
@@ -2468,15 +2778,17 @@ Special handling strategy has been developed to normalize this type of data
 
 
 
-\paragraph{Condition annotation and ontology}
+\paragraph{Sample annotation and ontology}
 %% Using a set of formal hierarchically structured properties (representing for
 %% instance strains, mutations, compounds in the growth medium, treatments, and
-%% general growth conditions), we can then specify the annotation of each contrast
+%% general growth conditions), we can then specify the annotation of each 
+%%contrast
 %% rigidly as a vector representing the differences for these property values
 %% between the test and reference sample.
 %% %
 %% This representation enables a mathematical comparison and automatic
-%% organization of contrasts based on the properties that are surveyed, but it is
+%% organization of contrasts based on the properties that are surveyed, but it 
+%%is
 %% a labor intensive manual curation process where information often needs to be
 %% retrieved from original publications, supplementary data and occasionally
 %% directly from the authors.
@@ -2489,23 +2801,23 @@ Initially for bacteria compendia, the annotation is specified only for each
 contrast and categorized into four classes: genomics, growth, medium, and
 treatment.
 %
-The genomics properties specifiy the difference(s) on the genomes of the two
+The genomics properties specify the difference(s) on the genomes of the two
 samples, including four subcategories: mapped mutations, phenotypic strains
-(carrying specific phenotypies with yet mapped mutations), evolutionary
-adaptation (differences accumulated in an evolutionary experiment), and plasmid
-mutagensis induced genome modifications.
+(carrying specific phenotypes with yet mapped mutations), evolutionary
+adaptation (genomic differences accumulated in an evolutionary experiment), and
+plasmid (genomic differences in plasmid DNA).
 %
 The differences of chemical compounds used as the base medium and the additives
 are described by the medium related properties.
 %
-The treatment includes general environmental properties, such as, temparature,
+The treatment includes general environmental properties, such as, temperature,
 pH, UV radiation, or oxygen level etc.
 %
 The other general properties are grouped as growth properties, such as, time,
 growth phase, etc.
 %
 Each annotation specification is defined as a duplet, including a property that
-is different between two samples of a contrast and a value decribing to what
+is different between two samples of a contrast and a value describing to what
 extend this difference is.
 %
 The annotation is then a vector of values, one for each characterized
@@ -2521,7 +2833,8 @@ the authors.
 %% Additionally, the condition properties themselves are further structured in a
 %% condition ontology tree.
 %% %
-%% This ontology employs the same classes as the Gene Ontology biological process
+%% This ontology employs the same classes as the Gene Ontology biological 
+%%process
 %% subtree terms \cite{Gene2010} and maps the condition properties used to
 %% annotate the condition contrasts to one or more biological processes or
 %% functionalities they most likely affect.
@@ -2534,38 +2847,62 @@ Assigning annotation properties of seemingly distinct categories to the same
 ontology term reflects the fact that different properties might in fact be
 related to the same biological process. 
 %
-For example, the condition ontology term ‘response to oxygen levels’ includes
-several properties from different levels of the property hierarchy, but that
-are all linked to cellular processes that are dependent on oxygen
-availability, such as \textit{fnr} mutations (a global oxygen responsive
-transcriptional regulator), NO2 concentration (an electron transport
-decoupler), agitation of the growth medium, actual oxygen levels, etc.
+For example, in \textit{E. coli} compendium, the condition ontology term
+‘response to oxygen levels’ includes several properties from different levels
+of the property hierarchy, but that are all linked to cellular processes that
+are dependent on oxygen availability, such as \textit{fnr} mutations (a global
+oxygen responsive transcriptional regulator), NO2 concentration (an electron
+transport decoupler), agitation of the growth medium, actual oxygen levels,
+etc.
 %
 The ontology provides a biologically more intuitive view of the annotation, and
 a novel data exploration option allowing an integrated study of different
 aspects centered around target biological processes.
 
 
-\subparagraph{Sample annotation for eukaryotes}
+\subparagraph{Sample annotation for eukaryote}
 %
-In order to handle the biological divercity of the complex plant \textit{Zea
-  mays}, the annotation system are further expended to completely
-characterize, for each sample, its genotype specification (breeding line),
-tissue origin, and the development stage.
+To handle the biological diversity of the complex plant \textit{Zea mays}, the
+annotation system is further expended to completely characterize, for each
+sample, its genotype specification (breeding line), tissue origin, and the
+development stage.
 %
-Furthermore, this annotation, associated with each sample instead of contrast,
-provides a refined characterization of contrasts and allows a better targetted
-selection, for example, to choose only those involving leaf tissues.
+Associated with each sample instead of contrast, these extends the scope of the 
+annotation to provide extra information that might be common between 
+the test and reference samples, yet crucial for data exploration and 
+interpretation.
 %
-More details are given in section \ref{sec:magic-anno} of chapter \ref{ch:magic}.
-
+For example, the expression variation observed under a stress condition when 
+comparing a pair of leaf samples might differ from that between two root 
+samples, as different mechanisms could be employed to counterattack the same 
+stress in different cells of a plant. 
+%
+Incorporating these annotations provides a refined characterization of 
+contrasts, which allows more elaborate data selections, for example, to choose 
+only those involving leaf tissues, as well as a better data interpretations to 
+include those factors into consideration.
+%
+A further categorization of contrasts based on the similarity between specific 
+characters also becomes possible.  Four sub-compendia are created containing 
+only a subset of contrasts that compare between samples gathered in different 
+tissues, collected at variant development stages, taken from distinct breeding 
+lines, or with or without external perturbations respectively.
+%
+Providing a sub-compendium with a confined scope could well facilitate the data 
+exploration for the biologist with particular research questions.
+%
+More details are given in section \ref{sec:magic-anno} of chapter 
+\ref{ch:magic}.
+%\todo{COMMAND: should this part be in magic chapter ??}
 
 
 %% \todo{COMMAND: move to discussion section}
-%% \textbf{From Oncomine3 paper \cite{Rhodes2007} p2} Because microarray data are
+%% \textbf{From Oncomine3 paper \cite{Rhodes2007} p2} Because microarray data 
+%%are
 %% only as valuable as the sample information accompanying them, our data
 %% collection team places special emphasis on sample facts curation and
-%% standardization. In many cases, this permits us to test hypotheses not explored
+%% standardization. In many cases, this permits us to test hypotheses not 
+%%explored
 %% in original analyses and publications
 %% %
 %% When possible, sample facts are translated to standard terms used by the NCI
@@ -2581,7 +2918,7 @@ More details are given in section \ref{sec:magic-anno} of chapter \ref{ch:magic}
 %% % http://bioportal.bioontology.org/ontologies/EFO?p=classes
 
 
-\subsubsection{Data homogenization}
+\subsubsection{Step 3: Data homogenization}
 
 The final part in the creation of a compendium is the homogenization in which
 the raw expression data are normalized, and the log-ratios are calculated,
@@ -2596,10 +2933,10 @@ dual-channel), as well as on the reported units of expression.
 %  and the type of normalizations that might have already been done.
 In general we adhere to the following principles: 
 %
-\todo{Due to the point 2,3 here, I strongly against clearify that
-  quantile normalization is actually skipped in our preprocessing
-  pipeline.  As it will cause great doubts among jury members, and
-  tough questions that is hard to answer clearly...}
+%\todo{Due to the point 2,3 here, I strongly against clearify that
+%  quantile normalization is actually skipped in our preprocessing
+%  pipeline.  As it will cause great doubts among jury members, and
+%  tough questions that is hard to answer clearly...}
 %
 \begin{enumerate}
 \item Raw intensities are preferred as data source over normalized data
@@ -2619,7 +2956,7 @@ In general we adhere to the following principles:
   discrepancies on dual-channel arrays \cite{Yang2002}, quantile normalization
   for high-density oligonucleotide experiments \cite{Bolstad2003}).
 %
-\item Log-ratios are caluclated based on normalized intensity data.
+\item Log-ratios are calculated based on normalized intensity data.
   For each dual channel array, the log-ratio is calculated between its
   own hybridizations.  When multiple probes target the same gene
   (technical replicates), to obtain one log-ratio per gene, the
@@ -2628,7 +2965,7 @@ In general we adhere to the following principles:
   replicate probes to obtain a robust result. \vspace{1.5mm} \\
   % 
   For single-channel arrays, the normalized intensities from technical
-  replicates are first summaried to produce one intensity measurement
+  replicates are first summarized to produce one intensity measurement
   per gene before calculating the log-ratios based on the contrast
   definitions.  Median Polish is utilized when the number of
   replicates per gene exceeds 4, e.g. for Affymetrix; otherwise the
@@ -2639,25 +2976,50 @@ In general we adhere to the following principles:
   the data, especially when Median Polish is utilized to handle the data
   generated by large number of replicates.  This is then corrected through an
   extra non-linear normalization (e.g., loess fit).  Similar discoveries and
-  handling approaches have been described in the literasures (\cite{Choe2005,
+  handling approaches have been described in the literatures (\cite{Choe2005,
     Welsh2013}).
   %
 \end{enumerate}
+
+\begin{figure}
+  \centering
+  \includegraphics[trim=0cm 0.5cm 0cm 9.5cm, clip=true, 
+  width=1\textwidth]{COMMAND_pipelines.pdf}
+  \caption[Default pipelines for compendium raw data homogenization]{
+    \textbf{Default pipelines for compendium raw data homogenization}}
+  \label{fig:command-pipelines}
+\end{figure}
 %
-The default data preprocessing pipelines for single- and dual-channel
-arrays are shown in Figure \ref{fig:command-pipelines}.
+%\todo{COMMAND-to ke: I corrected LOWESS into LOESS.  As for `NLIDR', 1. it is
+%  not well known and defined concept in literature, 2. not so sure that
+%  quantile is considered as one of it.}
+%%
+%\todo{COMMAND-to ke: the figure describes only `default' settings, not the ONLY
+%  option. Titled `Default pipeline ...'}
+%%
+%\todo{COMMAND-to ke: I see I made a mistake here.  So how do we actually handle
+%  other single channel type arrays? What are those types?  This is not clear
+%  from your original pipeline figures and those files explain homogenizations.
+%  As in it, SC incorporates all single channel data.  Can you elaborate this so
+%  I can properly explain them here?}
+
+The default data preprocessing pipelines for high density single channel array 
+(Affymetrix, NimbleGen, Agilent one-color, etc) and dual-channel arrays are 
+shown in Figure \ref{fig:command-pipelines}.
 %
-Following each step, the data quality is checked visually.  If there
-are issues with the result, extra steps and/or alternative methods
-could be utilized to correct them.
+%Rare low intensity
 %
-\todo{What are other possible alternatives and extra steps (if we
-  included post-NLIDR as part of default already)?  If none, I prefer
-  scrape this sentence to avoid possible questions from juries... }
+Following each step, the data quality is checked visually.  If there are issues
+with the result, extra steps and/or alternative methods and/or parameter
+settings could be utilized to correct them.
+%
+\todo{COMMAND-to ke: What are other possible alternatives and extra steps (if
+  we included post-NLIDR as part of default already)?  If none, I prefer scrape
+  this sentence to avoid possible questions from juries... }
 %
 Generally, the homogenization is applied per experiment.  
 %
-Occationally, some single-channel experiments conducted by the same lab share
+Occasionally, some single-channel experiments conducted by the same lab share
 the data generated on some arrays (the same access id in GEO), especially the
 reference ones probing wild type.
 %
@@ -2672,14 +3034,6 @@ achieve better consistency.
 %%
 %% \paragraph{Quality Assessment} Thesis Zhao Hui Section 2.2.2.2
 %
-\begin{figure}
-  \centering
-  \includegraphics[trim=0cm 0.5cm 0cm 9.5cm, clip=true, width=1\textwidth]{COMMAND_pipelines.pdf}
-  \caption[Default pipelines for compendium raw data homogenization]{
-    \textbf{Default pipelines for compendium raw data homogenization}}
-  \label{fig:command-pipelines}
-\end{figure}
-%
 After log-ratios are calculated for each experiment individually, they are
 integrated into one big compendium data matrix containing the data of all the
 processed experiments.
@@ -2689,7 +3043,8 @@ processed experiments.
 %% (missing value) or one measurement for each gene in each
 %% contrast.
 
-\subparagraph{Multiple-chip platform data normalization}\label{sec:command-multichip-norm}
+\subparagraph{Multiple-chip platform data 
+normalization}\label{sec:command-multichip-norm}
 For a multiple-chip platform, we first followed the same procedure to
 normalize data and calculate the log-ratio for each chip separately.
 %
@@ -2705,6 +3060,40 @@ over the multiple chips to obtain one final value for each gene.
 % Take median here as it is more stable against outliers from different arrays
 
 
+\todo{COMMAND [pending]: Batch effects, text commented out}
+%
+%\subparagraph{Batch effect removal method}
+%% check both articles to search definition of "batch effects"
+%Batch effects are the systematic non-biological differences between batches
+%(groups) of samples in microarray experiments due to various causes such as
+%differences in sample preparation and hybridization protocols \cite{Luo2010}.
+%
+%In Luo \textit{et al.} 2010 \cite{Luo2010} various batch effects correction 
+%methods are compared through evaluating the model based prediction results 
+%using Matthews correlation coefficient on batch effects corrected data.
+%%
+%Their research identified that the log-ratios calculated using geometric mean 
+%of control samples as reference has the best performance.
+%
+%The study of Rudy \textit{et al.} 2011 \cite{Rudy2011} identifies that several 
+%cross-platform normalization methods (aka batch effects correction methods), 
+%DWD, EB, GQ, and XPN are generally effective. However their applicability to 
+%our compendium is questionable for several reasons. 
+%%
+%First, treatment group missing, which identified as a major issue to remove 
+%treatment-platform interaction effects, is common among heterogeneous 
+%experiments integrated into compendium.
+%%
+%Second, the available methods can only handle limited number of experiments, 
+%whereas our compendium contains tens to hundreds experiments.
+%%
+%Consequently, those methods, although very valuable to small scale studies 
+%that 
+%integrating similar data sets, are not applicable to large scale integration 
+%efforts, such as, compendium creation.
+
+
+
 \subsubsection{Data publishing}
 %
 After internal control, a new compendium are released for public access.
@@ -2716,7 +3105,7 @@ A \textit{revision} adds extra experiments into the current version of the
 compendium providing more data.
 %
 The new data are collected and processed independently, and directly
-integrated into the data of the current vesion of compendium after quality
+integrated into the data of the current version of compendium after quality
 check.
 %
 Over the time, as the understanding of the genome advances, there can be a
@@ -2748,16 +3137,24 @@ check, the new version is released for public access.
 
 %% apache server + mysql db; javascript, ruby, php, etc 
 
+\begin{figure}
+  \centering
+  \includegraphics[trim=0cm 2cm 0cm 0cm, clip=true, 
+  width=1\textwidth]{COMMAND_interface.pdf}
+  \caption[COMMAND compendium creation en curation system]{
+    \textbf{COMMAND compendium creation en curation system}}
+  \label{fig:command-interface}
+\end{figure}
 
 As utilizing our methodology to create compendium is a complex multiple step
-process, a web system named COMMAND (COMpendium MANagement Desktop) has been
-develope integrating the methodology with a web interface to facilitate
-compendium creation and maintenance.
+process, a web system named COMMAND (COMpendium MANagement Desktop) (Figure 
+\ref{fig:command-interface}) has been developed integrating the methodology 
+with a web interface to facilitate compendium creation and maintenance.
 %
 The system is composed of three components, the backend providing core
 functionalities for compendium creation, the MySQL database to store the data
 collected from online repository and the content of created compendia, and the
-web service providing the front-end that interacts with users.  A Apache
+web service providing the front-end that interacts with users.  The Apache
 server interfaces the communications between those components.
 %
 The functionalities provided in the backend are computationally intensive and
@@ -2769,23 +3166,24 @@ The peripheral functionalities are implemented directly in the web system,
 such as, user control and management, new compendium initialization, etc.  So
 are those functionalities require human interactions, such as, various manual
 inspection functions, data annotation, etc.  Additionally, data dependencies
-between various steps of the metholodogy is controlled through web interface.
+between various steps of the methodology is controlled through web interface.
 
 
 % Availability
 \paragraph{Availability} 
-The whole compendium creation system can be installed and configured to run
-on any LAMP server with Matlab runtime environment installed.  Practically,
-the system supports a dedicated MySQL server % and a separate computation server
-to improve the performance.  The code is not publically avaiable but
-can be provided upon requirement.
+The compendium creation system can be installed and configured to run on any
+LAMP server with Matlab runtime environment installed.  Practically, a
+dedicated MySQL server can improves the performance of the system.
+% and a separate computation server to
+The code is not publicly available but can be provided upon request.
 
 
 
 %% \textbf{Database design} skipped, briefly covered in the compendium schema
 %% section
 %
-%% http://www.codeproject.com/Articles/359654/important-database-designing-rules-which-I-fo
+%% 
+%%http://www.codeproject.com/Articles/359654/important-database-designing-rules-which-I-fo
 %
 %% a modular structure that is the balance between 
 %% - normalize to reduce redundancy
@@ -2805,7 +3203,8 @@ can be provided upon requirement.
 %% The system architecture is modular (a figure). 
 
 %% 5 subsystems: data parsing (interface, integrated data from both
-%% repositories), annotation (interface, ??), homogenization, compendium data management
+%% repositories), annotation (interface, ??), homogenization, compendium data 
+%%management
 %% (release, revision, etc), system management (user management,
 %% compendium management (properties, new compendium, etc) ).
 
@@ -2841,7 +3240,7 @@ high quality manually curated annotations that facilitates both the global
 scale analysis and the targeted data exploration.
 %
 %% \textbf{We created a methodology and created COMMAND system}
-Although the abundant data is publically available on repositories such as
+Although the abundant data is publicly available on repositories such as
 GEO and ArrayExpress, the individual experiment still remains isolated and
 disintegrated due to the prevailed data inconsistencies, preventing the
 utility of an integrated analysis over large number of experiments.
@@ -2851,7 +3250,7 @@ consistent data set across the experiment and platform boundary that
 facilitates efficient data exploration.
 
 
-Similar efforts that directly integrating publically available data across
+Similar efforts that directly integrating publicly available data across
 experiments do exist, e.g., M$^{\textrm{3D}}$ \cite{Faith2008} and
 Genevestigator \cite{Hruz2008}.
 %
@@ -2864,7 +3263,7 @@ normalization tasks, limits the amount of data can be integrated into the
 compendium.
 % As Affymetrix array reports gene expression intensity, the data in these
 % compendia are log-scale absolute intensities.
-Our methodolgy does not impose such a limitation, instead tries to
+The methodology does not impose such a limitation, instead tries to
 incorporate as much data as possible by integrating data across different
 platforms.
 
@@ -2883,7 +3282,7 @@ data table of variant formats.
 Second, as two samples are hybridized on an array, the corresponding sample
 of the data generated in each channel must be correctly identified to
 guarantee that the proper experimental metadata information is used for
-annotation that is crutial for downstream data analysis and result
+annotation that is crucial for downstream data analysis and result
 interpretation.
 %
 To this end, a semi-automatic raw data parsing subsystem capable of
@@ -2893,7 +3292,7 @@ associations is developed.
 In a majority of cases, experiment data available online are handled
 automatically by the system, avoiding time-consuming human intervention.
 %
-When necessary, it do can incorportate extra information obtained from
+When necessary, it do can incorporate extra information obtained from
 manual data inspection to extract data.
 %
 The system enables us to process a large number of heterogeneous data
@@ -2904,18 +3303,18 @@ To handle the data generated from different types of platforms also
 complicates the data normalization and integration.
 %
 In our system, platform specific normalization schema is utilized to handle
-particular issues associated with each type of platform, for example, LOWESS
-to correct dye bias in dual-channel arrays, quantile normalization to reduce
-the variance among replicates for single-channel platform.
+particular issues associated with each type of platform, for example, loess to
+correct dye bias in dual-channel arrays, quantile normalization to reduce the
+variance among replicates for single-channel platform.
 %
 Different types of platform produce different expression measurements.
 Single-channel platform generates absolute intensity value for each gene.
 Whereas, for dual-channel platform, log-ratio is generally preferred as
-caclulated between the intensities obtained from the same sport, it
-effectively removes undeirable spot and array effects from the data.
+calculated between the intensities obtained from the same sport, it
+effectively removes undesirable spot and array effects from the data.
 %
 The log-ratio has been shown to improve consistency among results obtained
-across differeny microarray types \cite{Shi2006}, hence it is adopted as
+across different microarray types \cite{Shi2006}, hence it is adopted as
 the type of the expression data for our compendium.
 %
 To calculate log-ratio for all data, the concept of contrast is introduced,
@@ -2925,7 +3324,7 @@ sample as the reference to reveal differentially expressed genes.
 For a dual-channel array, a contrast is naturally defined between samples
 hybridized to it.
 %
-For an experiment using single-channel array, one or more refernece samples
+For an experiment using single-channel array, one or more reference samples
 are manually chosen based on the platform used and the nature of the
 experiment.
 %
@@ -2956,24 +3355,25 @@ expression compendium.
 %
 Through integrating the data across different platforms, the methodology has
 two advantages compared to the existing single-platform one.  First, it
-enables the creation of the compendium that incorporate much more data.
+enables the creation of such a compendium that incorporate much more data, 
+hence providing a more complete expression landscape of a species.
 Second, it enables to create a sizable compendium for species which there is
-no dominat platform exists.
+no dominant platform, such as Affymetrix.
 %
 Utilizing this methodology, we successfully created three bacterial
 compendia for {\it Escherichia coli}, {\it Bacillus subtilis}, and {\it
-  Salmonella enterica serovar Typhimurium}.  The \textit{E. coli} one is
+  Salmonella enterica} serovar Typhimurium.  The \textit{E. coli} one is
 the largest currently available, and the last two are unique.
 %
 The details of these bacterial compendia are described in chapter
 \ref{ch:colombos}.
 %
 Furthermore, the methodology has been adapted to construct compendium for
-Eukaryotes.
+eukaryote.
 %
 A proof-of-concept compendium for \textit{Zea mays} (chapter \ref{ch:magic})
-has been created, providing high data consistency by incorportaing a complete
-reannotation of the existing platforms based on the lastest genome release and
+has been created, providing high data consistency by incorporating a complete
+re-annotation of the existing platforms based on the latest genome release and
 the extended annotations reflecting the complex structure and life style of a
 plant.
 
@@ -2984,13 +3384,17 @@ plant.
 %% although the information provided are now more consistent ...
 
 
-%% \textbf{Choice of extracting raw intensity data, especially problematic for dual-channel arrays}
+%% \textbf{Choice of extracting raw intensity data, especially problematic for 
+%%dual-channel arrays}
 
 %% Although widely accepted community guideline such as MIAME \cite{Brazma2001}
 %% greatly improved the reproducibility of experiments and the understanding of
-%% the data by promoting a more precise description of experimental procedure, it
-%% fails to provide detailed guidelines that facilitate the computerized analysis
-%% of the data due to the lack of specifications for rigid data reporting formats.
+%% the data by promoting a more precise description of experimental procedure, 
+%%it
+%% fails to provide detailed guidelines that facilitate the computerized 
+%%analysis
+%% of the data due to the lack of specifications for rigid data reporting 
+%%formats.
 
 %% \textbf{Choice of contrast and log-ratio}
 

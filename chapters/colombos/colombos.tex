@@ -1,7 +1,6 @@
 \chapter{COLOMBOS: access port for cross-platform bacterial expression compendia}\label{ch:colombos}
 \chaptermark{Colombos}
 
-\ldots
 
 \instructionsintroduction
 
@@ -49,16 +48,20 @@
 %microarray experiments to support their research.
 
 
-% Glossary section to define all the glossaries
-\todo{[colombos]Check and add all abbreviations and symbols}
-\glossary{name=COLOMBOS, description=Collection of Microarrays for Bacterial 
-Organisms}
-\glossary{name=GEO, description=Gene Expression Omnibus}
+
+%\section{Introduction.new}
+%Large amount of data available.
+%Expression compendium, types, and their applications. (exampels)
+%
+%The issue with bacteria, limited amount of data, none dominant platform ...
+%
+%Cross-platform compendium and COLOMBOS.
+
 
 \section{Introduction}
 
 Over the last decade, the high-throughput omics technology led/driven by the 
-microarray platform has revolutionalized the molecular biology research. 
+microarray platform has revolutionized the molecular biology research. 
 With the unprecedented ability to globally probe gene expressions, it was 
 quickly adopted by every research lab generating colossal amount of data. 
 With a few exceptions, most experiments designed to address particular 
@@ -90,12 +93,12 @@ Compendia created by meta-analysis are limited by the predefined
 functionalities provided by the system, hence lack of flexibility to 
 incorporate new analysis.
 The compendia created by direct integration, however, retain actual expression 
-values, hence the compendia can be readily analyzed by the existing and 
+values, hence the compendia can be readily analysed by the existing and 
 potential methods.
 For eukaryotic model organisms, such a single-platform approach works well 
 as the compendium based on Affymetrix chips can achieve a broad scope on 
 experimental condition due to the platforms popularity.
-For prekaryote, however, the single-platform constraint severely circumscribes 
+For prokaryote, however, the single-platform constraint severely circumscribes 
 the scope of the compendium created due to the lack of such a dominate platform.
 For example, for model organisms such as {\it E. coli}, even the most popular 
 platform `Affymetrix GeneChip E. coli Genome 2.0 Array' is used by less then 
@@ -109,7 +112,7 @@ unprecedentedly broad coverage on experimental conditions.
 As such a cross-platform compendium benefits most the microbiology research 
 community, we have applied our method to create compendia for three 
 bacteria species: \textit{Escherichia coli}, \textit{Bacillus 
-subtilis}, and \textit{Salmonella enterica serovar Typhimurium}.  
+subtilis}, and \textit{Salmonella enterica} serovar Typhimurium.  
 Furthermore, to increase their usability for a large community of 
 microbiologists, these compendia are being made available through COLOMBOS 
 (COLlection Of Microarrays for Bacterial OrganismS). 
@@ -136,15 +139,18 @@ It consists of three main steps designed specifically to remove the
 aforementioned hurdles that prevent direct data integration.
 First, the gene expression data and the corresponding experiment and platform 
 information are extracted from the experimental data directly obtained from 
-GEO and ArrayExpress, removing the prevalent representation discrepancies in it.
+GEO and ArrayExpress, removing the prevalent representation discrepancies.
 %
 Next, a contrast is defined between two samples, whose gene expression levels 
 are measured in the same experiment, one as reference and the other as test.
-The annotations are curated for each contrast by carefully analyzing both the 
+The annotations are curated for each contrast by carefully analysing both the 
 information stored in online database and the corresponding publication(s) when 
 available, specifying both the characteristic differences (e.g. the strain 
-information) and the difference in the experimental conditions between the test 
+information) and the changes in the experimental condition between the test 
 and reference samples.
+%
+%% At last, the raw expression data are normalized using out in-house 
+%% homogenization pipelines
 %
 At last, the raw expression data are first normalized per experiment using 
 dedicated procedures that respect the characteristics of the microarray 
@@ -159,10 +165,9 @@ platforms and experiments \cite{Shi2006, Shi2008}.
 Following our methodology, the compendium created is, \textit{de facto}, a 
 matrix containing log-ratio expression values, in which each row correspond to 
 one gene and each column one contrast.
-
-
-\todo{providing a table for platform based data breakdown (cross-platform 
-benefit)}
+%
+\todo{COLOMBOS [pending]: providing a table for platform based data breakdown 
+(cross-platform benefit)}
 
 % original colombos section, replaced by above text due to extra chapter of 
 %command
@@ -308,7 +313,7 @@ annotation, or by condition ontology. When specifying only a set of genes,
 COLOMBOS will identify relevant condition contrasts based on the expression 
 values of the selected genes in the compendium (user defined relevance cut-off 
 that prioritizes both the magnitude as well as the consistency of the 
-expression changes; see Section \ref{ch:apd-colombos} for more details). 
+expression changes; see Appendix \ref{ch:apd-colombos} for more details). 
 Starting from only condition contrasts, COLOMBOS retrieves the most variable 
 genes for the defined contrasts and (as an optional step) can identify clusters 
 of co-expressed genes within this selection, which can be added as distinct 
@@ -336,8 +341,8 @@ deciding which modules may be grouped or subtracted.
 
 Note that all of COLOMBOS' calculations, in both creating and editing modules, 
 explicitly take into account the relative nature of the expression values by 
-recognizing 0, implying no change, as the natural reference state of a 
-log-ratio (details in Section \ref{ch:apd-colombos}). 
+recognizing $0$, implying no change, as the natural reference state of a 
+log-ratio (details in Appendix \ref{ch:apd-colombos}). 
 Gene profile similarities are calculated by default as the uncentered Pearson 
 correlation, which assumes that the sample means (i.e. the means of two gene 
 expression profiles across a set of condition contrasts) are zero. Standard 
@@ -348,11 +353,12 @@ mean sum of squared log-ratios)
 
 \section{Results}
 
-\subsection{Cross-platform expression compendia}\label{sec:colombos-comp}
+\subsection{Becteria compendia}\label{sec:colombos-comp}
+
 Currently COLOMBOS provides access to fully annotated public expression 
 compendia for three bacterial model organisms: {\it Escherichia coli}, {\it 
-Bacillus subtilis}, and {\it Salmonella enterica serovar Typhimurium} (see 
-Table \ref{tab:colTB-overview} for a detailed overview of their respective 
+Bacillus subtilis}, and {\it Salmonella enterica} serovar Typhimurium (see 
+Table \ref{tab:colTB-overview} for an overview of their respective 
 content). 
 These expression compendia are essentially organism-specific matrices of 
 expression values derived from publicly available microarray experiments which 
@@ -361,18 +367,20 @@ correspond to the known genes of the organism in question. Each column is a
 `condition contrast' because it does not represent single experimental 
 condition, but in fact always represent the difference between a 
 test and reference condition (the expression values themselves are calculated 
-as expression log-ratios). Converting absolute measures of expression into 
+as expression log-ratios). 
+%
+Converting absolute measures of expression into 
 expression changes is the principal means for rendering expression values 
 comparable across platforms and experiments. Relative expression calculated 
 intra-experiment/platform (i.e. between two conditions measured in the same 
 microarray experiment using one platform) negates much of the platform and 
 experiment specific variations that makes it impossible to reliably compare the 
 absolute quantities reported in different experiments \cite{Shi2006}.
+\todo{COLOMBOS [pending]: Update the data to version 2}
 
-
-\todo{[colombos]Update the data to version 2}
 \begin{table}
-	\caption{An overview of the content of the three expression compendia that can be accessed through COLOMBOS}
+	\caption{An overview of the content of the three bacteria expression 
+	compendia}
 	\label{tab:colTB-overview}
 	\begin{small}
 	\begin{tabular}{@{}l c c c@{}}
@@ -406,14 +414,37 @@ In order to be able to interpret and compare the expression log-ratios across an
 
 
 \subsection{Case study - Fur regulatory targets}
-In the following case study we illustrate the benefits of exploiting the direct integration of expression values, as well as the ease with which one can make interesting biological discoveries using the COLOMBOS data analysis tools (see Methods for a detailed description of their functionalities). A straightforward application provided by COLOMBOS is the ability to find genes which show similar expression behaviour with a starting set of genes for relevant condition contrasts. Since co-expression might infer co-regulation, we can use this approach to obtain a list of potential target genes that might also be regulated by the same transcription factor. In this example, we will use COLOMBOS to identify novel potential targets for the Fur transcription factor of {\it Escherichia coli}. Fur mostly regulates genes related to iron homeostasis and is strongly conserved across many Gram-negative and Gram-positive bacteria \cite{Chen2007}. It has received a lot of interest in the past for its role in iron-limited conditions, such as those encountered by pathogenic strains in their hosts \cite{Panina2001}. Fur has mostly been reported as a direct repressor of its target genes, but is considered a dual regulator: activation occurs inderectly by transcriptional repression of a small antisense RNA RhyB \cite{Masse2002}. Fur has also been known to mediate combinatorial responses along with many other transcription factors \cite{Patzer2001, Zhang2005}. In the latest release of RegulonDB \cite{Gama-Castro2008}, Fur is described as having 98 target sites in 43 distinct promoters, with 28 of these promoters known to be subject to combinatorial regulation. The results of all data analysis steps discussed here are available in the case study data set accessible from the COLOMBOS home page.
+In the following case study we illustrate the benefits of exploiting the direct 
+integration of expression values, as well as the ease with which one can make 
+interesting biological discoveries using the COLOMBOS data analysis tools (see 
+Methods for a detailed description of their functionalities). A straightforward 
+application provided by COLOMBOS is the ability to find genes which show 
+similar expression behavior with a starting set of genes for relevant condition 
+contrasts. Since co-expression might infer co-regulation, we can use this 
+approach to obtain a list of potential target genes that might also be 
+regulated by the same transcription factor. In this example, we will use 
+COLOMBOS to identify novel potential targets for the Fur transcription factor 
+of {\it Escherichia coli}. Fur mostly regulates genes related to iron 
+homeostasis and is strongly conserved across many Gram-negative and 
+Gram-positive bacteria \cite{Chen2007}. It has received a lot of interest in 
+the past for its role in iron-limited conditions, such as those encountered by 
+pathogenic strains in their hosts \cite{Panina2001}. Fur has mostly been 
+reported as a direct repressor of its target genes, but is considered a dual 
+regulator: activation occurs indirectly by transcriptional repression of a 
+small antisense RNA RhyB \cite{Masse2002}. Fur has also been known to mediate 
+combinatorial responses along with many other transcription factors 
+\cite{Patzer2001, Zhang2005}. In the latest release of RegulonDB 
+\cite{Gama-Castro2008}, Fur is described as having 98 target sites in 43 
+distinct promoters, with 28 of these promoters known to be subject to 
+combinatorial regulation. The results of all data analysis steps discussed here 
+are available in the case study data set accessible from the COLOMBOS home page.
 
 An initial set of 39 genes of the Fur regulon was constructed using the 
 regulatory information integrated in COLOMBOS. Only genes known to be regulated 
 by Fur alone, or by Fur in combination with the global regulators CRP, H-NS 
 and/or FNR were selected. All other cases where known combinatorial regulation 
 could occur were not included in the initial set because they might result in 
-more complex, less homogenous transcriptional responses. For similar 
+more complex, less homogeneous transcriptional responses. For similar 
 considerations, if the activating sigma factor was known, only genes responsive 
 to the household s70 were retained in the initial set. For this initial gene 
 set the most relevant condition contrasts in the compendium were then selected, 
@@ -437,7 +468,8 @@ additional combinatorial regulation was not active under the surveyed
 conditions.
 
 
-
+\todo{COLOMBOS: make sure it is at odd page}
+%
 \begin{sidewaystable}
 \centering
 \caption{Finding potential novel Fur targets – a case study}
@@ -540,8 +572,10 @@ regard to their function, the \textit{ybiX} gene encodes a protein similar to
 an iron-regulated hydroxylase-encoding gene from {\it Pseudomonas aeruginosa}, 
 further supporting a role for Fur in its transcriptional regulation. 
 \textit{pqqL} presents an interesting case: it encodes for a putative zinc 
-peptidase and is chromosomally situated directly downstream of the predicted 
-Fur regulated \textit{yddAB} operon. Using COLOMBOS to select the most relevant 
+peptidase and is situated directly downstream of the predicted 
+Fur regulated \textit{yddAB} operon in the chromosome. 
+%
+Using COLOMBOS to select the most relevant 
 condition contrasts for the three genes \textit{yddA}, \textit{yddB}, and 
 \textit{pqqL} (see loadable case study data set) indeed shows that these genes 
 are subject to tight co-expression, opening up the possibility of them being 
@@ -566,14 +600,24 @@ and it has been shown in the related {\it E. coli} Nissle 1917 strain that
 expression of \textit{efeUOB} increases in response to iron-depleted conditions 
 in a Fe$^{2+}$-Fur-dependent manner \cite{Grosse2006}.
 
-COLOMBOS also provides the functionality to retrieve anti-correlated genes, which can be interesting to investigate the potential of dual regulation (activation or repression by the same regulator). In the case of our Fur module, none of the anti-correlated genes pass the threshold of 20.8, but it is interesting to note that the second best ranked gene (correlation 20.74) is {\it ftnA}. This gene was not yet assigned as a Fur target in the RegulonDB release included in COLOMBOS, but it was recently shown that {\it ftnA} is transcriptionally activated by Fur directly (as opposed to inderectly through RhyB as is usually the case for Fur mediated activation) by reversal of H-NS silencing \cite{Nandal2010}.
+COLOMBOS also provides the functionality to retrieve anti-correlated genes, 
+which can be interesting to investigate the potential of dual regulation 
+(activation or repression by the same regulator). In the case of our Fur 
+module, none of the anti-correlated genes pass the threshold of 20.8, but it is 
+interesting to note that the second best ranked gene (correlation 20.74) is 
+{\it ftnA}. This gene was not yet assigned as a Fur target in the RegulonDB 
+release included in COLOMBOS, but it was recently shown that {\it ftnA} is 
+transcriptionally activated by Fur directly (as opposed to indirectly through 
+RhyB as is usually the case for Fur mediated activation) by reversal of H-NS 
+silencing \cite{Nandal2010}.
 
 While the retrieval of already known Fur regulon genes combined with a set of likely targets confirms that a careful co-expression analysis can lead to the identification of novel targets, this does not imply that the direct integration of expression data itself, as in our compendia, provides any benefits. To illustrate the advantage of using cross-platform compendia, we repeated the analysis on a per experiment basis (a `meta-analysis' of 7 experiments from which the 97 contrasts above were selected). Note that, to maximize the quality of the results of this meta-analysis, we did not use all contrasts within each experiment, but only the most relevant ones (selected with the same relevance cut-off as before), and that we ignored experiments with two contrasts or less. When extending the initial 30 genes with the same correlation cut-off of 0.8, the number of additional genes for each experiment ranges between 389 and 1385, the union adding up to a total of 3361. Most of these genes are false-positives with respect to being members of the Fur regulon: within single experiments generally only a limited number of similar conditions are surveyed and this increases the chance of finding genes with similar up and down regulation patterns but not sharing the exact same regulatory program. Trying to counter this effect by increasing the correlation cut-off does not necessarily yield better results, a cut-off of 0.9 resulting in the union containing 2135 additional genes, one of 0.95 in 1361 genes. Therefore we retained only the intersection, i.e. those genes that were added by each of the per experiment extensions with a correlation cut-off of 0.8. This intersection constituted 8 additional genes (a cut-off of 0.9 resulted in only 4 added genes, 0.95 resulted in none), 6 of them already known Fur targets, and only two uncharacterized genes representing potential novel targets. All of these were also retrieved by the COLOMBOS cross-platform analysis, with the exception of a single already known Fur target, {\it sufD}. However, another gene of the {\it sufABCDSE} operon was selected by the cross-platform analysis ({\it sufB}; all other genes of the operon showed correlations with the initial set of just under 0.8), retrieving the same promoter as a Fur target.
 
 
 
-\section{Conclusions and future directions}\todo{[colombos]Move future 
-directions into the last chapter}
+\section{Conclusions and future directions}
+
+%\todo{[colombos]Move future directions into the last chapter}
 
 \begin{sidewaystable}
 	\centering
@@ -583,16 +627,16 @@ directions into the last chapter}
 	\label{tab:colTB-comp}
 %	\begin{tabular}{p{3cm} p{4cm} p{4cm} p{4cm} p{5cm}}
 %	\begin{tabular}{p{2cm} p{2.2cm} p{2cm} p{2cm} p{2.3cm}}
-	\begin{tabular}{ @{}|>{\raggedright}p{0.13\linewidth} 
+	\begin{tabular}{ >{\raggedright}p{0.13\linewidth} 
 	>{\raggedright}p{0.2\linewidth} >{\raggedright}p{0.15\linewidth} 
-	>{\raggedright}p{0.22\linewidth} >{\raggedright}p{0.18\linewidth}|@{}}
+	>{\raggedright}p{0.22\linewidth} >{\raggedright}p{0.18\linewidth} @{}}
 	
 		\toprule
 		 & {\centering\bf\small COLOMBOS} & {\centering\bf\small M3D} & 
 		 {\centering\bf\small GXA} & {\centering\bf\small GeneVestigator} 
 		 \tabularnewline
 		\midrule
-		\multicolumn{5}{|l|}{\bf Database Content} \tabularnewline
+		\multicolumn{5}{l}{\bf Database Content} \tabularnewline
 		\hline
 		Expression data\tnote{1} & Cross-platform compendia & Single platform 
 		compendia (Affymetrix) & Experiment centered (ArrayExpress 
@@ -618,7 +662,7 @@ directions into the last chapter}
 		
 		\arrayrulecolor{Black}
 		%\tabularnewline[-2.5ex] % add a bit of space, break right vertical line
-		\multicolumn{5}{|l|}{\bf Functionalities}
+		\multicolumn{5}{l}{\bf Functionalities}
 		\tabularnewline
 		\hline
 		Expression analysis\tnote{3} & Multiple queries & Single query & Single 
@@ -719,10 +763,6 @@ compendia's expression data.
 
 
 
-
-
-\section{Acknowledgements}\todo{[colombos]move to preface}
-We would like to thank Lore Cloots, Inge Thijs, Ivan Ischukov, Daniel Ryan, and Steven Oeyen for their valuable comments. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Keep the following \cleardoublepage at the end of this file, 

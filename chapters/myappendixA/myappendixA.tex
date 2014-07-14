@@ -157,14 +157,26 @@ calculated as the uncentered standard deviation:
 
 \section{Enrichment calculation}\label{apd:enrichment}
 
-The GO (Gene Ontology) enrichment $p$-value is calculated based on a 
-\textbf{hypergeometric distribution}. The lower the $p$-value, the lower the 
-chance of a GO term appearing in a random gene set having the same number of 
-genes as the module in comparison, and the more significant a GO term is 
-enriched in the module.
+The enrichment score $p$-value is calculated based on a
+\textit{hypergeometric distribution}.
 %
-\todo{[apdxA]Add formula and brief explanations here}
+Given a genome of size $N$, there are $K$ genes in it associated with
+a Gene Ontology (GO) term $T$, the $p$-value representing the chance
+to observe $k$ or more such genes appear in a random module of size
+$n$ is calculated as follows:
 
+\begin{equation}
+P = 1-\sum\limits_{i=0}^{k-1}\frac{\binom{K}{k}\binom{N-K}{n-k}}{\binom{N}{n}}
+\end{equation}
+
+The lower the $p$-value, the more significant a GO term is enriched in
+the module.
+%
+% Ref: http://www.biomedcentral.com/1471-2164/7/313/
+
+%The lower the $p$-value, the lower the chance of a GO term appearing in a 
+%random gene set having the same number of genes as the module in comparison, 
+%and the more significant a GO term is enriched in the module.
 
 %% ------------  Following two sections removed, not so relevant ...  [201406]
 

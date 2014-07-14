@@ -1,8 +1,8 @@
 %\documentclass[croppedpdf,pagebackref,showinstructions]{adsphd}
 %\documentclass[pagebackref,showinstructions,showlabels,biblatex,biber,biblatexstyle=authoryear]{adsphd}
-\documentclass[pagebackref,showinstructions,showlabels,biblatex,biber]{adsphd}
-%\documentclass[online]{adsphd}
-%\documentclass[print]{adsphd}
+%\documentclass[pagebackref,showinstructions,showlabels,biblatex,biber]{adsphd}
+%\documentclass[online,biblatex]{adsphd}
+\documentclass[print,biblatex]{adsphd}
 %\documentclass[pagebackref,showinstructions,showlabels,coverfontpercent=100]{adsphd}
 
 % To use biblatex:
@@ -29,7 +29,8 @@
 
 
 %%% COVER: Settings %%%
-\title{A framework for the creation and exploration of cross-platform expression compendia}
+\title{A framework for cross-platform gene expression compendium creation and 
+exploration}
 %\subtitle{Multiscale computing for Dummies}
 
 \author{Qiang}{Fu}
@@ -40,7 +41,7 @@
 \jury{Prof.~dr.~ir.~Dirk~Springael\\
       Prof.~dr.~ir.~Yves~Moreau\\
 	  Prof.~dr.~ir.~Jozef~Vanderleyden\\
-      Dr.~ir.~Mark~Davey\\
+      Dr.~ir.~Maarten~Fauvart\\
 }
 \externaljurymember{Prof.~dr.~ir.~Klaas~Vandepoele}{Ghent University, Belgium}
 
@@ -54,10 +55,10 @@
                                 % [http://www.kuleuven.be/communicatie/schrijven/taalgebruik.html]
 
 
-\email{first.name@dept.kuleuven.be} % Leave empty to hide
-\website{http://www.dept.cs.kuleuven.be} % Leave empty to hide
+\email{qiang.fu@biw.kuleuven.be} % Leave empty to hide
+\website{} % Leave empty to hide
 
-\date{April 2014}
+\date{September 2014}
 %\udc{XXX.XX}            % UDC is no longer necessary.
 \depot{XXXX/XXXX/XX}     % Leave out the initial D/ (it is added
                          % automatically)
@@ -117,9 +118,10 @@
 %
 % website.bib provide all bib items specifying a website address
 
+
 % Bibtex style
 %\bibstyle{abbrv}
-\bibstyle{acm}
+%\bibstyle{acm}
 %\bibstyle{ieeetr}
 
 % Own commands
@@ -141,9 +143,9 @@
 
 \frontmatter % to get \pagenumbering{roman}
 
-\includepreface{preface}
+%\includepreface{preface}
 \includeabstract{abstract}
-\includeabstractnl{abstractnl}
+%\includeabstractnl{abstractnl}
 
 % To create a list of abbreviations, there are 2 options
 % 1. manual creation and inclusion of this file
@@ -164,14 +166,14 @@
 %    \nomenclature[cB]{$c_B(\vec{x})$}{Characteristic function of $B$}
 %    \printnomenclature[3cm]
 % \printnomenclature[1.5cm]
-\printnomenclature[3.5cm] % adapt the term column width
+\printnomenclature[4cm] % adapt the term column width
 
 \tableofcontents
 \listoffigures
 \listoftables
 
 % Show an overview of todos with page numbers...
-\listoftodos
+%\listoftodos
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -190,8 +192,8 @@
 % directory.
 \includechapter{command}
 \includechapter{colombos}
-%\includechapter{distiller}
-%\includechapter{magic}
+\includechapter{distiller}
+\includechapter{magic}
 
 
 \includechapter{conclusion}
@@ -203,13 +205,17 @@
 \includeappendix{myappendixA}
 \includeappendix{myappendixB}
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \backmatter
 
+% issue of full author list is solved by giving extra option to biblatex at 
+% line 241 of adsphd.cls file.
+%
 \includebibliography
 \instructionsbibliography
 
-\includecv{curriculum}
+% \includecv{curriculum}
 
 \includepublications{publications}
 
