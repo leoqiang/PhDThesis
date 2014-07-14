@@ -237,7 +237,8 @@
         \PassOptionsToPackage{backend=biber}{biblatex}
     \fi
     \PassOptionsToPackage{backref=false}{hyperref} % Avoid loading of backref
-    %\PassOptionsToPackage{maxnames=99}{biblatex}
+    \PassOptionsToPackage{citestyle=numeric}{biblatex}
+    \PassOptionsToPackage{maxnames=6}{biblatex}
     %\PassOptionsToPackage{firstinits=true}{biblatex}
 \else
     \ifadsphd@custombibtex

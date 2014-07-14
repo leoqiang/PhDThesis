@@ -1,8 +1,167 @@
 \chapter{Abstract}                                 \label{ch:abstract}
 
-\ldots
+%\ldots
 
 \instructionsabstract
+
+%% We first thoroughly studied the issues involved in creating
+%% cross-platform compendium.
+%% % data collection
+%% First, special attention has been paid on studying data representation
+%% heterogeneity, which has been widely recognised yet lack of further
+%% investigation.
+%% %
+%% Several aspects that complicate the data collection task, particularly for
+%% those generated on dual-channel microarrays, are identified, and derived
+%% specific strategies to tackle each of them.
+%% %
+%% Based on our study, a semi-automatic system is developed that enables
+%% efficient and high-quality expression data retrieval over a broad range of
+%% platforms, and consequently, makes it feasible to create large-scale
+%% compendium.
+%% % annotation
+%% Next, a manual annotation step is taken to resolve the issue with the
+%% meta-data incompleteness and inconsistency, providing expert-curated and
+%% consistent specifications of experimental factors and sample attributes
+%% that are crucial for data exploration and result interpretation.
+%% % homogenization (still missing)
+
+
+%% -- Advantage 
+%
+%% The methodology has maken it feasible to construct sizable compendia for
+%% species that lack of dominant microarray platform, and helped creating a
+%% compendium that is far more comprehensive than the existing
+%% single-platform one.
+
+%% % from introduction v1
+%% %
+%% It is composed of three major steps: data collection that collects raw
+%% expression data of different experiment and platform origin overcoming the
+%% wide-spread representation heterogeneity issue; annotation that aims to
+%% provide the consistent and complete specification of experimental factors
+%% and sample attributes crucial for data exploration and result
+%% interpretation; and at last, data homogenization in which raw data are
+%% preprocessed using our in-house pipeline to improve consistency and
+%% log-ratios are calculated to render the data comparable across different
+%% platforms.
+
+
+% Transcriptome - microarray - compendium
+
+With the unprecedented ability to systematically probe gene expression
+at genome scale, microarray has become an indispensable technology
+adopted by every laboratory across the world, generating a colossal
+amount of data for a variety of species.
+%
+Although comprehensive at gene dimension, any microarray based study
+alone provides a limited scope to study specific aspect(s) of an
+complex organism through analyzing its transcriptome.
+%
+Alternatively, the aggregate of existing expression data provides an
+opportunity to investigate gene expression of a particular species at
+a global level, and alternatively, view a specific study from the
+perspective of existing knowledge.
+%
+The goal of this research focuses on developing novel methodology and
+systems to explore this opportunity.
+%
+%% construct such an exhaustive data set called compendium from publicly
+%% available expression data, and creating appropriate tools to explore it.
+
+
+
+We first developed a methodology to create an organism-specific
+cross-platform compendium from publicly available gene expression data.
+%
+Special attention has been paid on two aspects, resolving data
+representation heterogeneity to facilitate automated data retrieval
+across data generated on different microarrays, and improving data
+consistency and compatibility through systematic renormalization of data
+and subsequently, log-ratio calculation.
+%
+%% Compared with this novel methodology, the existing approach, which
+%% constructs compendium from data generated on single-platform, is
+%% inferior with its limited applicability and the restrained scope of the
+%% resulting compendium.
+%
+Compared with the existing approach that constructs compendium from
+the data generated on single-platform, this novel methodology is
+superior with its broader applicability and the extensive scope of the
+resulting compendium.
+
+
+Utilizing this novel methodology, we constructed three such
+comprehensive expression compendia for the bacterial model organisms
+(\textit{Escherichia coli}, \textit{Bacillus subtilis}, and
+\textit{Salmonella enterica} serovar Typhimurium).
+%
+Moreover, efforts have been taken to create a web access portal
+providing public access to these three compendia.
+%
+Especially, a suite of intuitive tools suitable for exploring,
+analyzing, and visualizing expression data of such cross-platform
+compendium are incorporated into this web portal to promote the utility
+of the compendium.
+%
+Employing these tools to explore \textit{E. coli} compendium, we
+successfully identified novel targets for transcription factor FUR
+(Ferric Uptake Regulation) based on their expression similarity to that
+of the known FUR targets across a range of conditions of different
+experiments and platforms origins.
+%
+%% The utility of both the compendia and the web portal is demonstrated in a
+%% case study, in which COLOMBOS analysis tools are employed to identify novel
+%% targets for \textit{E. coli} transcription factor FUR (Ferric Uptake
+%% Regulation) based on their expression similarity to that of the known FUR
+%% targets in compendium
+
+
+%% One of the most important applications of compendium is to discover
+%% condition dependent co-expression modules, which is utilized to study
+%% the regulatory program of coexpressed genes and to infer regulatory networks.
+%
+%%   Carolina: better a more biological description (below), instead of
+%%             too technical (above) ...
+%
+One of the most important applications of compendium to study a
+organism's response to the genetic and environmental changes by
+identifying condition dependent functional modules, and studying the
+underlying regulatory mechanism responsible for the observed expression
+variations.
+%
+Many methods exist for this purpose. Each makes different assumptions to
+handle the under deterministic nature of this complex problem, and
+consequently generates complementary results.
+%
+Here, we demonstrated such complementarity between two methods,
+DISTILLER and COLOMBOS, in a case study, in which co-expression modules
+containing gene \textit{sodA} are extracted from \textit{E. coli}
+compendium using each method, and compared against each other.
+%
+Through this example, we stress the importance of choosing the right
+method based on the research purpose.
+
+
+%% Initially, we focused our efforts on less complex unicellular
+%% prokaryotic microbes.  However, such a cross-platform approach has the
+%% great potential to create comprehensive compendia that benefit
+%% researches on non-momdel eukaryotic organisms, especially those of great
+%% economic interests and accumulated a substantial amount of public
+%% expression data across different platforms.
+%
+% Therefore, 
+At last, we extended the methodology to handle the extended complexity
+of monocot \textit{Zea mays}, specifically addressing two issues,
+platform probe annotation inconsistency and precise biological sample
+annotation that manifests the abundant genetic repository (breeding
+lines) of maize species, and its complex life style (development stage)
+and structure (tissue).
+%
+We also upgraded web access portal accordingly with new functions to
+facilitate the utility of rich annotations available.
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -1,15 +1,661 @@
 \chapter{Conclusions and Perspectives}\label{ch:conclusion}
 
-\ldots
-
 \instructionsconclusions
+
 
 
 \section{Summary and achievements}
 
+Chapter \ref{ch:command} illustrated a novel methodology to create 
+organism-specific cross-platform expression compendium.  
+%
+The uniqueness of the methodology lies in the capability of integrating
+expression data across different platforms.
+% by resolving data collection issue and data inconsistency.
+%
+Special attention has been paid on two aspects, resolving data representation
+heterogeneity, particularly those related to the data generated on dual-channel
+microarrays, and improving data consistency and compatibility.
+%
+The method has two advantages over the single platform approach.  First, it
+facilitates the creation of a compendium that incorporates far more data than
+existing one, providing a more comprehensive gene expression landscape for a
+species.  Second, it enables the construction of a sizable compendium for
+species without dominant microarray platform.
+%
+Moreover, a web system named COMMAND is developed, providing user friendly
+interfaces and guidance to facilitate compendium creation and maintenance.
+%
+The system is the only known one that is capable of partially automating the
+tedious microarray expression data retrieval task, enabling the handling of a
+large volume of publicly available data.
+%
+The utility of the methodology has been proven by successfully creating first
+three (\cite{Engelen2011}) and later on four extra bacteria compendia
+(\cite{Meysman2014}), and one eukaryotic compendium for monocot \textit{Zea
+  mays} (\cite{Fu2014}).
+
+
+
+% from COLOMBOS abstract
+Chapter \ref{ch:colombos} presents three comprehensive organism-specific 
+cross-platform expression compendia for the bacterial model organisms 
+(\textit{Escherichia coli}, \textit{Bacillus subtilis}, and \textit{Salmonella 
+enterica serovar Typhimurium}), and the accompany web access portal COLOMBOS.
+%
+Each compendium also incorporate extensive annotations for both genes and 
+experimental conditions; these heterogeneous data are integrated 
+in the COLOMBOS analysis tools to interactively browse and query the 
+compendia. 
+%not only for specific genes or experiments, but also metabolic pathways, 
+%transcriptional regulation mechanisms, experimental conditions, biological 
+%processes, etc.
+%
+The web portal has been directly utilized in various studies, to identify 
+additional gene coexpressed with targets (\cite{Meysman2011, Fu2012, 
+Meysman2014a}), to identify conditions under which genes of 
+interests are coexpressed (\cite{Desai2013}).  
+%
+The compendia, which can be downloaded in entirety and studied 
+utilizing different system biology approaches (\cite{Lemmens2009, Michoel2009, 
+Zhao2011, DeSmet2011, Zarrineh2011}), have been incorporated in diverse 
+researches, to construct co-expression network (\cite{Cloots2011, Kolar2012}), 
+to reconstruct transcriptional regulatory network (\cite{Faria2013}), to 
+understand the physiological mechanism driving the response to the 
+environmental changes (\cite{Balderas-Martinez2013}), and to study expression 
+conservation and divergence between species (\cite{Meysman2013}).
+%
+%The formalized condition contrast annotation found in
+%COLOMBOS has made it ideal for linking gene expression
+%changes to the underlying causal factors, such as activa-
+%tion of transcription regulators by effectors (15)or
+%genomic mutations (16)
+%
+% Check colombos 2 paper for relevant applications and references
+
+
+
+% from Abstract
+Chapter \ref{ch:distiller} discusses how to discover condition 
+dependent co-expression modules containing specific query genes in expression 
+compendium utilizing two complementary methods COLOMBOS and DISTILLER.
+%
+The former is designed for query-driven interactive data explorations in 
+expression compendium alone, whereas the latter generates a global regulatory 
+network overview through integrating expression data with extra evidence, e.g. 
+motif data, in a unsupervised fashion.
+%
+Both methods generate biologically relevant however distinctive modules for the 
+query gene \textit{sodA}.
+%
+The case study demonstrates that COLOMBOS is best to extract prominent 
+coexpression behavior among functionally related genes, whereas DISTILLER, 
+guided with the motif information, recovers co-regulated genes albeit with a 
+less prominent coexpression patterns.
+%
+Their applications hence are driven by the type of the biological question 
+asked.
+%
+The case study will surely alleviate the difficulty faced by biologist to 
+choose and utilize these powerful methods.
+
+
+
+% from MAGIC abstract
+Chapter \ref{ch:magic} describes an expression compendium for \textit{Zea mays} 
+integrating large amount of publicly available data (1749 microarrays in 69 
+experiments over 27 platforms). 
+%
+Uniquely, the probe sequences of all 27 platforms included are obtained, and a 
+complete probe re-annotation based on the \textit{Zea mays} 5b.60 genome 
+release 
+is constructed.  Incorporating this re-annotation to build the compendium 
+greatly improves the consistency between the data of different platform origin.
+%
+Additionally, the condition annotation system is revamped to reflect the 
+complex lifestyle of plant, specifying not only the external perturbations 
+at the contrast level, but also the internal sample attributes, including 
+genotype (breeding line), tissue, and development stage.
+%
+This compendium is made available through an upgraded web portal MAGIC that 
+hosts a variety of analysis tools utilizing the extended annotations for 
+easy data browsing and analysis.
+%
+The uniqueness and the high quality of maize compendium coupled with the 
+friendly system to explore it will surely make this a valuable resource for 
+biologist study this species.
+
+
+In summary, the main contributions of the research work presented in this 
+thesis are twofold.
+%
+First, we developed a unique data integration methodology to create 
+cross-platform expression compendium from publicly available data, and 
+developed a system to facilitate the creation of such an compendium.
+%
+Second, we have created such compendia for several species and developed web 
+portals to serve them to the community.  They have been proven and will 
+continue to be valuable resources for the researcher who study those or 
+relevant species.
+
+
+
+
+
+% various issues with data and annotation, exploration
+
+
+
+
+
+
+
+
+
 \section{Future work}
 
-\section{Perspectives}
+
+
+\subsubsection*{Compendium creation and curation}
+
+
+%% incorporating the latest advances in technology and computational method to
+%% improve data consistency and quality, and updating with the newly generated
+%% datasets to extend the scope of the compendia.
+
+The first and foremost task is to keep the existing compendia up-to-date, by
+updating them with the newly generated datasets and expending the annotation to 
+reflect the ever broadening scope of the data.
+%
+New revision of the existing compendia will be updated every half a year
+incorporating additional experiments.
+%
+When the genome annotation of the corresponding species is revised, a new
+release will be generated.
+%
+Upon the public release of COLOMBOS v2.0 \cite{Meysman2014}, the existing
+compendia for bacteria model organism \textit{E. coli}, \textit{B. subtilis},
+and \textit{S. enterica} srv. Typhimurium has been extensively expanded, and
+four new compendia for bacteria \textit{S. coelicolor} \textit{P. aeruginosa}
+\textit{M. tuberculosis} \textit{H. pylori} have been added.
+
+
+
+% \cite{Shendure2008}  earliest NGS review
+% \cite{Nagalakshmi2010}  
+% \cite{Ozsolak2011}   RNAseq review 
+% \cite{Croucher2010a,Mader2011}  RNAseq for bacteria
+% 
+% RNAseq advantage -> RNAseq algorithm less mature -> RNAseq microarray compatible -> include RNAseq data in our compendium  \cite{Taminau2012}
+%
+%% RNA-seq is a sequencing-based methods utilizing the advanced next generation
+%% sequencing (NGS) technology.  In contrast to the hybridization based method,
+%% such as microarray, the actual sequences of cDNA or RNA is directly determined
+%% by the platform, whereas the relative abundance of an RNA molecular is derived
+%% from the quantity of the mapped reads.
+
+
+Based on novel next generation sequencing (NGS) technology, RNA sequencing
+(RNA-seq) quantifies relative genes expression level by directly sequencing the
+expressed transcripts then estimating the abundance from the generated reads.
+%
+In contrast to the hybridization based microarray, such a sequence-based method
+does not rely on pre-existing knowledge of gene sequences, instead is capable
+of determining the actual sequence of RNA and quantifying expression level for
+individual isoforms of genes.
+%
+Moreover, it has been shown that RNA-seq data have higher sensitivity, less
+variation, and broader dynamic range than microarray ones
+\cite{Sirbu2012,Marioni2008}.
+% which opens up the gate for many applications, such as, gene annotation,
+% novel isoform discovery.
+%
+Due to its superiority and swiftly dropping application cost, RNA-seq is
+quickly replacing microarray to become the standard method for gene expression
+studies.
+%
+It is then crucial that our system should evolve to incorporate this type of
+data.
+%
+A straightforward approach has been implemented in COLOMBOS v2.0
+\cite{Meysman2014}, in which the RNA-seq data are first mapped to genome, then
+genes relative expression levels are estimated from the mapped reads, and at 
+last, log-ratios are calculated based on predefined sample pairs.
+%
+The validity of the approach has been shown using real experiment data
+\cite{Meysman2014}.
+%
+The approach has enabled a swift incorporation of RNA-seq data into the
+existing compendia, albeit with a restrained scope.
+%, as large amount of information contained in such data is ignored.
+%
+Further research is needed to revise the existing database model to include
+other details that are omitted by current approach, such as RNA sequence
+information, transcript level expression, etc.
+%
+Novel data exploration, analysis, and visualization methods need to be
+developed to handle expression data of different granularities under a common
+framework.
+%% \textbf{ATLAS2013}
+%% %
+%% Visualization: focusing on genome browser coverage views of
+%% expression allowing the user to observe in detail how expression is
+%% distributed across different exons and transcripts of a given gene.
+%
+Moreover, both NGS and RNA-seq are still the young and rapidly changing
+fields. We will continuously evaluate new computational methods upon available
+and incorporate them when appropriate to improve the data quality.
+
+
+
+
+% Carolina
+%
+%% - RNA-seq data for transcriptomics: The system should evolve to include these 
+%% type of data. This means to revisit the protocols of data submition for RNAseq 
+%% and update the preprocessing steps. The database model is flexible to include 
+%% other details that are usually omitted on microarray data: expression levels at 
+%% the transcript level and not only gene level (I mean a gene with multiple 
+%% alternative transcripts). With RNA-seq data it is possible to have transcript 
+%% specific data as well, but the gene level values should remain in the system to 
+%% allow comparison to microarray data.
+
+% Single-cell RNA-seq (single cell level)
+%
+% Refs:
+% 
+% http://nextgenseek.com/2014/01/paper-summary-single-cell-rna-seq-reveals-dynamic-random-monoallelic-gene-expression/
+% http://nextgenseek.com/2014/03/multiple-papers-on-random-monoallelic-expression-by-rna-seq/
+
+
+
+The automation of various tasks for raw data collection often involves
+straightforward keywords matching and pattern recognition, the rich free text
+descriptive information are ignored by the current system.
+%
+The lack of training set has prevented us utilizing text mining technologies to
+analyze this information.
+%
+Now, successfully parsed data provide an ample training set to make this
+feasible.
+%
+It is then desirable to employ advanced text mining technology to explore the
+rich descriptive information to supplement existing methods in hopes of
+improving the overall performance of the system.
+%
+The same idea can be employed to develop system that assists manual annotation
+curation by suggesting relevant properties through analyzing meta data
+retrieved from the online repositories.
+%
+Similar system ZOOMA \cite{ZOOMA} has been developed by EBI for such purpose.
+However, it maps only onto Experimental Factor Ontology (EFO) term used by EBI
+databases.
+%
+%% % ONTOLOGY exists but not well adoped -> require manual curation -> system to
+%% % improve efficiency
+%% \cite{Jamieson2012}
+%% %
+%% Text mining technology has been successfully utilized in various similar
+%% efforts \cite{Kapushesky2010} `ZOOMA'.
+%% % 
+%% % \cite{DeBodt2012} did not find in the text ...
+%% % \cite{Zinman2013} same keyword and pattern matching methods as us (see supplementary methods)
+
+
+
+
+
+
+
+%% \textbf{Aggregation}
+%% Aggregation: methods to aggregate expression changes of a gene under a
+%% given category of experimental condition variations \textbf{ATLAS2013}
+%% %
+%% Aggregated type of expression analysis, such as those available in
+%% Genevestigator (3 genevestigator papers, v3 section 4)
+%% %
+%% Pay attention that in Genevestigator, certain analysis is done on intensity 
+%% data (directly integrable across chips), and our data are log-ratios !!
+%
+%% \textbf{gene set} analysis and expression aggregation \textbf{ATLAS2013}
+
+
+
+%% \textbf{more compendium}
+%
+%% ENCODE and other project about other expressed elements of genome
+%% % Refs: http://nextgenseek.com/2013/10/large-scale-sequencing-efforts-go-beyond-genetic-variations-towards-function/
+%
+%% - Expand to human/mouse ??
+%
+%% Eukaryotic expression compendium (in general, not platform specific)
+%% - biallelic, diallelic
+%% - multiple alleism
+%
+%% (at populational level)
+
+
+
+%% \textbf{data sharing and publicity} BioMart, DAS, etc
+
+
+
+
+
+\subsubsection*{Compendium exploration and visualization}
+
+As exemplified in this research work, a cross-platform compendium provides
+comprehensive expression profiles not only for different gene also for a
+variety of environmental and genetic variations (contrast).
+% which incrementally approximates the `true' profile with each incorporation
+% of new data. % asymptote
+One interesting feature would be allowing users to review their specific study
+from the respective of existing knowledge.
+%
+A straightforward approach could be allowing user to upload their own data and
+compare it with what available in the compendium to identify contrasts
+possessing similar expression variations.
+%
+Such an analysis has been exemplified in the early compendium paper
+\cite{Hughes2000}.
+%
+Alternatively, relevant experiments selected based on annotations could be
+visualized together with their own work to investigate diverse mechanisms
+underlying a common phenotype.
+%
+%% Allowing incorporating user own data set, and comparsion \cite{DeBodt2010}.
+
+
+
+
+%% Higher level of visualization (more interaction)
+%% - pathway centric  (Systems Biology Markup Language (SBML))
+%% - integrating with Regulatory network, showing relevant sub-network connected to DEGs
+%
+Initially, the web access portal only allows data to be visualized as (possibly
+overlapping) heatmap.  The function to visualize genes and the corresponding
+functional annotations as an interactive network for individual module has been
+added in COLOMBOS v2.0 \cite{Meysman2014}.
+%
+Data visualization for system biology is a booming field, in which a variety of
+tools with different focus exists \cite{Gehlenborg2010}.
+%
+It will be interesting to explore this rich resource to either incorporate
+advanced methods into our system or link out to external services to provide
+better visualization and improve the data interpretability.
+%
+%% The review of Gehlenborg \textit{et. al.} \cite{Gehlenborg2010} has provided
+%% many interensting leads to follow.
+%
+%% To study the dynamics of an network by generating modules under variant 
+%% conditions to probe the network model, to discover core and peripheral 
+%% structures involved, etc ... (literature) 
+
+
+
+
+%% Carolina
+%
+%% - Expand the capabilities of colombos to query genes. For instance, the system 
+%% could integrate for instance more interactive queries with known molecular 
+%% pathways, so the users could follow a certain number of pathways or 
+%% protein-protein interactions across multiple conditions.
+
+
+
+
+%% Carolina
+%
+%% Adapt the system (COMMAND and COLOMBOS) to other types of omics data, such
+%% as miRNA or metabolomics data.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Perspective}
+
+
+%% A global transcription landscape (not only mRNAs)
+
+%% % RNAseq for smallRNA and microRNA
+%% %
+%% % http://seqanswers.com/forums/showthread.php?t=19680
+%% If you are truly interested in longer non coding you will need Total
+%% RNA-seq libraries (deplete rRNAs and tRNAs).  For anything smaller you
+%% need to do the small RNA protocol for things under ~50 bp.
+%% %
+%% having all three, Total RNA (long ncRNA), mRNA, and small (smallRNA,
+%% ncRNA, microRNA), while more work and cost is incredibly informative.
+
+%% miRNA precursor ?
+
+%% \textbf{microRNA} The pipeline used to process RNA-sequencing data for
+%% Expression Atlas will be enhanced to analyse microRNA RNA-sequencing
+%% experiments. Subsequently, good quality microRNA RNA-sequencing
+%% experiments available in ArrayExpress will be re-processed and
+%% included in Expression Atlas \textbf{ATLAS2013}.
+%% %
+%% \textbf{smallRNA}
+%% %
+%% As siRNA and miRNA uses different protocols, different bioinformatics
+%% might be needed. (Reference?)
+
+Except for the messenger RNA which ultimately translated into protein, there are
+many other RNA molecules that are transcribed in a cell.
+%
+They are commonly referred as non-coding RNA (ncRNA), as they do not code for
+protein.
+%
+Among them, transfer RNAs and ribosome RNAs have been well studied, as they
+carry out crucial biological functions in a cell and are well conserved across
+the tree of life.
+%
+In the last decades, the functionality of other ncRNAs has gradually been
+revealed.
+%
+Micro RNA (miRNA) induced silencing has been identified as one of the major
+post-transcriptional regulation mechanism that is well preserved among
+eukaryotes\cite{Chen2007a}.
+%
+Whereas, long non-coding RNAs (lncRNAs) are found to take up many regulatory
+roles, being transcriptional, post-transcriptional, or even
+epigenetic\cite{Baker2011}.
+%
+Other types of functioning ncRNAs have also been discovered, including, small
+regulatory RNA (sRNA), small inference RNA (siRNA), small nuclear RNA (snRNA),
+etc.
+%
+As the specific adaptation of common technologies, such as, tiling array and
+RNA-seq, for ncRNA detection become mature, more and more ncRNA expression data
+will be generated.
+%
+Our compendium creation methodology could well be adapted to include ncRNAs
+expression information into mRNA compendium or even construct ncRNA specific
+compendium, which can be utilized to study their expression pattern and
+investigate their regulatory roles in connection with environmental changes.
+%
+One such modification is to recruit specialized preprocessing
+procedures developed to handle miRNA specific microarray platforms
+(e.g., Affymetrix miRNA GeneChips and Agilent miRNA microarrays) to
+improve data quality and consistency.
+%
+As a proof of concept, by identifying sRNA targeting probes through platform 
+reannotation, a special \textit{E. coli} compendium containing only data 
+generated on E. coli Antisense Genome Array and E. coli Genome 2.0 Array has 
+been created to study sRNA-target interactions and to extend known regulatory 
+network with post-transcriptional networks \cite{Ishchukov2014}.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%% across species
+
+Comparative genomics is a field in which the genomic features of different
+organism are compared to study the evolutionary mechanisms and the phylogeny
+among organisms.  Such study has enabled knowledge transfer between species and
+facilitated gene annotation and regulatory elements identification.
+%
+Traditionally, such study has focused primarily on analyzing sequence-based
+features, including gene sequences, gene order (synteny, genetic linkage),
+regulatory sequences, protein sequences, protein domains, etc.
+%
+Integrating functional genomics information, such as, expression data, in the
+comparative study has been shown to provide new insights for study
+conservation and divergence \cite{Bergmann2004}.
+%
+The availability of comprehensive compendia for multiple bacterial species in
+COLOMBOS has facilitated research that studies expression conservation and
+divergence between \textit{E. coli} and \textit{S. enterica} sev. Typhimurium
+at global level \cite{Meysman2013}.
+%
+Alternatively, algorithms, such as COMODO \cite{Zarrineh2011} and cMonkey
+\cite{Waltman2010}, do exist that can simultaneously explore hetergeneous
+expression data sets of multiple species to identify biclusters containing
+conserved core orthologus genes.
+%
+The mehodology presented in this thesis will enable the creation of such
+comprehensive compendia for many species, which can benefit the comparative
+genomics study of various scopes.
+%
+Moreover, it will be very interesting to develop web system that
+facilitate such analysis using existing algorithms, and novel methods
+to analyze and visualize the results obtained.
+%
+%% Cross-species analysis and visualizatoin, paralogues and homeologues, - COMMODO
+%% \cite{Zarrineh2011} - multi-species bicluster (cMonkey)
+%% \cite{Waltman2010,Kacmarczyk2011}
+
+
+
+
+%% Across different molecular level (RNA, protein, metabolites, etc)
+
+%% Integrating different data sets
+%% \cite{Troyanskaya2005,DeKeersmaecker2006,Joyce2006} [carolina, conclusion]
+
+%% % carolina, comments for conclusion
+%% Systems biology and data integration: You could introduce the human
+%% case and the TCGA or the PAN-cancer projects: these initiatives
+%% provide measurements at multiple molecular level, such as mRNA, miRNA,
+%% methylation, proteomics, CNV and somatic mutations. Experiments that
+%% measure multiple levels for the same samples are also becoming
+%% available for other organisms such as mouse, or even plants (mRNA,
+%% metabolites, etc..)  The challenge is to explore these data levels
+%% simultaneously to derive more reliable hypothesis about the molecular
+%% changes affecting individuals.... (you can complement with more
+%% blabla)
+
+%% % \cite{Fierro2008} conclusion
+%% %
+%% With the increasing number of high throughput technolo- gies, we can
+%% expect that compendia for other ``omics data'' will also grow at an
+%% increasing pace. Each compendium provides a snap shot of the
+%% condition-dependent changes at a certain cellular level. 
+%% %
+%% A huge challenge remains of how a comprehensive view of the cellular
+%% machinery can be built by combining all these individual snap shots
+%% [73-75]. 
+%% %
+%% An important and often overlooked issue with the meta-analysis of
+%% biological data is the context-dependency, the condition dependency of
+%% the interactions, their timing, and their location.
+
+A cell is a complex and dynamic system whose phenotypes are driven by
+the interplay between molecules at different layers, including, DNA,
+RNA, protein, metabolites, etc.
+%
+Global profiles of molecules of single-layer and/or certain character
+of them only provide incomplete observations for certain aspects of
+such a system, and often contaminated with specific biological or
+technical bias.
+%
+Combining knowledge of different aspects in research to provide a
+comprehensive and integrated view of cellular machinery, however, can
+greatly reduce the influence of such bias and allow a more precise
+system level models to be built.
+%
+%% For example, The Cancer Genome Atlas (TCGA) research network has
+%% systematically collected molecular profiles at different levels for
+%% many tumor types in order to improve our ability to diagnose, treat,
+%% and prevent cancer through a better understanding of the genetic basis
+%% of this disease.
+%
+Such an integrative approach has been successfully utilized 
+%% to develop novel cis-regulatory module prediction algorithms with
+%% increased precision \cite{Herrmann2012, Sun2012},
+to better characterize consequences of genetic variations of
+individual cancer and compare such an integrated profile across
+different types of cancers in order to sift out causal mutations
+\cite{Weinstein2013}, and to generate integrative personal omics
+profile (iPOP) providing comprehensive information for personalized
+disease diagnosis and treatment \cite{Chen2012}.
+%
+%% A huge challenge remains to study cell as a system
+%% \cite{Ideker2001,Chuang2010} throught combining knowledge of different
+%% apsects to build a comprehensive view of cellular machinery and to
+%% study the phenotype driven mechanism at system level.
+%% %
+Compendium, created using the method developed here, aiming to provide
+a complete landscape for one type of profiles of cell by combining
+results of individual studies will remain as a premium data source to
+support this kind of research.
+%
+It is of great interests to utilize the insights we gained through
+creating expression compendia to develop methodologies that builds
+other types compendia, and to develop new computational methods and
+service that allows an integrated analysis across different types
+compendia of certain species.
+
+
+
+
+
+%% EFO is not specific enough, covering too many different things ... 
+
+%% Incorporating Experimental Factor Ontology (EFO) (created and used by 
+%% ArrayEpress ATLAS) 
+%% %% ref: http://www.ebi.ac.uk/efo/
+
+
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Keep the following \cleardoublepage at the end of this file, 

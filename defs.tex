@@ -26,10 +26,16 @@
 
 % Personal settings [FU]
 
+% set subparagraph to use \small font
+\usepackage{titlesec}
+\titleformat*{\paragraph}{\sffamily\bfseries\vspace{-2.5mm}}
+\titleformat*{\subparagraph}{\small\sffamily\bfseries\vspace{-4.5mm}}
+% 
+%http://tex.stackexchange.com/questions/59726/change-size-of-section-subsection-subsubsection-paragraph-and-subparagraph-ti
+% 
+%http://tex.stackexchange.com/questions/7669/bfseries-is-to-textbf-as-what-is-to-textsf
 
 \renewcommand{\arraystretch}{1.2}  % use 1.2 line space in table
-
-
 
 
 \usepackage[table]{xcolor} % use grey color for even rows in table
@@ -63,6 +69,7 @@
 \usepackage{hyperref}
 
 \usepackage{setspace} % to adjust line space
+
 
 
 % NOTE: this section has been commented out, as the issue with bib file is solved externally, check bib-thesis.readme
