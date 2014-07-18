@@ -2736,8 +2736,15 @@ at the first time point is chosen as the reference to those taken at the other
 time points.  For an experiment studying the effect of mutants against the wild
 type, the later is chosen as the reference.
 %
-\todo{COMMAND-to ke: any suggestion? I would prefer to see whether the example
-  can be explained clearly before adding them... }
+A more complex example where we would choose more than one reference might be
+an experiment where they measure treatments with two compounds $A$ and $B$ in
+different concentrations. In that case we might use the treatment with lowest
+concentration of $A$ as a reference for all other treatments with $A$, and the
+treatment with lowest concentration of $B$ as a reference for all other
+treatments with $B$, and we additionally include one contrast comparing both
+references, i.e. where the lowest concentration of $A$ is considered test and
+the lowest concentration of $B$ is considered reference (to include an explicit
+comparison between $A$ and $B$).
 %
 It is important to note that for an experiment using several platforms, the
 samples are grouped by the platform and for each group, one sample is
@@ -2962,12 +2969,12 @@ In general we adhere to the following principles:
   (technical replicates), to obtain one log-ratio per gene, the
   average is taken in case of lower number of replicates, whereas
   Median Polish is applied on the log-ratios of a large number of
-  replicate probes to obtain a robust result. \vspace{1.5mm} \\
+  replicate probes to obtain a robust result (summarization). \vspace{1.5mm} \\
   % 
   For single-channel arrays, the normalized intensities from technical
   replicates are first summarized to produce one intensity measurement
   per gene before calculating the log-ratios based on the contrast
-  definitions.  Median Polish is utilized when the number of
+  definitions (summarization).  Median Polish is utilized when the number of
   replicates per gene exceeds 4, e.g. for Affymetrix; otherwise the
   average is taken.
 %
@@ -3003,9 +3010,9 @@ In general we adhere to the following principles:
 %  As in it, SC incorporates all single channel data.  Can you elaborate this so
 %  I can properly explain them here?}
 
-The default data preprocessing pipelines for high density single channel array 
-(Affymetrix, NimbleGen, Agilent one-color, etc) and dual-channel arrays are 
-shown in Figure \ref{fig:command-pipelines}.
+The default data preprocessing pipelines for single channel array (Affymetrix, 
+NimbleGen, Agilent one-color, etc) and dual-channel arrays are shown in Figure 
+\ref{fig:command-pipelines}.
 %
 %Rare low intensity
 %
