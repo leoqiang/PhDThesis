@@ -3,152 +3,51 @@ functionalities}\label{ch:apd-colombos}
 
 \instructionsappendices
 
-COLOMBOS provides rich functionalities to create and/or edit
-expression 'modules'. In chapter \ref{ch:distiller}, we explored the
-option that let COLOMBOS automatically identify relevant contrasts
-based on the user specified query gene(s).
-%
-Alternatively one can also specify the conditions in interests and
-letting COLOMBOS automatically identify the genes that are
-over-expressed or under-expressed in them.  Furthermore, it is also
-possible to maintain the full control by specifying both the genes and
-the conditions in interests in order to check the behavior logged in
-the existing experimental data.
+COLOMBOS provides rich functionalities to create and/or edit expression 'modules'. In chapter \ref{ch:distiller}, we explored the option that let COLOMBOS automatically identify relevant contrasts based on the user specified query gene(s). Alternatively one can also specify the conditions in interests and letting COLOMBOS automatically identify the genes that are over-expressed or under-expressed in them.  Furthermore, it is also possible to maintain the full control by specifying both the genes and the conditions in interests in order to check the behavior logged in the existing experimental data.
 
-When specifying genes of interests, apart from manually inputting gene
-information, one can also select genes based on other annotations
-obtained from public databases, such as the transcription factor or
-sigma factor that regulates the gene’s transcription
-(\cite{Gama-Castro2008}), the pathway a gene belongs to
-(\cite{Karp2005}), or the transcription unit a gene belongs to
-(\cite{Karp2005}).  These functionalities are available as options in
-the gene selection section of the module creation panel.
+When specifying genes of interests, apart from manually inputting gene information, one can also select genes based on other annotations obtained from public databases, such as the transcription factor or sigma factor that regulates the gene’s transcription (\cite{Gama-Castro2008}), the pathway a gene belongs to (\cite{Karp2005}), or the transcription unit a gene belongs to (\cite{Karp2005}).  These functionalities are available as options in the gene selection section of the module creation panel.
 
-Additionally, several alternative functions are provided to choose the
-contrasts besides the condition selection based on expression values
-as used here. In case one is interested in specific experiments, one
-can select them directly. When a user is interested in specific types
-of condition properties, a condition hierarchy is available. The
-properties are grouped into 4 major categories: Genomic, Growth,
-Medium, and Treatment.  Subcategories exist under each major category
-to further classify them.  This functionality can be reached through
-option `By annotation' in the condition selection section of the
-module creation panel.  One can also use the condition property
-ontology in a similar way by selecting `By ontology' in the condition
-selection section.
+Additionally, several alternative functions are provided to choose the contrasts besides the condition selection based on expression values as used here. In case one is interested in specific experiments, one can select them directly. When a user is interested in specific types of condition properties, a condition hierarchy is available. The properties are grouped into 4 major categories: Genomic, Growth, Medium, and Treatment.  Subcategories exist under each major category to further classify them.  This functionality can be reached through option `By annotation' in the condition selection section of the module creation panel.  One can also use the condition property ontology in a similar way by selecting `By ontology' in the condition selection section.
 
-For automatic expression value based contrasts or genes selection
-procedures, the calculations used to score the relevance of a contrast
-for a set of genes, the similarity of genes across a set of contrasts,
-the variability of a gene across a set of contrasts, and the Gene
-Ontology term enrichment are explained in this section.
-%% In addition, we also explained the enrichment calculation,
-%% the user module data exportation, and the advantages for the
-%% registered users here.
+For automatic expression value based contrasts or genes selection procedures, the calculations used to score the relevance of a contrast for a set of genes, the similarity of genes across a set of contrasts, the variability of a gene across a set of contrasts, and the Gene Ontology term enrichment are explained in this section.
 
-Even more options are available when the user modifies an existing
-module.  To check all available functionalities, we refer the online
-help section available at COLOMBOS site.
+Even more options are available when the user modifies an existing module.  To check all available functionalities, we refer the online help section available at COLOMBOS site.
 
 
 
 \section{Contrast relevance score}\label{apd:contrast-score}
 
-The default relevance score $c$ of a condition contrast for a group
-of genes is calculated as the absolute inverse coefficient of
-variation of those genes’ expression values in this contrast. It
-is defined as the absolute mean divided by the standard deviation
-of the genes’ expression values:
+The default relevance score $c$ of a condition contrast for a group of genes is calculated as the absolute inverse coefficient of variation of those genes’ expression values in this contrast. It is defined as the absolute mean divided by the standard deviation of the genes’ expression values: 
 
 \begin{equation}
 c=\frac{|\mu|}{\sigma}
 \end{equation}
  
-On the one hand, for expression values of the same mean, the
-higher the score, the less sparse the values are. It prioritizes
-the contrasts where genes’ expression values are more
-consistent. On the other hand, for expression values of the same
-standard deviation, the higher the score, the higher the mean. It
-prefers the contrasts where genes are highly expressed. The score
-thus serves as a measure that values both magnitude of expression
-change in response to a condition contrast, as well as coherence
-of expression within that contrast. The score identifies the most
-relevant contrasts as those where the genes 'act as one', showing
-the same, preferentially large, magnitude of expression change
-with individual variations ideally only constituting random
-Gaussian noise. From this notion, the score represents the number
-of standard deviations the mean expression value of this
-distribution is situated away from $0$, and can be interpreted as a
-$Z$-score for the selected genes' expression change as a
-whole. (Note that in case of only one gene, the score of a
-condition contrast is degraded to the absolute expression value
-of that gene under it.)
+On the one hand, for expression values of the same mean, the higher the score, the less sparse the values are. It prioritizes the contrasts where genes’ expression values are more consistent. On the other hand, for expression values of the same standard deviation, the higher the score, the higher the mean. It prefers the contrasts where genes are highly expressed. The score thus serves as a measure that values both magnitude of expression change in response to a condition contrast, as well as coherence of expression within that contrast. The score identifies the most relevant contrasts as those where the genes 'act as one', showing the same, preferentially large, magnitude of expression change with individual variations ideally only constituting random Gaussian noise. From this notion, the score represents the number of standard deviations the mean expression value of this distribution is situated away from $0$, and can be interpreted as a $Z$-score for the selected genes' expression change as a whole. (Note that in case of only one gene, the score of a condition contrast is degraded to the absolute expression value of that gene under it.)
 
-We have also provided an alternative measure for the contrast
-relevance (selectable by the box in the top right of the contrast
-selection window) called 'M value cutoff'.  The score assigned to
-the contrasts in this case is the minimum M value (i.e. the
-log-ratio) for the considered genes in case all genes' M values
-are positive, or the maximum absolute M value in case all genes'
-M values are negative.  In case of both positive and negative M
-values exist for the considered genes, the contrast gets a score
-of 0.
+We have also provided an alternative measure for the contrast relevance (selectable by the box in the top right of the contrast selection window) called 'M value cutoff'.  The score assigned to the contrasts in this case is the minimum M value (i.e. the log-ratio) for the considered genes in case all genes' M values are positive, or the maximum absolute M value in case all genes' M values are negative.  In case of both positive and negative M values exist for the considered genes, the contrast gets a score of 0.
 
 
 
 \section{Gene similarity score}\label{apd:gene-score}
 
-The default similarity between a gene and a module's mean
-profile is the \textit{Uncentered Pearson’s correlation} calculated based
-on the formula:
+The default similarity between a gene and a module's mean profile is the \textit{Uncentered Pearson’s correlation} calculated based on the formula:
 
 \begin{equation}
 r_v=\frac{1}{n}\sum_{i-1}^n(\dfrac{x_i}{\sigma_x^{(0)}})(\dfrac{y_i}{\sigma_y^{(0)}})
 \end{equation}
 
-% NOTE: using extra tags to control the math displayed inline with the text
-% Ref: 
-%http://tex.stackexchange.com/questions/32824/show-inline-math-as-if-it-were-display-math
-where $\textstyle\sigma_x^{(0)}=\sqrt{\frac{1}{n}\sum\limits_{i}x_i^2}$; and 
-$\textstyle\sigma_y^{(0)}=\sqrt{\frac{1}{n}\sum\limits_{i}y_i^2}$
-Here $x_i$ represents the candidate gene expression data at
-condition contrast $i$, whereas $y_i$ represents a module’s mean
-expression value at contrast $i$. $\sigma_x^{(0)}$ and
-$\sigma_y^{(0)}$ are both uncentered standard deviations assuming
-zero mean of the population, hence they are marked with
-superscript ‘$(0)$’. The higher the $v_r$, the more similar the
-expression profile of a gene is to a module’s mean expression
-profile.
+where $\textstyle\sigma_x^{(0)}=\sqrt{\frac{1}{n}\sum\limits_{i}x_i^2}$; and $\textstyle\sigma_y^{(0)}=\sqrt{\frac{1}{n}\sum\limits_{i}y_i^2}$ Here $x_i$ represents the candidate gene expression data at condition contrast $i$, whereas $y_i$ represents a module’s mean expression value at contrast $i$. $\sigma_x^{(0)}$ and $\sigma_y^{(0)}$ are both uncentered standard deviations assuming zero mean of the population, hence they are marked with superscript ‘$(0)$’. The higher the $v_r$, the more similar the expression profile of a gene is to a module’s mean expression profile.
 
-We have also provided an alternative measure for the gene
-similarity (selectable by the box in the top right of the
-contrast selection window) that calculates an uncentered version
-of the \textit{Spearman rank correlation}. The Spearman rank correlation
-is calculated in the same way as the Pearson correlation but on
-the ranks of the data instead of the data itself. To calculate an
-uncentered version, instead of ranking all values from low to
-high, the positive log-ratios are ranked from low to high while
-the negative log-ratios are ranked from high to low and then
-assigned a negative sign; the mean rank is assumed $0$.  This
-uncentered Spearman rank correlation, compared to the uncentered
-Pearson correlation, has the advantage of being able to capture
-non-linear similarities, but the disadvantage of ignoring the
-actual magnitudes of expression changes and their distributions.
+We have also provided an alternative measure for the gene similarity (selectable by the box in the top right of the contrast selection window) that calculates an uncentered version of the \textit{Spearman rank correlation}. The Spearman rank correlation is calculated in the same way as the Pearson correlation but on the ranks of the data instead of the data itself. To calculate an uncentered version, instead of ranking all values from low to high, the positive log-ratios are ranked from low to high while the negative log-ratios are ranked from high to low and then assigned a negative sign; the mean rank is assumed $0$.  This uncentered Spearman rank correlation, compared to the uncentered Pearson correlation, has the advantage of being able to capture non-linear similarities, but the disadvantage of ignoring the actual magnitudes of expression changes and their distributions.
 
-For ranking genes, there are three options provided based on the
-uncentered (rank) correlation score calculated. First one is
-‘positive’ which uses $v_r$ directly as final score.  The second
-option ‘absolute’ takes $|v_r|$ . It ranks both correlated and
-anti-correlated genes based solely on their similarities. Instead, 
-the third option ‘negative’ takes $-v_r$ as a score to favor only 
-the anti-correlated genes.
+For ranking genes, there are three options provided based on the uncentered (rank) correlation score calculated. First one is ‘positive’ which uses $v_r$ directly as final score.  The second option ‘absolute’ takes $|v_r|$ . It ranks both correlated and anti-correlated genes based solely on their similarities. Instead,  the third option ‘negative’ takes $-v_r$ as a score to favor only  the anti-correlated genes.
 
 
 
 \section{Gene variability}\label{apd:gene-sd}
 
-The variability of a gene's expression value $x$ for conditions $i=1,…,n$ is 
-calculated as the uncentered standard deviation: 
+The variability of a gene's expression value $x$ for conditions $i=1,…,n$ is  calculated as the uncentered standard deviation: 
 
 \begin{equation}
 \sigma_x^{(0)}=\sqrt{\frac{1}{n}\sum\limits_{i=1}^{n}x_i^2}
@@ -157,55 +56,13 @@ calculated as the uncentered standard deviation:
 
 \section{Enrichment calculation}\label{apd:enrichment}
 
-The enrichment score $p$-value is calculated based on a
-\textit{hypergeometric distribution}.
-%
-Given a genome of size $N$, there are $K$ genes in it associated with
-a Gene Ontology (GO) term $T$, the $p$-value representing the chance
-to observe $k$ or more such genes appear in a random module of size
-$n$ is calculated as follows:
+The enrichment score $p$-value is calculated based on a \textit{hypergeometric distribution}. Given a genome of size $N$, there are $K$ genes in it associated with a Gene Ontology (GO) term $T$, the $p$-value representing the chance to observe $k$ or more such genes appear in a random module of size $n$ is calculated as follows:
 
 \begin{equation}
 P = 1-\sum\limits_{i=0}^{k-1}\frac{\binom{K}{k}\binom{N-K}{n-k}}{\binom{N}{n}}
 \end{equation}
 
-The lower the $p$-value, the more significant a GO term is enriched in
-the module.
-%
-% Ref: http://www.biomedcentral.com/1471-2164/7/313/
-
-%The lower the $p$-value, the lower the chance of a GO term appearing in a 
-%random gene set having the same number of genes as the module in comparison, 
-%and the more significant a GO term is enriched in the module.
-
-%% ------------  Following two sections removed, not so relevant ...  [201406]
-
-%% \section{User module data export}\label{apd:data-download}
-
-%% Once a module is created, it can be exported in the format described 
-%% in Section \ref{sec:dist-format-col}. 
-%% To do so first click the module in the workspace to show its 
-%% overview tab. 
-%% Then click the `download' button located at the up right corner of 
-%% this tab to show the download window. 
-%% This automatically sends a request to the server to generate the data file for 
-%% the current module. 
-%% When ready, a link to the generated data file will appear in the window. 
-%% User can click it to save the module data.
-
-
-%% \section{Registered users}\label{apd:colombos-user}\todo{[apdxA]extend and 
-%% update 
-%% it}
-
-%% An anonymous user can use the analysis interface without logging in, but the 
-%% data generated will be lost when the webpage is closed. A registered user has 
-%% the advantage of being able to save the workspace, and load it again any other 
-%% time when logged in. It takes only two steps to create a new user. After 
-%% logging in, the `Data' menu in the workspace panel will have items 
-%% `Load', `Save', and `Save As' enabled.
-
-%% \todo{[apdxA]user information and workspace management panel}
+The lower the $p$-value, the more significant a GO term is enriched in the module.
 
 
 

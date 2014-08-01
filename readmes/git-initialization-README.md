@@ -1,3 +1,12 @@
+Good online references
+=========
+
+	http://git-scm.com/doc
+
+	
+
+
+
 git repository initialization readme
 =========
 
@@ -29,12 +38,12 @@ issues
 ============
 
 
-*. 'git push origin master'  complains that "Permission denied (publickey)."
+	* 'git push origin master'  complains that "Permission denied (publickey)."
 
-	check  "Control Panel" -> "System" -> "Advanced" -> "Environment Variables" variable SSH_AUTH_SOCK is set properly.
-	Correct parameters can be obtained by run command 'ssh-agent'
+		check  "Control Panel" -> "System" -> "Advanced" -> "Environment Variables" variable SSH_AUTH_SOCK is set properly.
+		Correct parameters can be obtained by run command 'ssh-agent'
 
-	NOTE: although standard test 'ssh -vT git@github.com' will still fails, but 'git push' will work!  (Like a magic ...)
+		NOTE: although standard test 'ssh -vT git@github.com' will still fails, but 'git push' will work!  (Like a magic ...)
 
 
 
@@ -60,3 +69,22 @@ general update command
 		git push origin master
 		
 	
+	
+
+create a tag (best for marking a specific commit point, such as, release version 1)
+============
+
+	* to create a new tag on current commit
+	
+		git tag -a v1.x -m 'my version 1.x'
+	
+	-a	specifies a version number
+	-m	add a message attached to the tag
+	
+	
+	* update tags to online repository (github)
+	
+		git push origin --tags
+		
+	
+	* reference: http://git-scm.com/book/en/Git-Basics-Tagging
