@@ -39,7 +39,7 @@ constitute a uniform technology.
 %
 Multiple microarray platforms exist and are manufactured in different
 ways.  Even for similar platforms, protocols for sample preparation,
-labelling, hybridization and scanning can vary greatly
+labeling, hybridization and scanning can vary greatly
 \cite{Kerr2001,Zakharkin2005}.
 %
 Although community standards specifying the mandatory minimal experimental
@@ -94,7 +94,7 @@ potential analysis procedures compared to indirect meta-analysis.
 Most of such compendia center on eukaryotic organisms, for which considerable
 amounts of data are available.
 %
-Relying on only one platform can still lead to sizeable compendia with a broad
+Relying on only one platform can still lead to sizable compendia with a broad
 scope in condition content, such as the human compendium constructed based on
 the Affymetrix U133A platform with over 5000 samples \cite{Lukk2010}.  However,
 for most species (e.g., \textit{Zea mays}), no single platform has such a
@@ -117,10 +117,10 @@ most high quality public data covering a broad range of experimental conditions
 as well as extensive types of biological samples across the boundary of
 experiment and platform.
 %
-Althoug powerful the methodology is, to create a compendium is still a complex
+Although powerful the methodology is, to create a compendium is still a complex
 and time-consuming task.
 %
-To facilitate compendium creation and the continuous curation and expension of
+To facilitate compendium creation and the continuous curation and expansion of
 the existing ones, a software system COMMAND (COMpendium MANagement Desktop)
 has been developed.
 %
@@ -186,7 +186,7 @@ evolution and conservation.
 %% An expression compendium is essentially an organism-specific matrix of
 %% expression values derived from publicly available microarray experiments which
 %% are homogenized to make them comparable.
-The final goal of creating a cross-platform compendia is to generate a single
+The final goal of creating a cross-platform compendium is to generate a single
 data matrix that combines experimental results coming from multiple microarray
 platforms performed under variant technical protocols.  All genes measured by
 those microarrays should be represented, as well as all the experimental
@@ -212,7 +212,7 @@ experiments.
 %
 Relative expression calculated intra-experiment/platform (i.e. between two
 conditions measured in the same microarray experiment using one platform)
-negates much of the platform and experiment specific variations that makes it
+negates much of the platform and experiment specific variations that make it
 impossible to reliably compare the absolute quantities reported in different
 experiments \cite{Shi2006}.
 
@@ -234,7 +234,7 @@ experiments \cite{Shi2006}.
 As the database representation directly reflects the different types of
 information and their relations that need to be extracted from public data to
 construct compendium, we give a brief explanation about it here.
-
+%
 The compendium is stored in a MySQL database. An abstract schematic
 representation of various data content and their relation is shown in Figure
 \ref{fig:comp-db-schema}.
@@ -261,7 +261,7 @@ A \textit{hybridization} refers to individual sample that is labeled and
 hybridized on an array.
 %
 For an array using single-channel platform like Affymetrix, there is only one
-hybridization per array.  Whereas there are two hybridizations, one per
+hybridization per array, whereas there are two hybridizations, one per
 channel, for the array using dual-channel platform.
 %
 A \textit{platform} denotes a specific microarray chip design and the
@@ -326,7 +326,7 @@ biological interpretation of the expression data in compendium.
 
 
 
-\subsection{The compendion creation methodology}
+\subsection{The compendium creation methodology}
 \label{sec:colombos-comp-method}
 
 \begin{figure}
@@ -570,9 +570,9 @@ metadata, the platform specification, and the raw expression values.
 %
 % \todo{COMMAND: need to be explained in the introduction}
 %
-The experiment metadata describing the sample attributes and experimental
-factors, which, as the drive of the observed gene expression changes, are
-essential for the data exploration and interpretation.
+The experiment metadata that describes the sample attributes and experimental
+factors driving the observed gene expression changes are essential for the
+data exploration and interpretation.
 %
 Additionally, the metadata also specifies the relations between the samples
 and the microarray platform used, and the corresponding data tables or files
@@ -619,7 +619,7 @@ achieve better consistency.
 %% the public databases (especially for older experiments), and only already
 %% processed data are reported.
 %
-Except for extracting desirable data, equaly important is to retain proper
+Except for extracting desirable data, equally important is to retain proper
 value-to-probe mapping and value-to-hybridization association (see
 Figure \ref{fig:comp-db-schema}).
 %
@@ -704,14 +704,13 @@ There are two sets of data for an experiment in GEO, the \textit{GEO Series}
 (GSE) containing the original submitted data and the \textit{GEO DataSet} (GDS)
 containing curated normalized data.
 %
-To create compendium, we collect original data in GSE.
+To create compendium, we collect original data stored in GSE. The data of an
+experiment is stored in a standard simple line-based plain text format,
+called SOFT (Simple Omnibus Format in Text).  There exists one SOFT file per
+GSE (experiment) stored in compressed (gzip) form.
 %
-GSE data of an experiment is stored in a standard simple line-based plain text
-format, called SOFT (Simple Omnibus Format in Text).  One SOFT file per GSE in
-compressed (gzip) form.
-%
-The file contains one or multiple instances of three types of records: Series,
-Sample, and Platform (see Table \ref{tab:GEO-records}).
+The file contains one or multiple instances of three types of records:
+Series, Sample, and Platform (see Table \ref{tab:GEO-records}).
 %
 The \textit{Series} record contains general information about various
 aspect of an experiment described in free text.  The references to the
@@ -822,11 +821,11 @@ information is described in free text, which lacks consistency as often one
 concept can be described in multiple ways.
 %
 Additionally, often the metadata available is incomplete, and the missing
-information need to be manually extracted from the related articles.
+information needs to be manually extracted from the related articles.
 %
 The inconsistency and incompleteness of the experiment metadata renders a
 computerized data extraction impossible.  Instead, a manual curation (in the
-annotation step) is required to analyze and standardize these information into
+annotation step) is required to analyze and standardize the information into
 a computable format to facilitate data exploration.
 %
 Consequently, this information is extracted as is without modification.
@@ -903,12 +902,12 @@ For example, locus tag, gene name, or other tags are often used
 alternatively in one data column titled 'ORF'.
 
 
-The key for platform data parinsg is the ability to identify data columns
+The key for platform data parsing is the ability to identify data columns
 containing useful information and provide proper methods to extract a
 standardized set of information for every platform.
 %
 Due to the format heterogeneity of platform data, a user-guided semi-automatic
-procedure that couples a manual data column identification with an automated
+procedure that couples manual data column identification with an automated
 data extraction is developed.
 %
 First, the probe annotation table is checked manually to identify data columns
@@ -922,11 +921,11 @@ Helping to alleviate the manual inspection task, it cannot, however, replace
 the human inspection, as it cannot handle information embedded in a complex
 format and the column name based identification is not 100\% reliable.
 %
-Even with data columns identified, a large number of different formats used to
-specify a content complicates its parsing.
+Even with data columns identified, the existence of different formats that
+can be used to specify one type of content complicates data parsing.
 %,
-To automate the content pasing task, a plug-in based system with great
-flexibility and extendability is developed.
+To automate the content parsing task, a plug-in based system with great
+flexibility and extensibility is developed.
 %
 The existing nine plug-ins together with the direct `copy' option are capable
 of handling every platform included in the compendia already developed, and
@@ -1013,20 +1012,20 @@ mapping and value-to-hybridization association.
 In GEO, the expression data can be extracted from two different sources, the
 `Sample' record and the supplementary file.
 %
-As the forer is the primary data source, as it is readily available in SOFT
+The former is the primary data source, as it is readily available in SOFT
 file.  The supplementary file is checked only when the desirable data cannot
 be extracted from `Sample' records.
 %
-The exrpession value extraction for the single-channel array is easier than
-that for the dual-channel array, as the value-to-hybrization association is
-straightforward, given that only one hybridzation exists.
+The expression value extraction for the single-channel array is easier than
+that for the dual-channel array, as the value-to-hybridization association is
+straightforward, given that only one hybridization exists.
 %
-To apprieciate the full complexity of the expression value extraction task
+To appreciate the full complexity of the expression value extraction task
 and to demonstrate the full capacity of our strategy, we assume that the data
-to be handled are generated by a dual-channel microarray.  
+to be handled are generated by a dual-channel microarray,
 %
-Wherease the single-channel microarray data can be handled by the same
-strategy leaving out the value-to-hybrization associations extraction part.
+whereas the single-channel microarray data can be handled by the same
+strategy leaving out the value-to-hybridization association extraction part.
 
 
 
@@ -1057,7 +1056,7 @@ First is the lack of standard data reporting format in `Sample' record,
 instead the data table of the corresponding raw data file is often used.
 %
 The existence of a large number of raw data formats creates widespread data
-representation discrepencies.
+representation discrepancies.
 %
 Although it is mandatory to provide the data table header descriptions
 explaining the content of each data column, depicted in free text, it cannot
@@ -1085,7 +1084,7 @@ related information extracted from column name needs to be paired with the
 hybridization information specified in the `Sample' record.
 %
 Although `ch1' and `ch2' are used in the `Sample' record, various types of
-informations are specified in the data column names.
+information are specified in the data column names.
 \todo{COMMAND: showing some exmaples? (ke)}
 
 Given the above issues, we developed a semi-automatic raw expression value
@@ -1119,18 +1118,18 @@ derived and used in the system.
 Next, the extracted channel keywords are checked against the hybridization
 specification to obtain value-to-hybridization association.
 %
-Three types of keywords are handled, the direct channel specificaton (`ch1'
+Three types of keywords are handled, the direct channel specification (`ch1'
 and `ch2'), the dye color specification (`cy3' for green and `cy5' for red),
-and the dye frequence specificaion (`532' for green and `635' fro red).
+and the dye frequency specification (`532' for green and `635' for red).
 %
-The first type can be directly mapped to a hybridization.  Whereas, for the
-last two types of keywords, the hybridization labelling information is
+The first type can be directly mapped to a hybridization, whereas for the
+last two types of keywords, the hybridization labeling information is
 required.
 %
 After all columns are analyzed, the system checks those identified and
 automatically discover and set the data conversion function when necessary.
 %
-At last, the aforementioned condiitons is checked against the information
+At last, the aforementioned conditions are checked against the information
 identified by the system.
 %
 When succeed, the raw expression data are then automatically parsed.
@@ -1152,7 +1151,7 @@ manual inspection.
 
 \subparagraph{\textit{Step 1.2.3.2: Parse GEO supplementary file}}
 
-When the `Sample' record does not provide deirable raw values, it is still
+When the `Sample' record does not provide desirable raw values, it is still
 possible to extract them from the raw data file that supplements the `Sample'
 record.
 %
@@ -1163,7 +1162,7 @@ of meta information.
 Except for the same issues encountered when parsing `Sample' record, there
 are other issues when parsing raw data files.
 % * different file types
-First, as mentioned before, there exists a large number of different formats
+First, as mentioned before, there exist a large number of different formats
 for raw data file, which varies on the mount of the meta information
 available, the probe annotations used, and how the raw values are reported.
 %
@@ -1175,9 +1174,9 @@ annotation specified in the file do not use the same GEO probe id specified in
 the corresponding `Platform' record.
 %
 Whereas to improve the consistency across the experiments using the same
-platform, GEO probe id is prefered.
+platform, GEO probe id is preferred.
 %
-Consequently, the probe information in a raw data file need to be mapped to
+Consequently, the probe information in a raw data file needs to be mapped to
 GEO probe id.
 % Important, as a parser should be able to map probes for multiple platforms
 % (= different specifications in GEO)
@@ -1227,9 +1226,9 @@ corresponding `Platform' record has been parsed obtaining as much information
 as possible for probe matching.
 
 
-The supplemantary file is parsed by a semi-automatic three-step procedure.
+The supplementary file is parsed by a semi-automatic three-step procedure.
 %
-Frist, the raw data file to GEO `Sample' record association is either obtained
+First, the raw data file to GEO `Sample' record association is either obtained
 from the `Sample' meta data or derived from the existence of the GSM access id
 in the name of the corresponding file.
 %
@@ -1318,7 +1317,7 @@ describes information about one biological sample hybridized to a specific
 channel of a specific microarray chip, hence corresponds to a hybridization in
 our compendium (Figure \ref{fig:comp-db-schema}).
 %
-The reference to the corresponding platform are provided for each record.
+The references to the corresponding platform are provided for each record.
 %
 One caveat about the SDRF file is that its format is not strictly defined, and
 can vary among experiments.
@@ -1382,7 +1381,7 @@ platform, the corresponding ADF file is downloaded and handled separately.
 
 \subparagraph{Step 1.3.1: ArrayExpress experiment metadata extraction}
 
-For an ArrayExpress experiment, the experiment infomation are described
+For an ArrayExpress experiment, the experiment information is described
 in the IDF file, whereas the sample attributes and experimental factors
 are described in the SDRF file.
 %
@@ -1395,7 +1394,7 @@ The data can be submitted into ArrayExpress using different methods,
 e.g. MIAMExpress, MAGE-TAB, etc, generating compatible but not exact the
 same set of information.
 %
-For exmaple, `Hybridization'\footnote{Noted that this `Hybridization' is
+For example, `Hybridization'\footnote{Noted that this `Hybridization' is
   similar to the GEO `Sample' record, which refers to one microarray chip
   used in an experiment and corresponds to the compendium array object.
   %
@@ -1503,11 +1502,11 @@ required.
 %% The consistency across the annotation information of an platform extracted
 %% from different raw data file are check, and the inconsistency is reported.
 
-For each platform in ArrayExpress, its data are specified in the ADF file
-which need to be downloaded separately.
+For each platform in ArrayExpress, its data are specified in the ADF file,
+which needs to be downloaded separately.
 %
 Similar to the GEO `Platform' record, there are two sections in an ADF file,
-the platform descriptions and the probe annotaion table.
+the platform descriptions and the probe annotation table.
 %
 However, the platform probe annotation table in ADF file follows a
 standardized format with a fixed set of column names and rather simple
@@ -1538,12 +1537,12 @@ the integrated search strategy developed for GEO platform data parsing.
 In ArrayExpress, the expression values are reported in the raw data files
 and normalized data file.
 %
-The raw data file is our focus as they provides the data desirable for
+The raw data file is our focus as they provide the data desirable for
 creating compendium.
 %
 There exists two kinds of raw data files, the vender specific data files,
 e.g. Affymetrix CEL file, Genepix GPR file, etc, and the processed raw
-data files which is normally a reformated one.
+data files which is normally a reformatted one.
 %
 %% \todo{COMMAND: maybe just avoid mentioning GPR here to simplify the
 %%  explanation, as only two exps ...}
@@ -1597,10 +1596,10 @@ original column names.
 
 
 % Part I: preconditions
-The raw data extraction is proceeded only when it is possible to link the
-extracted expresssion values to the corresponding biological samples.
+The raw data extraction is processed only when it is possible to link the
+extracted expression values to the corresponding biological samples.
 %
-Note that the SDRF file parsing has successfully recontructed channels
+Note that the SDRF file parsing has successfully reconstructed channels
 relations and created the corresponding compendium array object.
 %
 However there still exits two missing links to connect raw data to sample.
@@ -1634,9 +1633,9 @@ Hence the ArrayExpress processed raw data file are parsed in five steps.
 First, the data file to compendium array object association is checked or
 identified.  Next, the data file headings are analyzed to separate the probe
 annotation columns from the raw data columns.  Then the raw data column names
-are analyzed to recover value-to-hybridizaiton association.  At last, the same
+are analyzed to recover value-to-hybridization association.  At last, the same
 set of data quality conditions applied in GEO `Sample' data parsing are
-checked.  When met, an automatic data retrieval is triggered that extracts
+checked.  When met, a automatic data retrieval is triggered that extracts
 each channels raw values for the corresponding hybridization and maps each
 value to the correct probe.
 %
@@ -2484,7 +2483,7 @@ The former is reported in GEO and ArrayExpress, whereas the later can be
 retrieved from the corresponding CDF file.
 %
 Consequently, two levels of expression value exist, the raw intensity of
-each probe, and the summerized intensity of each probeset.
+each probe, and the summarized intensity of each probeset.
 %
 Many algorithms \cite{Irizarry2003, Li2001, Hubbell2002} have been developed to
 normalize Affymetrix data and compute the summarized expression value for each
@@ -2508,21 +2507,21 @@ that though the background correction improves accuracy, it greatly sacrifices
 the precision\cite{Irizarry2006}.
 
 
-Occassionally, an experiment using Affymetrix platform reports only the
-summerized expression values in the online repository.
+Occasionally, an experiment using Affymetrix platform reports only the
+summarized expression values in the online repository.
 %
-This requires that our system is able to handle both raw intenisties and the
-summerized values, and in turn, requires retaining both the probeset and probe
+This requires that our system is able to handle both raw intensities and the
+summarized values, and in turn, requires retaining both the probeset and probe
 annotations, and the relations between them.
 %
-In GEO and ArrayExpress, only the probeset annotations of an Affymetrix
-platform is stored.
+GEO and ArrayExpress only store the probeset annotations of an Affymetrix
+platform.
 %
 To keep it consistent, the corresponding compendium platform record contains
 the same annotations.
 %
 Additionally, for each Affymetrix platform, an extra platform record, which is
-always associated with the original one, is created artifically in our
+always associated with the original one, is created artificially in our
 compendium.
 %
 This kind of platforms are called `virtual platform' as there exists no
@@ -2542,8 +2541,8 @@ from CEL file.
 As a single-channel platform, each CEL file contains the expression values for
 only one hybridization (and one sample).
 %
-For an experiment whoes CEL files are available and the file-to-array
-correspondence has been succcessfully derived (using aformentioned repository
+For an experiment whose CEL files are available and the file-to-array
+correspondence has been successfully derived (using aforementioned repository
 specific methods), the raw intensities can then be automatically extracted
 from CEL file using Fusion SDK.
 %
@@ -2718,7 +2717,7 @@ These hybridizations are discarded and the experiment is further treated as if
 it was a single channel experiment.
 %
 In this way we ensure that every contrast has a biologically interpretable
-meaning: its associated log-ratios represents expression changes in response
+meaning: its associated log-ratios represent expression changes in response
 to quantifiable stimuli altered from reference to test or the characteristic
 differences between samples.
 
@@ -2726,7 +2725,7 @@ differences between samples.
 %% references for the remaining tests. 
 %% %
 For a single channel experiment, one or more hybridizations can be chosen as
-references for the remaining tests or each groups of tests respectively.
+references for the remaining tests or each group of tests respectively.
 %
 The choice depends on the nature of the experiment and the type of biological
 conditions that are measured.
@@ -2771,7 +2770,7 @@ Due to the complementarity by design, these chips are used together on the
 same sample(s) to achieve better gene coverage.
 %
 Consequently, it is not desirable to treat these chips separately as there is
-littler gene overlap between them.
+little gene overlap between them.
 %
 Instead, the data generated on multiple chips originated from the same sample
 should be grouped together by assigning corresponding hybridizations to the
@@ -2886,7 +2885,7 @@ stress in different cells of a plant.
 %
 Incorporating these annotations provides a refined characterization of 
 contrasts, which allows more elaborate data selections, for example, to choose 
-only those involving leaf tissues, as well as a better data interpretations to 
+only those involving leaf tissues, as well as a better data interpretation to 
 include those factors into consideration.
 %
 A further categorization of contrasts based on the similarity between specific 
@@ -3103,7 +3102,7 @@ over the multiple chips to obtain one final value for each gene.
 
 \subsubsection{Data publishing}
 %
-After internal control, a new compendium are released for public access.
+After internal control, new compendia are released for public access.
 %
 An existing compendium can be updated in two fashions, an incremental revision
 and a new release.
@@ -3171,9 +3170,9 @@ data parsing, data homogenization, and publishing.
 %
 The peripheral functionalities are implemented directly in the web system,
 such as, user control and management, new compendium initialization, etc.  So
-are those functionalities require human interactions, such as, various manual
+are those functionalities that require human interactions, such as, various manual
 inspection functions, data annotation, etc.  Additionally, data dependencies
-between various steps of the methodology is controlled through web interface.
+between various steps of the methodology are controlled through web interface.
 
 
 % Availability
@@ -3274,7 +3273,7 @@ The methodology does not impose such a limitation, instead tries to
 incorporate as much data as possible by integrating data across different
 platforms.
 
-To achieve our goal, we faces two extra challenges, the data collection and
+To achieve our goal, we face two extra challenges, the data collection and
 the data normalization and integration.
 %
 When compared to that of the single-platform compendium, the data

@@ -5,7 +5,7 @@ functionalities}\label{ch:apd-colombos}
 
 COLOMBOS provides rich functionalities to create and/or edit
 expression 'modules'. In chapter \ref{ch:distiller}, we explored the
-option that let COLOMBOS automatically identify relevantx contrasts
+option that let COLOMBOS automatically identify relevant contrasts
 based on the user specified query gene(s).
 %
 Alternatively one can also specify the conditions in interests and
@@ -88,7 +88,7 @@ We have also provided an alternative measure for the contrast
 relevance (selectable by the box in the top right of the contrast
 selection window) called 'M value cutoff'.  The score assigned to
 the contrasts in this case is the minimum M value (i.e. the
-logratio) for the considered genes in case all genes' M values
+log-ratio) for the considered genes in case all genes' M values
 are positive, or the maximum absolute M value in case all genes'
 M values are negative.  In case of both positive and negative M
 values exist for the considered genes, the contrast gets a score
@@ -99,7 +99,7 @@ of 0.
 \section{Gene similarity score}\label{apd:gene-score}
 
 The default similarity between a gene and a module's mean
-profile, is the \textit{Uncentered Pearson’s correlation} calculated based
+profile is the \textit{Uncentered Pearson’s correlation} calculated based
 on the formula:
 
 \begin{equation}
@@ -127,8 +127,8 @@ of the \textit{Spearman rank correlation}. The Spearman rank correlation
 is calculated in the same way as the Pearson correlation but on
 the ranks of the data instead of the data itself. To calculate an
 uncentered version, instead of ranking all values from low to
-high, the positive logratios are ranked from low to high while
-the negative logratios are ranked from high to low and then
+high, the positive log-ratios are ranked from low to high while
+the negative log-ratios are ranked from high to low and then
 assigned a negative sign; the mean rank is assumed $0$.  This
 uncentered Spearman rank correlation, compared to the uncentered
 Pearson correlation, has the advantage of being able to capture

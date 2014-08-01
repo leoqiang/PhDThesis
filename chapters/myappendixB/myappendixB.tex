@@ -15,7 +15,7 @@
 
 A semi-automatic workflow has been developed to consistently
 annotate probes (Figure \ref{fig:magic-pmap}), i.e. to identify a unique target 
-genefor each probe whenever possible. In total we needed to map
+gene for each probe whenever possible. In total we needed to map
 209036 probes, originating from 27 different microarray
 platforms. Target genes belong to the “Filtered Gene Set” (FGS)
 of 5b RefGen v2 B73 maize genome release, since it contains only
@@ -191,11 +191,11 @@ detail.
 		one-to-one probe to gene mappings. To contrast the results with those
 		obtained in previous steps, each record in them are called a 
 		\textit{map} instead of a \textit{hit} in the later steps.
-	\item[9] Probes whose targets are only identified by one blast procedure. A 
-		further breakdown of the data based on hit type are available in Table 
+	\item[9] Probes whose targets are only identified by one blast procedure.  
+		Further breakdowns of the data based on hit type are available in Table 
 		\ref{tab:magic-uniquemaps}.
 	\item[10] Probes for which both gene blast and transcript blast identify the
-	 	same targets. A further breakdown of the data into different 
+	 	same targets.  Further breakdowns of the data into different 
 	 	categories are available in Table \ref{tab:magic-map-comparison}.
 	\item[11] Probes for which different targets are identified by gene blast 
 		and transcript blast (a conflict), showing the number of resolved 
@@ -209,7 +209,6 @@ detail.
 	\end{scriptsize}
 	\end{threeparttable}
 \end{table}
-
 
 
 \subsection{Step 1 – Mapping with megablast}
@@ -246,7 +245,7 @@ Model BLAST ($T_{hit}$) as the probe-to-transcript hits.
 
 After applying this step, the results obtained are summarized in the Table 
 \ref{tab:magic-probemap} (Step 1). 
-The number of the transcript hits are nearly the double of the number of the 
+The number of the transcript hits is nearly the double of the number of the 
 gene hits.
 When mapped to a gene, many probes in each category hit on the different 
 transcripts of a gene (data not shown),
@@ -307,9 +306,9 @@ If the above condition is not met, the corresponding results for that
 probe are marked, assuming that they can hybridize several genes and generate 
 ambiguous expression measurements. 
 They are kept temporarily to identify possible conflicts between gene and 
-transcript blast output, and compare their quality. 
+transcript blast output, and to resolve the conflicts by comparing hits quality. 
 
-The result this step is summarized in Table \ref{tab:magic-probemap} (Step 2). 
+The result of this step is summarized in Table \ref{tab:magic-probemap} (Step 2). 
 Clearly, the short oligo probe sequences are much more target specific when 
 compared with the cDNA sequences, with the majority being unique hits and much 
 less multiple mapping probes.
@@ -320,7 +319,6 @@ Filtered by the $D_q$ criterion, the true target gene (top hit) can be
 identified in many cases ($27.5\%$ of $G_m$ and $40.5\%$ of $T_m$).
 Whereas for oligo probes, this is rather rare (11 cases in both $G_m$ and 
 $T_m$).
-
 
 \begin{table}[tb]
 	\centering
@@ -414,17 +412,17 @@ only one blast analysis. In this case, the blast data are taken directly into
 the final data set.
 %
 When both blast analyses identify the same gene as target, it is the case of 
-`\textit{identical map}'. The gene identified are taken as the target, and the 
+`\textit{identical map}'. The genes identified are taken as the target, and the 
 best blast hit raw data are retained for further analysis.
 %
 At last there is `\textit{conflict}' when two blast analysis identify 
 different genes as the target of a probe.  
 In this case, an extra step is taken to resolve the conflict by identifying the 
-possibly most reliable target our of the two candidate when possible. If fails, 
+possibly most reliable target out of the two candidates when possible. If this fails, 
 the probe is discarded from the result set.
 The detail of the conflict resolving strategy is explained in the next section.
 
-The statistic data of this analytical step is summarised in Table 
+The statistic data of this analytical step is summarized in Table 
 \ref{tab:magic-probemap} (Step 3), showing the probe count for each 
 aforementioned cases.
 For the conflicts, it shows the probe count for the resolved cases with 
@@ -488,7 +486,7 @@ resolved for the cDNA probes.
 However, for the oligo probes, this succeeds in only 6 cases (Table 
 \ref{tab:magic-map-comparison}).
 And the resolved cases are mostly won by the top hits.
-In the table \ref{tab:magic-conflict-topuniq}, one examples are given for each 
+In the table \ref{tab:magic-conflict-topuniq}, one example is given for each 
 subtype where the conflict is resolved. 
 
 %%None such conflict exist for the oligo probes. 
@@ -535,7 +533,7 @@ subtype where the conflict is resolved.
 For the cDNA probes, many such conflicts exist (Table 
 \ref{tab:magic-map-comparison}). When applying the $Q_{hit}$ condition on them, 
 we resolved 56.6\% of them, in which transcript hits win most.  
-A small number of such conflicts exists for the oligo probes. However, none can 
+A small number of such conflicts exist for the oligo probes. However, none can 
 be successfully resolved.
 Such an example is shown in the table \ref{tab:magic-conflict-tops}. Gene  
 ‘GRMZM5G854499’ has a $Q_{hit}$ of 0.967118 as the top hit of gene blast (first 
@@ -586,7 +584,7 @@ guarantee a reliable biological interpretation of their measurements.
 
 
 As mentioned in Step 1, a loose criterion is used for BLAST in order to retain 
-as much information in the further steps of our workflow. 
+as much information in the further steps of this workflow. 
 As a result, some hits in the merged set could still be of low quality. 
 In this step, an filter is applied on each individual probe checking the 
 quality of the hit based on the corresponding blast information.
@@ -603,7 +601,7 @@ $identity >= 80$) is used removing 414 probes (Table
 
 \subsection*{Summary}
 
-After applying the our workflow, we successfully identified the target genes 
+After applying this workflow, we successfully identified the target genes 
 for $56.8\%$ of oligo probes and $63.2\%$ of cDNA ones. 
 Without compromising the mapping quality between probe and target gene 
 sequences, our blast analysis against the Gene Model made the significant 
@@ -648,7 +646,7 @@ probeset level.
 %
 As explained in section \ref{sec:command-affy} of chapter
 \ref{ch:command}, for Affymetrix data, the raw probe intensities are
-prefered then this summarized values.
+preferred then this summarized values.
 %
 Additionally, in order to store the probe annotation of an Affymetrix
 microarray required to handle raw probe intensities, the concept of
